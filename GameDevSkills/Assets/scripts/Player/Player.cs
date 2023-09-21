@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : TimeControlled
+public class Player : MonoBehaviour
 {
     float JumpVel = 15;
     private Vector3 camRotation;
@@ -16,6 +16,9 @@ public class Player : TimeControlled
     Animation A;
     GameController GC;
     MainMusicManager TEST;
+    public Rigidbody rb;
+    public Animator animator;
+    public TimeRewinderV2 TR;
 
 
     // Start is called before the first frame update
@@ -26,16 +29,14 @@ public class Player : TimeControlled
         animator = gameObject.GetComponent<Animator>();
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
         TEST = GameObject.FindWithTag("GC").GetComponent<MainMusicManager>();
-        type = Type.Player;
     }
 
-    public override void TimeUpdate() {
+    public  void FixedUpdate() {
 
-        base.TimeUpdate();
-        Vector3 pos = transform.position;
+/*        base.TimeUpdate();
+*/        Vector3 pos = transform.position;
 
-        if (!isRewinding)
-        {
+
             if (Input.GetKey(KeyCode.W))//Idle to walk and move forward
             {
 
@@ -93,7 +94,7 @@ public class Player : TimeControlled
             camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
             camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
-        }
+        
     }
 
 
@@ -113,10 +114,7 @@ public class Player : TimeControlled
             }
         }
     }
-    private void Awake()
-    {
-        type = Type.Player;
-    }
+
 
 
 

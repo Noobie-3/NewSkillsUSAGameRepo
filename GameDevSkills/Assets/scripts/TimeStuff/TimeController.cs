@@ -30,21 +30,24 @@ public class TimeController : MonoBehaviour {
         recordedData = new RecordedData[TimeObjects.Length, recordMax];
 
         
+    
     }
 
-    void Update() {
+    private void Update()
+    {
+
+
 
         bool pause = Input.GetKey(KeyCode.UpArrow);
         bool StepBack = Input.GetKey(KeyCode.LeftArrow);
         bool StepForward = Input.GetKey(KeyCode.RightArrow);
 
-        if(TimeObjects.Length < GameObject.FindObjectsOfType<TimeControlled>().Length)
-        {
-            TimeObjects = FindObjectsOfType<TimeControlled>();
-            print("Test");
-        }
+        print(TimeObjects.Length);
 
-        if (pause & !StepBack) {
+
+
+
+        if (pause && !StepBack) {
             for(int ObjectIndex = 0; ObjectIndex < TimeObjects.Length; ObjectIndex++) {
                 TimeControlled TimeObject = TimeObjects[ObjectIndex];
                 TimeObject.rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
@@ -70,6 +73,7 @@ public class TimeController : MonoBehaviour {
             for(int ObjectIndex = 0; ObjectIndex < TimeObjects.Length; ObjectIndex++) {
                 TimeControlled TimeObject = TimeObjects[ObjectIndex];
                 RecordedData Data = recordedData[ObjectIndex, recordIndex];
+                print(Data.pos);
                 if(TimeObject.RecordTransform) {
                     TimeObject.transform.position = Data.pos;
                 }
@@ -128,6 +132,24 @@ public class TimeController : MonoBehaviour {
                 recordCount = recordIndex;
                 wasSteppingBack = false;
             }
+            List<TimeControlled> tempTimeObjects = new List<TimeControlled>(TimeObjects);
+
+            TimeControlled[] newObjects = GameObject.FindObjectsOfType<TimeControlled>();
+            foreach (var newObj in newObjects)
+            {
+                if (!tempTimeObjects.Contains(newObj))
+                {
+                    tempTimeObjects.Add(newObj);
+                }
+            }
+
+            // Update the TimeObjects array with the temporary list
+            TimeObjects = tempTimeObjects.ToArray();
+
+            // Initialize the recordedData array based on the number of TimeObjects
+            recordedData = new RecordedData[TimeObjects.Length, recordMax];
+
+            print(TimeObjects.Length);
 
             for (int ObjectIndex = 0; ObjectIndex < TimeObjects.Length; ObjectIndex++)
             {
@@ -142,6 +164,7 @@ public class TimeController : MonoBehaviour {
                 Data.animStates = TimeObject.CaptureAnimationStates();
 
                 recordedData[ObjectIndex, recordCount] = Data;
+
                 TimeObject.isRewinding = false;
             }
             recordCount++;
