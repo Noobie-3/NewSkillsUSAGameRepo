@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float JumpVel = 15;
     private Vector3 camRotation;
     private Transform cam;
     [Range(-45, -15)]
@@ -19,6 +18,8 @@ public class Player : MonoBehaviour
     public Rigidbody rb;
     public Animator animator;
     public TimeRewinderV2 TR;
+    public bool isGrounded = false;
+    public bool canDoubleJump = false;
 
 
     // Start is called before the first frame update
@@ -81,20 +82,43 @@ public class Player : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space))
             {
-                pos.y += JumpVel * Time.deltaTime;
-                TEST.PlaySoundEffect("StreetSound");
+            // Check if the player is grounded using raycasting.
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f);
+
+            // Reset double jump ability when grounded.
+            if (isGrounded)
+            {
+                canDoubleJump = false;
             }
 
-            // transform.position = pos;
+            // Jump
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (isGrounded)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
+                }
+                else if (!canDoubleJump)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
+                    canDoubleJump = true;
+                }
+            }
+
+
+        }
+        // transform.position = pos;
 
 
 
-            transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+        transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
 
-            camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+        camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+        camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
-        
+
+
+
     }
 
 

@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     public float PlayerMaxHP = 10;
     public bool IsInvincable = false;
     public float TimeTillDamageAgain = 2.0f;
+    public float JumpForce;
 
     public float DefaultMoveSpeed = 10;//MOVEMENT VARS
     public float speed;
