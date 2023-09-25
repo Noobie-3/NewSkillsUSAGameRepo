@@ -70,10 +70,10 @@ public class SimpleEnenmy : TimeControlled
                 transform.LookAt(target);
             
         }
-        /*else if(!isCharging)
+        else if(!isCharging)
         {
             transform.position = new Vector3(Mathf.PingPong(Time.time * 2, max - min) + min, transform.position.y, transform.position.z);
-        }*/
+        }
 
 
 
