@@ -47,19 +47,19 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("DeathScene");
     }
 
-    public void TakeDamage(float damage, float HP, GameObject Target)
+    public void TakeDamage(float damage,float HP, GameObject Target)
     {
         HP -= (int)damage;
-        if (HP <= 0 && Target.name == "Player")
+
+        if(HP <= 0 && Target != Player)
+        {
+            Destroy(Target);
+        }
+        if (PlayerHP <= 0)
         {
             DeathScene();
 
         }
-         else if(HP <= 0 && Target.name != "Player")
-        {
-            Destroy(Target);
-        }
-
     }
 
     private void Awake()
@@ -71,12 +71,12 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (TimeTillDamageAgain >= 0 )
+        if (TimeTillDamageAgain > 0 )
         {
             IsInvincable = true;
             TimeTillDamageAgain -= Time.deltaTime;
         }
-        else if(TimeTillDamageAgain <= 0)
+        else if(TimeTillDamageAgain < 0)
         {
             IsInvincable = false;
         }

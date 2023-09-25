@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public TimeRewinderV2 TR;
     public bool isGrounded = false;
     public bool canDoubleJump = false;
+    
 
 
     // Start is called before the first frame update
@@ -125,17 +126,15 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        SimpleEnenmy enemy = other.GetComponentInParent<SimpleEnenmy>();
+
         if (other.gameObject.name == "Hitbox" && other.gameObject.tag == "Enemy")
         {
-            SimpleEnenmy enemy = other.GetComponentInParent<SimpleEnenmy>();
-
             // Take damage from enemy
-            if (/*enemy.canAttack() &&*/ !GC.IsInvincable)
-            {
-                GC.TakeDamage(enemy.damage, GC.PlayerHP, gameObject);
-                GC.TimeTillDamageAgain = 3;
-                print("Test");
-            }
+            GC.TakeDamage(enemy.damage, GC.PlayerHP, gameObject);
+            GC.TimeTillDamageAgain = 3;
+            print("Test");
+
         }
     }
 
