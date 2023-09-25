@@ -47,15 +47,19 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("DeathScene");
     }
 
-    public void takeDamage(float damage)
+    public void TakeDamage(float damage, float HP, GameObject Target)
     {
-        PlayerHP -= (int)damage;
-
-        if (PlayerHP <= 0)
+        HP -= (int)damage;
+        if (HP <= 0 && Target.name == "Player")
         {
             DeathScene();
 
         }
+         else if(HP <= 0 && Target.name != "Player")
+        {
+            Destroy(Target);
+        }
+
     }
 
     private void Awake()

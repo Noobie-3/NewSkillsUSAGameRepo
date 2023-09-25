@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
             // Take damage from enemy
             if (/*enemy.canAttack() &&*/ !GC.IsInvincable)
             {
-                GC.takeDamage(enemy.damage);
+                GC.TakeDamage(enemy.damage, GC.PlayerHP, gameObject);
                 GC.TimeTillDamageAgain = 3;
                 print("Test");
             }

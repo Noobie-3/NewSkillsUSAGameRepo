@@ -1138,6 +1138,7 @@ GameObject:
   - component: {fileID: 3367000646600986058}
   - component: {fileID: 7061609459572077475}
   - component: {fileID: 8223018331942975460}
+  - component: {fileID: 5043720972094590453}
   - component: {fileID: 1163954147195081827}
   - component: {fileID: 5541385207982099633}
   - component: {fileID: 2579932903338702286}
@@ -1191,6 +1192,20 @@ CapsuleCollider:
   m_GameObject: {fileID: 4434457702677363418}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1328927
+  m_Height: 1.3952811
+  m_Direction: 1
+  m_Center: {x: -0.007874578, y: 0.7643174, z: 0}
+--- !u!136 &5043720972094590453
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4434457702677363418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.1328927
   m_Height: 1.3952811
@@ -1257,6 +1272,9 @@ MonoBehaviour:
   moveSpeed: 3
   target: {fileID: 0}
   damage: 2
+  min: 2
+  max: 3
+  isCharging: 0
 --- !u!114 &-1190485465501384578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,6 +1288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Isrewinding: 0
+  animator: {fileID: 0}
 --- !u!1 &4806577428518034476
 GameObject:
   m_ObjectHideFlags: 0
