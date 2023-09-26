@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
     public TimeRewinderV2 TR;
     public bool isGrounded = false;
     public bool canDoubleJump = false;
-    
+    public bool Punch1;
+
 
 
     // Start is called before the first frame update
@@ -106,6 +107,15 @@ public class Player : MonoBehaviour
                 }
             }
 
+            if(Input.GetMouseButtonDown(0))
+            {
+                Punch1 = true;
+            }
+            if(Input.GetMouseButtonUp(0))
+            {
+                Punch1 = false;
+            }
+
 
         }
         // transform.position = pos;
@@ -124,16 +134,17 @@ public class Player : MonoBehaviour
 
 
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerStay(Collider other)
     {
-        SimpleEnenmy enemy = other.GetComponentInParent<SimpleEnenmy>();
-
-        if (other.gameObject.name == "Hitbox" && other.gameObject.tag == "Enemy")
+        if (other.name == "HitBox" && other.tag == "HitBox" && GC.TimeTillDamageAgain <= 0)
         {
+            SimpleEnenmy enemy = other.GetComponentInParent<SimpleEnenmy>();
+
             // Take damage from enemy
-            GC.TakeDamage(enemy.damage, GC.PlayerHP, gameObject);
+            GC.PlayerHP = GC.TakeDamage(enemy.damage, GC.PlayerHP, gameObject);
             GC.TimeTillDamageAgain = 3;
-            print("Test");
+
+            print(GC.PlayerHP);
 
         }
     }

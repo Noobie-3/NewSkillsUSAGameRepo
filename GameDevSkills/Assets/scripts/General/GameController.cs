@@ -17,8 +17,8 @@ public class GameController : MonoBehaviour
     public float PlayerMight = 1;
     public float PlayerDef = 1;
     public float HealingEffect = 1;
-    public float PlayerHP = 10;
-    public float PlayerMaxHP = 10;
+    public float PlayerHP = 3;
+    public float PlayerMaxHP = 3;
     public bool IsInvincable = false;
     public float TimeTillDamageAgain = 2.0f;
     public float JumpForce;
@@ -47,19 +47,20 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene("DeathScene");
     }
 
-    public void TakeDamage(float damage,float HP, GameObject Target)
+    public float TakeDamage(float damage, float HP, GameObject Target)
     {
-        HP -= (int)damage;
+        HP -= damage;
+        print(HP);
 
         if(HP <= 0 && Target != Player)
         {
             Destroy(Target);
         }
-        if (PlayerHP <= 0)
+        if (HP == 0 && Target.tag == "Player")
         {
             DeathScene();
-
         }
+        return HP;
     }
 
     private void Awake()
@@ -67,6 +68,7 @@ public class GameController : MonoBehaviour
         Cursor.visible = false;
         Player = GameObject.FindGameObjectWithTag("Player");
         speed = DefaultMoveSpeed;
+        PlayerHP = PlayerMaxHP;
     }
 
     private void Update()
