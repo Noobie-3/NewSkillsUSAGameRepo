@@ -34,10 +34,12 @@ public class Player : MonoBehaviour
         TEST = GameObject.FindWithTag("GC").GetComponent<MainMusicManager>();
     }
 
-    public  void FixedUpdate() {
-
-/*        base.TimeUpdate();
-*/        Vector3 pos = transform.position;
+    public  void Update() {
+        if (!gameObject.GetComponent<TimeRewinderV2>().Isrewinding)
+        {
+            /*        base.TimeUpdate();
+            */
+            Vector3 pos = transform.position;
 
 
             if (Input.GetKey(KeyCode.W))//Idle to walk and move forward
@@ -46,7 +48,7 @@ public class Player : MonoBehaviour
                 transform.position += Camera.main.transform.forward * GC.speed * Time.deltaTime;
                 animator.SetTrigger("IsWalking");
             }
-            else if (!Input.GetKeyDown(KeyCode.W) ||(!Input.GetKeyDown(KeyCode.S)))
+            else if (!Input.GetKeyDown(KeyCode.W) || (!Input.GetKeyDown(KeyCode.S)))
             {
                 animator.ResetTrigger("IsWalking");
                 animator.ResetTrigger("IsRunning");
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour
                 transform.position -= Camera.main.transform.right * GC.speed * Time.deltaTime;
             }
 
-            if(Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift))
             {
                 GC.speed = GC.DefaultMoveSpeed * 1.5f;
                 animator.SetTrigger("IsRunning");
@@ -79,55 +81,58 @@ public class Player : MonoBehaviour
             {
                 GC.speed = GC.DefaultMoveSpeed;
                 animator.ResetTrigger("IsRunning");
-                
+
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                animator.SetTrigger("Punch1");
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                animator.ResetTrigger("Punch1");
             }
 
             if (Input.GetKey(KeyCode.Space))
             {
-            // Check if the player is grounded using raycasting.
-            isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.5f);
+                // Check if the player is grounded using raycasting.
+                isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f);
 
-            // Reset double jump ability when grounded.
-            if (isGrounded)
-            {
-                canDoubleJump = false;
-            }
-
-            // Jump
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
+                // Reset double jump ability when grounded.
                 if (isGrounded)
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
+                    canDoubleJump = false;
                 }
-                else if (!canDoubleJump)
+
+                // Jump
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
-                    canDoubleJump = true;
+
+                    if (isGrounded)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
+                    }
+                    else if (!canDoubleJump)
+                    {
+                        rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
+                        canDoubleJump = true;
+                    }
                 }
-            }
 
-            if(Input.GetMouseButtonDown(0))
-            {
-                Punch1 = true;
-            }
-            if(Input.GetMouseButtonUp(0))
-            {
-                Punch1 = false;
-            }
 
+
+
+            }
+            // transform.position = pos;
+
+
+
+            transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+
+            camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
         }
-        // transform.position = pos;
-
-
-
-        transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
-
-        camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
-
-
 
 
     }

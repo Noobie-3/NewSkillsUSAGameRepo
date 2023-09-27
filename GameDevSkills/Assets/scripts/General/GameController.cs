@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour
         {
             Destroy(Target);
         }
-        if (HP == 0 && Target.tag == "Player")
+        if (HP <= 0 && Target.tag == "Player")
         {
             DeathScene();
         }

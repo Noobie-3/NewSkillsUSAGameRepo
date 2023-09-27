@@ -12,6 +12,7 @@ public class SimpleEnenmy : TimeControlled
     public float min = 2f;
     public float max = 3f;
     public bool isCharging;
+    public float HP = 1;
     // Use this for initialization
 
 
