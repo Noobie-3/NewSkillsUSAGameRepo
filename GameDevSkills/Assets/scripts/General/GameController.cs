@@ -69,6 +69,8 @@ public class GameController : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         speed = DefaultMoveSpeed;
         PlayerHP = PlayerMaxHP;
+        QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        Application.targetFrameRate = 45;
     }
 
     private void Update()
