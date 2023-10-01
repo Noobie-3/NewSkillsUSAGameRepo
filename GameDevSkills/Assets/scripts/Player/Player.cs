@@ -47,7 +47,39 @@ public class Player : MonoBehaviour
 
                 transform.position += Camera.main.transform.forward * GC.speed * Time.deltaTime;
                 animator.SetTrigger("IsWalking");
+
+
+                /*
+                 * checks if going Left so that you can use strafe animation
+                 */
+
+                if (Input.GetKeyDown(KeyCode.A)) {
+
+                    animator.SetTrigger("GoingLeft");
+
+                }
+                else if(Input.GetKeyUp(KeyCode.A))
+                {
+                    animator.ResetTrigger("GoingLeft");
+
+                }   
+                /*
+                 * checks if going right so that you can use strafe animation
+                 */
+                if(Input.GetKeyDown(KeyCode.D)) {
+
+                    animator.SetTrigger("GoingRight");
+
+                }
+
+                else if(Input.GetKeyUp(KeyCode.D))
+                {
+                    animator.ResetTrigger("GoingRight");
+
+                }
             }
+
+            //reset walk to idle
             else if (!Input.GetKeyDown(KeyCode.W) || (!Input.GetKeyDown(KeyCode.S)))
             {
                 animator.ResetTrigger("IsWalking");
@@ -56,27 +88,34 @@ public class Player : MonoBehaviour
             }
 
 
+            //move Backwards
             if (Input.GetKey(KeyCode.S))
             {
                 // pos.z -= MoveSpeed * Time.deltaTime;
                 transform.position -= Camera.main.transform.forward * GC.speed * Time.deltaTime;
             }
 
+            //move right
             if (Input.GetKey(KeyCode.D))
             {
                 transform.position += Camera.main.transform.right * GC.speed * Time.deltaTime;
             }
+             
+            //move left
             if (Input.GetKey(KeyCode.A))
             {
                 transform.position -= Camera.main.transform.right * GC.speed * Time.deltaTime;
             }
 
+
+            //Toggle Run
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 GC.speed = GC.DefaultMoveSpeed * 1.5f;
                 animator.SetTrigger("IsRunning");
                 TEST.PlaySoundEffect("BattleMusic");
             }
+
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 GC.speed = GC.DefaultMoveSpeed;
@@ -84,6 +123,7 @@ public class Player : MonoBehaviour
 
             }
 
+            //AttacksMAY MOVE TO ANOTHER SCRIPT
             if (Input.GetMouseButtonDown(0))
             {
                 animator.SetTrigger("Punch1");
@@ -93,6 +133,7 @@ public class Player : MonoBehaviour
                 animator.ResetTrigger("Punch1");
             }
 
+            //JUMP
             if (Input.GetKey(KeyCode.Space))
             {
                 // Check if the player is grounded using raycasting.
