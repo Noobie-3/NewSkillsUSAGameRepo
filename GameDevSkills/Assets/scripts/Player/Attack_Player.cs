@@ -21,6 +21,7 @@ public class Attack_Player : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        
         SimpleEnenmy enemy = other.GetComponentInParent<SimpleEnenmy>();
 
         //  damage  enemy
