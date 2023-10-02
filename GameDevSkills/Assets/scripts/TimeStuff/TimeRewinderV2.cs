@@ -10,45 +10,65 @@ public class TimeRewinderV2 : MonoBehaviour
     public Animator animator;
     public float totalRecordedTime;
 
+    // Flags to control what to record
+    public bool Record_Position = true;
+    public bool Record_Rotation = true;
+    public bool Record_Velocity = true;
+    public bool Record_Animation = true;
+
     // Maximum recording duration in seconds
-    public  float maxRecordingDuration = 5.0f;
+    public float maxRecordingDuration = 5.0f;
     public float currentRecoringTime;
+
+    // Flags to check if a Rigidbody and an Animator are present
+    public bool Check_Rigidbody = true;
+    public bool Check_Animator = true;
+
     private void Start()
     {
         PointsInTime = new List<PointInTime>();
-        rb = gameObject.GetComponent<Rigidbody>();
-        animator = gameObject.GetComponent<Animator>();
 
+        if (Check_Rigidbody)
+        {
+            rb = gameObject.GetComponent<Rigidbody>();
+        }
+
+        if (Check_Animator)
+        {
+            animator = gameObject.GetComponent<Animator>();
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R) && currentRecoringTime >= maxRecordingDuration)
         {
-            StartRewind();
-            if (gameObject.GetComponent<Rigidbody>())
+            if (Check_Rigidbody && rb != null && Isrewinding)
             {
                 rb.isKinematic = true;
             }
+            StartRewind();
         }
-        if (Input.GetKeyUp(KeyCode.R))
+        if (!Input.GetKey(KeyCode.R))
         {
             StopRewind();
-            rb.isKinematic = false;
         }
 
-        if(currentRecoringTime < maxRecordingDuration && !Isrewinding)
+        if (currentRecoringTime < maxRecordingDuration && !Isrewinding)
         {
             currentRecoringTime += Time.deltaTime;
-
+            if (Check_Rigidbody && rb != null && rb.isKinematic)
+            {
+                rb.isKinematic = false;
+            }
         }
-        else if(currentRecoringTime >= maxRecordingDuration )
+        else if (currentRecoringTime >= maxRecordingDuration)
         {
             currentRecoringTime = maxRecordingDuration;
         }
 
         // Check if total recorded time exceeds the maximum duration
-         totalRecordedTime = GetTotalRecordedTime();
+        totalRecordedTime = GetTotalRecordedTime();
         if (totalRecordedTime > maxRecordingDuration)
         {
             // Remove the oldest recorded data point
@@ -70,7 +90,22 @@ public class TimeRewinderV2 : MonoBehaviour
 
     public void Record()
     {
-        PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, animator.GetCurrentAnimatorStateInfo(0)));
+        if ((Record_Position || Record_Rotation || Record_Velocity) && Check_Rigidbody && rb != null)
+        {
+            PointsInTime.Insert(0, new PointInTime(
+                Record_Position ? transform.position : PointsInTime[0].position,
+                Record_Rotation ? transform.rotation : PointsInTime[0].rotation,
+                Record_Velocity ? rb.velocity : PointsInTime[0].Velocity,
+                Check_Animator ? animator.GetCurrentAnimatorStateInfo(0) : PointsInTime[0].AnimStates));
+        }
+        else if (Record_Animation && Check_Animator)
+        {
+            PointsInTime.Insert(0, new PointInTime(
+                PointsInTime[0].position,
+                PointsInTime[0].rotation,
+                PointsInTime[0].Velocity,
+                animator.GetCurrentAnimatorStateInfo(0)));
+        }
     }
 
     private void Rewind()
@@ -78,11 +113,28 @@ public class TimeRewinderV2 : MonoBehaviour
         currentRecoringTime -= Time.deltaTime;
         if (PointsInTime.Count > 0)
         {
-            transform.position = PointsInTime[0].position;
-            transform.rotation = PointsInTime[0].rotation;
-            rb.velocity = PointsInTime[0].Velocity;
-            animator.Play(PointsInTime[0].AnimStates.fullPathHash, 0, PointsInTime[0].AnimStates.normalizedTime);
+            PointInTime pointInTime = PointsInTime[0];
             PointsInTime.RemoveAt(0);
+
+            if (Record_Position)
+            {
+                transform.position = pointInTime.position;
+            }
+
+            if (Record_Rotation)
+            {
+                transform.rotation = pointInTime.rotation;
+            }
+
+            if (Check_Rigidbody && rb != null && Record_Velocity)
+            {
+                rb.velocity = pointInTime.Velocity;
+            }
+
+            if (Check_Animator && Record_Animation)
+            {
+                animator.Play(pointInTime.AnimStates.fullPathHash, 0, pointInTime.AnimStates.normalizedTime);
+            }
         }
         else
         {

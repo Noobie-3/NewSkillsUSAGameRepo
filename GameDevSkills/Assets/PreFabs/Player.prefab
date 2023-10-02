@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5864502390082552939}
+  - component: {fileID: 7456598194471803907}
   m_Layer: 0
   m_Name: mixamorig:RightArm
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 6925396906490077939}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7456598194471803907
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15900510962080040}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.11695312, y: 0.5555201, z: 0.07271161}
+  m_Center: {x: -0.014881501, y: 0.27458724, z: -0.009478929}
 --- !u!1 &146307634358965655
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,10 +474,10 @@ GameObject:
   - component: {fileID: 788445945599870922}
   - component: {fileID: 2049721606072323227}
   - component: {fileID: 2049721606072323216}
-  - component: {fileID: 2049721606072323223}
   - component: {fileID: 2049721606072323226}
   - component: {fileID: 2722814301496217127}
   - component: {fileID: 2489271884622062646}
+  - component: {fileID: 7608005464598063398}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -528,20 +542,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &2049721606072323223
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2722814301496217124}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.22
-  m_Height: 1.4557192
-  m_Direction: 1
-  m_Center: {x: -0.02386789, y: 0.766148, z: -0.0061413646}
 --- !u!95 &2049721606072323226
 Animator:
   serializedVersion: 4
@@ -597,6 +597,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Isrewinding: 0
   animator: {fileID: 0}
+  totalRecordedTime: 0
+  maxRecordingDuration: 5
+  currentRecoringTime: 0
+--- !u!65 &7608005464598063398
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2722814301496217124}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4484787, y: 1.4543428, z: 0.4683222}
+  m_Center: {x: -0.011995852, y: 0.72024095, z: 0.000000014901161}
 --- !u!1 &2755429431897738679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,6 +2204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5943335252760479830}
+  - component: {fileID: 2841473619109759506}
   m_Layer: 0
   m_Name: mixamorig:LeftArm
   m_TagString: Untagged
@@ -2211,6 +2228,19 @@ Transform:
   m_Father: {fileID: 2571861336695020442}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2841473619109759506
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8680731455854604013}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.11695312, y: 0.5555201, z: 0.07271161}
+  m_Center: {x: -0.014881501, y: 0.27458724, z: -0.009478929}
 --- !u!1 &8777607032831173777
 GameObject:
   m_ObjectHideFlags: 0

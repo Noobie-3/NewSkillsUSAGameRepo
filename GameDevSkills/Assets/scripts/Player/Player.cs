@@ -47,36 +47,6 @@ public class Player : MonoBehaviour
 
                 transform.position += Camera.main.transform.forward * GC.speed * Time.deltaTime;
                 animator.SetTrigger("IsWalking");
-
-
-                /*
-                 * checks if going Left so that you can use strafe animation
-                 */
-
-                if (Input.GetKeyDown(KeyCode.A)) {
-
-                    animator.SetTrigger("GoingLeft");
-
-                }
-                else if(Input.GetKeyUp(KeyCode.A))
-                {
-                    animator.ResetTrigger("GoingLeft");
-
-                }   
-                /*
-                 * checks if going right so that you can use strafe animation
-                 */
-                if(Input.GetKeyDown(KeyCode.D)) {
-
-                    animator.SetTrigger("GoingRight");
-
-                }
-
-                else if(Input.GetKeyUp(KeyCode.D))
-                {
-                    animator.ResetTrigger("GoingRight");
-
-                }
             }
 
             //reset walk to idle
@@ -86,6 +56,39 @@ public class Player : MonoBehaviour
                 animator.ResetTrigger("IsRunning");
 
             }
+
+
+
+            //checks if going Left so that you can use strafe animation
+
+
+
+            if (Input.GetKeyDown(KeyCode.A)) {
+
+                animator.SetTrigger("GoingLeft");
+
+            }
+            else if(Input.GetKeyUp(KeyCode.A))
+            {
+                animator.ResetTrigger("GoingLeft");
+
+            }   
+                
+                //checks if going right so that you can use strafe animation
+                 
+            if(Input.GetKeyDown(KeyCode.D) && Input.GetKeyDown(KeyCode.W)) {
+
+                animator.SetTrigger("GoingRight");
+
+            }
+
+            else if(Input.GetKeyUp(KeyCode.D))
+            {
+                animator.ResetTrigger("GoingRight");
+
+            }
+            
+
 
 
             //move Backwards
