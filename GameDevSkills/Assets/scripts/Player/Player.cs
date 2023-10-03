@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
                 
                 //checks if going right so that you can use strafe animation
                  
-            if(Input.GetKeyDown(KeyCode.D) && Input.GetKeyDown(KeyCode.W)) {
+            if(Input.GetKeyDown(KeyCode.D)) {
 
                 animator.SetTrigger("GoingRight");
 
@@ -154,14 +154,28 @@ public class Player : MonoBehaviour
 
                     if (isGrounded)
                     {
+                        animator.SetTrigger("Jump");
                         rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
                     }
+
                     else if (!canDoubleJump)
                     {
+                        animator.SetTrigger("SecondJump");
+                        
                         rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
                         canDoubleJump = true;
                     }
+                    if (!isGrounded)
+                    {
+                        animator.ResetTrigger("Jump");
+
+                    }
+                    else if(canDoubleJump)
+                    {
+                        animator.ResetTrigger("SecondJump");
+                    }
                 }
+
 
 
 
