@@ -13,7 +13,7 @@ public class SC_CircularLoading : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        loadingProgress = (float)((GC.Player.GetComponent<TimeRewinderV2>().currentRecoringTime / GC.Player.GetComponent<TimeRewinderV2>().maxRecordingDuration));
+        loadingProgress = (float)((GC.Player.GetComponent<TimeRewinderV2>().currentRecordingTime / GC.Player.GetComponent<TimeRewinderV2>().maxRecordingDuration));
         loadingImage.fillAmount = loadingProgress;
         if (loadingProgress < 1)
         {

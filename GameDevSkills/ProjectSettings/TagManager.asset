@@ -10,6 +10,8 @@ TagManager:
   - ChargeRange
   - HurtBox
   - HitBox
+  - HItBox
+  - Ground
   layers:
   - Default
   - TransparentFX

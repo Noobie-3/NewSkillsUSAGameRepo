@@ -5,22 +5,61 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Vector3 camRotation;
+
     private Transform cam;
+
     [Range(-45, -15)]
-    public int minAngle = -30;
+
+    [SerializeField]
+    int minAngle = -30;
     [Range(30, 80)]
+
+    [SerializeField]
     public int maxAngle = 45;
+
+    [SerializeField]
     [Range(50, 500)]
     public int sensitivity = 200;
+
     Animation A;
+
     GameController GC;
+
     MainMusicManager TEST;
+
+    [SerializeField]
     public Rigidbody rb;
-    public Animator animator;
-    public TimeRewinderV2 TR;
-    public bool isGrounded = false;
-    public bool canDoubleJump = false;
-    public bool Punch1;
+
+    [SerializeField]
+    Animator animator;
+
+    [SerializeField]
+    TimeRewinderV2 TR;
+
+    [SerializeField]
+    bool isGrounded = false;
+
+    [SerializeField]
+    bool isJumping;
+
+    [SerializeField]
+    bool canDoubleJump = false;
+
+    [SerializeField]
+    bool Punch1;
+
+    [SerializeField]
+    int MaxJumps;
+
+    [SerializeField]
+    int JumpsLeft;
+
+    [SerializeField]
+    decimal maxValue;
+
+
+
+
 
 
 
@@ -34,97 +73,12 @@ public class Player : MonoBehaviour
         TEST = GameObject.FindWithTag("GC").GetComponent<MainMusicManager>();
     }
 
-    public  void Update() {
+    void Update()
+    {
+
         if (!gameObject.GetComponent<TimeRewinderV2>().Isrewinding)
         {
-            /*        base.TimeUpdate();
-            */
-            Vector3 pos = transform.position;
-
-
-            if (Input.GetKey(KeyCode.W))//Idle to walk and move forward
-            {
-
-                transform.position += Camera.main.transform.forward * GC.speed * Time.deltaTime;
-                animator.SetTrigger("IsWalking");
-            }
-
-            //reset walk to idle
-            else if (!Input.GetKeyDown(KeyCode.W) || (!Input.GetKeyDown(KeyCode.S)))
-            {
-                animator.ResetTrigger("IsWalking");
-                animator.ResetTrigger("IsRunning");
-
-            }
-
-
-
-            //checks if going Left so that you can use strafe animation
-
-
-
-            if (Input.GetKeyDown(KeyCode.A)) {
-
-                animator.SetTrigger("GoingLeft");
-
-            }
-            else if(Input.GetKeyUp(KeyCode.A))
-            {
-                animator.ResetTrigger("GoingLeft");
-
-            }   
-                
-                //checks if going right so that you can use strafe animation
-                 
-            if(Input.GetKeyDown(KeyCode.D)) {
-
-                animator.SetTrigger("GoingRight");
-
-            }
-
-            else if(Input.GetKeyUp(KeyCode.D))
-            {
-                animator.ResetTrigger("GoingRight");
-
-            }
-            
-
-
-
-            //move Backwards
-            if (Input.GetKey(KeyCode.S))
-            {
-                // pos.z -= MoveSpeed * Time.deltaTime;
-                transform.position -= Camera.main.transform.forward * GC.speed * Time.deltaTime;
-            }
-
-            //move right
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.position += Camera.main.transform.right * GC.speed * Time.deltaTime;
-            }
-             
-            //move left
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.position -= Camera.main.transform.right * GC.speed * Time.deltaTime;
-            }
-
-
-            //Toggle Run
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                GC.speed = GC.DefaultMoveSpeed * 1.5f;
-                animator.SetTrigger("IsRunning");
-                TEST.PlaySoundEffect("BattleMusic");
-            }
-
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                GC.speed = GC.DefaultMoveSpeed;
-                animator.ResetTrigger("IsRunning");
-
-            }
+            Move();
 
             //AttacksMAY MOVE TO ANOTHER SCRIPT
             if (Input.GetMouseButtonDown(0))
@@ -137,50 +91,10 @@ public class Player : MonoBehaviour
             }
 
             //JUMP
-            if (Input.GetKey(KeyCode.Space))
-            {
-                // Check if the player is grounded using raycasting.
-                isGrounded = Physics.Raycast(transform.position, Vector3.down, 1f);
-
-                // Reset double jump ability when grounded.
-                if (isGrounded)
-                {
-                    canDoubleJump = false;
-                }
-
-                // Jump
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-
-                    if (isGrounded)
-                    {
-                        animator.SetTrigger("Jump");
-                        rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
-                    }
-
-                    else if (!canDoubleJump)
-                    {
-                        animator.SetTrigger("SecondJump");
-                        
-                        rb.velocity = new Vector3(rb.velocity.x, GC.JumpForce, rb.velocity.z);
-                        canDoubleJump = true;
-                    }
-                    if (!isGrounded)
-                    {
-                        animator.ResetTrigger("Jump");
-
-                    }
-                    else if(canDoubleJump)
-                    {
-                        animator.ResetTrigger("SecondJump");
-                    }
-                }
 
 
 
 
-
-            }
             // transform.position = pos;
 
 
@@ -190,8 +104,29 @@ public class Player : MonoBehaviour
             camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
             camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
+
         }
 
+
+
+    }
+
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+            JumpsLeft = MaxJumps;
+        }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
 
     }
 
@@ -211,6 +146,61 @@ public class Player : MonoBehaviour
 
         }
     }
+
+    private void Move() {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        // Calculate movement direction based on input
+        Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput);
+
+        // Normalize the direction vector to ensure consistent speed in all directions
+        moveDirection.Normalize();
+        Vector3 moveVelocity = moveDirection * GC.speed;
+            transform.Translate(moveVelocity * Time.deltaTime);
+        animator.SetFloat("vertical", .4f);
+
+        //Toggle Run
+        if (Input.GetKey(KeyCode.LeftShift))
+            {
+                GC.speed = GC.DefaultMoveSpeed * 1.5f;
+                maxValue = 1;
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                GC.speed = GC.DefaultMoveSpeed;
+            maxValue = .4m;
+
+            }
+        decimal DecHorizValue = (decimal)horizontalInput;
+        decimal HorizPercentage = (DecHorizValue / maxValue);
+        print(HorizPercentage);
+        
+
+       
+
+        //Jump
+        isGrounded = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), .1f);
+
+        if (isGrounded)
+        {
+            JumpsLeft = MaxJumps;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && JumpsLeft > 0)
+        {
+            // Check if the player is grounded using raycasting.
+
+            rb.AddForce(Vector3.up * GC.JumpForce, ForceMode.Impulse);
+
+            JumpsLeft--;
+
+
+        }
+
+    }
+
+
 
 
 
