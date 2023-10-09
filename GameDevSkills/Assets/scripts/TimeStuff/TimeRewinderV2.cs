@@ -9,7 +9,6 @@ public class TimeRewinderV2 : MonoBehaviour
     private Rigidbody rb;
     public Animator animator;
     public float totalRecordedTime;
-    private CharacterController m_Controller;
 
 
     // Flags to control what to record
@@ -36,9 +35,9 @@ public class TimeRewinderV2 : MonoBehaviour
         
         }
 
-        if(GetComponent<CharacterController>())
+        if(GetComponent<Rigidbody>())
         {
-            m_Controller = GetComponent<CharacterController>();
+            rb = GetComponent<Rigidbody>();
 
         }
     }
@@ -100,7 +99,7 @@ public class TimeRewinderV2 : MonoBehaviour
             float blendValueH = animator.GetFloat(blendParameterH); // Get the blend value
             float blendValueV = animator.GetFloat(blendParameterV); // Get the blend value
 
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, m_Controller.velocity, blendValueH, blendValueV, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState));
+            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState));
             print("StateAdded");
 
         }
@@ -119,7 +118,7 @@ public class TimeRewinderV2 : MonoBehaviour
         }
         else if(Record_Velocity && !Record_BlendState)
         {
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, m_Controller.velocity , Record_Position, Record_Rotation, Record_Velocity));
+            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity , Record_Position, Record_Rotation, Record_Velocity));
 
         }
     }
@@ -139,7 +138,7 @@ public class TimeRewinderV2 : MonoBehaviour
             }
             if (Record_Velocity)
             {
-                m_Controller.velocity.Set(PointsInTime[0].Velocity.x, PointsInTime[0].Velocity.y,PointsInTime[0].Velocity.z);
+                rb.velocity.Set(PointsInTime[0].Velocity.x, PointsInTime[0].Velocity.y,PointsInTime[0].Velocity.z);
             }
             if (Record_BlendState)
             {

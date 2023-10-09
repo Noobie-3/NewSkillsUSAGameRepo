@@ -19,4 +19,6 @@ public class PlayerInput : MonoBehaviour
     public bool Sprint => m_Actions.Player.Sprint.IsPressed();
     public bool RightClick => m_Actions.Player.RightClick.IsPressed();
     public bool Jump => m_Actions.Player.Jump.IsPressed();
+
+    public Vector2 Look => m_Actions.Player.Look.ReadValue<Vector2>();
 }

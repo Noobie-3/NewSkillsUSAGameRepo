@@ -1,77 +1,136 @@
+using System;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace InexperiencedDeveloper
+
+public class ThirdPersonCharacterController : MonoBehaviour
 {
-    public class ThirdPersonCharacterController : MonoBehaviour
+    [SerializeField] private PlayerInputActions m_Actions;
+    [SerializeField] private InputAction Move;
+
+    [SerializeField] private CharacterController m_Controller;
+    [SerializeField] private Animator m_Animator;
+
+    [SerializeField] private TimeRewinderV2 TR;
+
+    [SerializeField] private float MovementForce;
+    [SerializeField] private float JumpForce;
+    [SerializeField] private float MaxSpeed;
+    [SerializeField] private Vector3 ForceDirection;
+    [SerializeField] private Rigidbody rb;
+
+
+
+    [SerializeField] Camera Cam;
+
+    private void Awake()
     {
-        public PlayerInput Input { get; protected set; }
-        private CharacterController m_Controller;
-        private Animator m_Animator;
+        /*            Init();
+        */
+        m_Actions = new PlayerInputActions();
+        TR = GetComponent<TimeRewinderV2>();
+        rb = GetComponent<Rigidbody>();
 
-        public TimeRewinderV2 TR;
+    }
 
-        [SerializeField] private float m_RunSpeed;
-        [SerializeField] private float m_WalkSpeed;
-        [SerializeField] private float m_RotationSpeed = 100;
 
-        private float m_Speed;
+    private void FixedUpdate()
+    {
+        ForceDirection += Move.ReadValue<Vector2>().x * getCameraRight(Cam) * MovementForce;
+        ForceDirection += Move.ReadValue<Vector2>().y * getCameraForward(Cam) * MovementForce;
 
-        private float m_LastLookRot;
-        private float m_LastCamRot;
-        private float m_Lerp;
+        rb.AddForce(ForceDirection, ForceMode.Impulse);
+        ForceDirection = Vector3.zero;
 
-        private void Awake()
+        if (rb.velocity.y < 0f)
         {
-            Init();
+            rb.velocity -= Vector3.down * Physics.gravity.y * Time.deltaTime;
         }
 
-        public void Init()
+        Vector3 HorizVel = rb.velocity;
+        HorizVel.y = 0;
+        if (HorizVel.sqrMagnitude > MaxSpeed * MaxSpeed)
         {
-            Input = GetComponent<PlayerInput>();
-            Input.Init();
-            m_Controller = GetComponent<CharacterController>();
-            m_Animator = GetComponent<Animator>();
-            m_LastLookRot = transform.eulerAngles.y;
-            m_LastCamRot = Camera.main.transform.eulerAngles.y;
-            m_Speed = m_RunSpeed;
-            TR = GetComponent<TimeRewinderV2>();
+            rb.velocity = HorizVel.normalized * MaxSpeed + Vector3.up * rb.velocity.y;
         }
 
-        private void Update()
-        {
-            if (!TR.Isrewinding)
-            {
-                Move();
-                Rotate();
-            }
+        LookAt();
 
-        }
 
-        private void Move()
-        {
-            Vector2 input = Input.Move.normalized;
-            Vector3 move = transform.right * input.x + transform.forward * input.y;
-            m_Controller.Move(move * m_Speed * Time.deltaTime);
-            m_Animator.SetFloat("horizontal", input.x);
-            m_Animator.SetFloat("vertical", input.y);
-        }
+    }
 
-        private void Rotate()
+    private Vector3 getCameraForward(Camera playerCamera)
+    {
+        Vector3 forward = playerCamera.transform.forward;
+        forward.y = 0;
+        return forward.normalized;
+    }
+
+    private Vector3 getCameraRight(Camera playerCamera)
+    {
+        Vector3 right = playerCamera.transform.right;
+        right.y = 0;
+        print(right.normalized);
+        return right.normalized;
+    }
+
+
+    private void OnEnable()
+    {
+        m_Actions.Player.Jump.started += DoJump;
+        Move = m_Actions.Player.Move;
+        m_Actions.Player.Enable();
+    }
+
+
+
+    private void OnDisable()
+    {
+        m_Actions.Player.Jump.started -= DoJump;
+        m_Actions.Player.Disable();
+
+    }
+    private void DoJump(InputAction.CallbackContext obj)
+    {
+        if (grounded())
         {
-            if (Input.RightClick)
-            {
-                m_LastLookRot = transform.eulerAngles.y;
-                m_LastCamRot = Camera.main.transform.eulerAngles.y;
-                m_Lerp = 0;
-            }
-            if (m_Lerp >= 1) return;
-            m_Lerp += Time.deltaTime * m_RotationSpeed;
-            float lookRot = Mathf.Lerp(m_LastLookRot, m_LastCamRot, m_Lerp);
-            Vector3 rotation = transform.eulerAngles;
-            rotation.y = lookRot;
-            transform.rotation = Quaternion.Euler(rotation);
+            ForceDirection += Vector3.up * JumpForce;
         }
     }
+
+    private bool grounded()
+    {
+        Ray ray = new Ray(transform.position + Vector3.up * 0.25f, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, 0.3f))
+        {
+
+            return true;
+        }
+        else return false;
+    }
+    private void LookAt()
+    {
+        Vector3 direction = rb.velocity;
+        direction.y = 0;
+
+        if (Move.ReadValue<Vector2>().sqrMagnitude > 0.1f && direction.sqrMagnitude > 0.1)
+        {
+            this.rb.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        }
+        else
+        {
+            rb.angularVelocity = Vector3.zero;
+        }
+
+
+    }
 }
+
+        
+    
+
+
+
+
 
