@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine;
 public class TimeRewinderV2 : MonoBehaviour
 {
     public bool Isrewinding = false;
@@ -16,6 +16,8 @@ public class TimeRewinderV2 : MonoBehaviour
     public bool Record_Rotation;
     public bool Record_Velocity;
     public bool Record_BlendState; // New flag to record blend state
+    public bool Record_Cam; // record cam postion and rotation
+    public CinemachineFreeLook Freecam;
 
     // Maximum recording duration in seconds
     public float maxRecordingDuration = 5.0f;
@@ -26,6 +28,7 @@ public class TimeRewinderV2 : MonoBehaviour
     public string blendParameterV = "vertical"; // Name of the blend parameter
 
     float blendValueV;
+
 
     private void Start()
     {
@@ -38,8 +41,9 @@ public class TimeRewinderV2 : MonoBehaviour
         if(GetComponent<Rigidbody>())
         {
             rb = GetComponent<Rigidbody>();
-
+            
         }
+        Freecam = GameObject.Find("CM FreeLook1").GetComponent<CinemachineFreeLook>();
     }
 
     private void Update()
@@ -94,37 +98,48 @@ public class TimeRewinderV2 : MonoBehaviour
     public void Record()
     {
 
+
         if(Record_BlendState && Record_Velocity)
         {
             float blendValueH = animator.GetFloat(blendParameterH); // Get the blend value
             float blendValueV = animator.GetFloat(blendParameterV); // Get the blend value
+            float LookDirX = Freecam.m_XAxis.Value;
+            float LookDirY = Freecam.m_YAxis.Value;
 
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState));
+            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState, Record_Cam));
             print("StateAdded");
 
         }
 
         else if(!Record_BlendState && !Record_Velocity )
         {
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, Record_Position, Record_Rotation));
+            float LookDirX = Freecam.m_XAxis.Value;
+            float LookDirY = Freecam.m_YAxis.Value;
+            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam));
         }
         else if(!Record_Velocity && Record_BlendState)
         {
+            float LookDirX = Freecam.m_XAxis.Value;
+            float LookDirY = Freecam.m_YAxis.Value;
             float blendValueH = animator.GetFloat(blendParameterH); // Get the blend value
             float blendValueV = animator.GetFloat(blendParameterV); // Get the blend value
 
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, blendValueH, blendValueV, Record_Position, Record_Rotation, Record_BlendState));
+            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_BlendState, Record_Cam));
 
         }
         else if(Record_Velocity && !Record_BlendState)
         {
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity , Record_Position, Record_Rotation, Record_Velocity));
+            float LookDirX = Freecam.m_XAxis.Value;
+            float LookDirY = Freecam.m_YAxis.Value;
+            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity , Record_Position, LookDirX, LookDirY, Record_Rotation, Record_Velocity, Record_Cam));
 
         }
     }
 
     private void Rewind()
     {
+        Freecam.m_XAxis.Value = PointsInTime[0].XLook;
+        Freecam.m_YAxis.Value = PointsInTime[0].YLook;
         currentRecordingTime -= Time.deltaTime;
         if (PointsInTime.Count > 0)
         {

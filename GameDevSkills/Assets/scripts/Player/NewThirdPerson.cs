@@ -33,6 +33,11 @@ public class NewThirdPerson : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    Animator anim;
+
+    public float Gravity;
+
+    Vector3 TempGravity;
 
     private void Start()
     {
@@ -40,12 +45,15 @@ public class NewThirdPerson : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+        anim = GetComponentInChildren<Animator>();
+        TempGravity = Physics.gravity;
+
     }
 
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -66,6 +74,7 @@ public class NewThirdPerson : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        Animate();
 
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
@@ -73,12 +82,14 @@ public class NewThirdPerson : MonoBehaviour
             readyToJump = false;
 
             Jump();
+            print(rb.velocity + "AfterJump");
+
 
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
-    private void MovePlayer()
+    public void MovePlayer()
     {
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
@@ -102,17 +113,34 @@ public class NewThirdPerson : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+
+        if(rb.velocity.y < 0)
+        {
+
+            Physics.gravity = TempGravity * 1.75f;
+            print(Physics.gravity.y);
+        }
+
+
     }
 
-    private void Jump()
+    public void Jump()
     {
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        print(rb.velocity);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
     }
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void Animate()
+    {
+        anim.SetFloat("horizontal", horizontalInput);
+        anim.SetFloat("vertical", verticalInput);
     }
 }

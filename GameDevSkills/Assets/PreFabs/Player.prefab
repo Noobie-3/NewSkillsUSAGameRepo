@@ -77,6 +77,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   orientation: {fileID: 4713224588524968478}
+  Gravity: 0
 --- !u!114 &2489271884622062646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +97,8 @@ MonoBehaviour:
   Record_Rotation: 1
   Record_Velocity: 1
   Record_BlendState: 1
+  Record_Cam: 0
+  Freecam: {fileID: 0}
   maxRecordingDuration: 5
   currentRecordingTime: 0
   blendParameterH: horizontal
@@ -205,25 +208,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 122e98ff391434445b8278e06b3198e3, type: 3}
   m_PrefabInstance: {fileID: 4713224589536083089}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4467162242870274693 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -245955603384576492, guid: 122e98ff391434445b8278e06b3198e3, type: 3}
-  m_PrefabInstance: {fileID: 4713224589536083089}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &4713224589386765473
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4467162242870274693}
-  m_Material: {fileID: 13400000, guid: 2be13e73fc92abf4c9c054b8633672bf, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -108576913577776861, guid: 122e98ff391434445b8278e06b3198e3, type: 3}
 --- !u!4 &5107651213668801402 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 122e98ff391434445b8278e06b3198e3, type: 3}
