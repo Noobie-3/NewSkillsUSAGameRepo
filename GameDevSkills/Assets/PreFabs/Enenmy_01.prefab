@@ -5630,8 +5630,9 @@ Transform:
   - {fileID: 6407181596026793528}
   - {fileID: 42955292350145317}
   - {fileID: 157366336123208263}
+  - {fileID: 5104018523335462063}
   m_Father: {fileID: 3367000646600986058}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 9.09, z: 0}
 --- !u!1 &3386429704130598608
 GameObject:
@@ -6327,6 +6328,51 @@ Transform:
   m_Father: {fileID: 72425046531490385}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4420963893881619329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5104018523335462063}
+  - component: {fileID: 7782506397234690591}
+  m_Layer: 6
+  m_Name: Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5104018523335462063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4420963893881619329}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1994343252757437630}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7782506397234690591
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4420963893881619329}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4421812310373301219
 GameObject:
   m_ObjectHideFlags: 0
@@ -6396,7 +6442,6 @@ Transform:
   - {fileID: 1204660347431164220}
   - {fileID: 2002664786362396437}
   - {fileID: 370231864209145305}
-  - {fileID: 356107961020206204}
   - {fileID: 1994343252757437630}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -6495,6 +6540,7 @@ MonoBehaviour:
   min: 2
   max: 3
   isCharging: 0
+  HP: 1
 --- !u!114 &-1190485465501384578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6509,6 +6555,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Isrewinding: 0
   animator: {fileID: 0}
+  totalRecordedTime: 0
+  Record_Position: 0
+  Record_Rotation: 0
+  Record_Velocity: 0
+  Record_BlendState: 0
+  Record_Cam: 0
+  Freecam: {fileID: 0}
+  maxRecordingDuration: 5
+  currentRecordingTime: 0
+  blendParameterH: horizontal
+  blendParameterV: vertical
 --- !u!1 &4548718546156317340
 GameObject:
   m_ObjectHideFlags: 0
@@ -16813,52 +16870,6 @@ Transform:
   m_Father: {fileID: 8915164070857834393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7173151353682218072
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 356107961020206204}
-  - component: {fileID: 4970837663931193295}
-  m_Layer: 0
-  m_Name: HurtBox
-  m_TagString: HurtBox
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &356107961020206204
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7173151353682218072}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3367000646600986058}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4970837663931193295
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7173151353682218072}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1.51
-  m_Height: 3.79
-  m_Direction: 1
-  m_Center: {x: -0.31, y: 0.93, z: 0}
 --- !u!1 &7224017620337009558
 GameObject:
   m_ObjectHideFlags: 0

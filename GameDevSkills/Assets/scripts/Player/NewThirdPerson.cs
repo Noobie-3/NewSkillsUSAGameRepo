@@ -53,7 +53,7 @@ public class NewThirdPerson : MonoBehaviour
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .05f, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -117,7 +117,7 @@ public class NewThirdPerson : MonoBehaviour
         if(rb.velocity.y < 0)
         {
 
-            Physics.gravity = TempGravity * 1.75f;
+            Physics.gravity = TempGravity * 1.9f;
             print(Physics.gravity.y);
         }
 
