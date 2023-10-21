@@ -67,7 +67,6 @@ public class SlidingDoorTImeControlled : MonoBehaviour
         if (IsMoving == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, StartPosition, MoveSpeed * 2.8f);
-            print("hello");
 
         }
     }

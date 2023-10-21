@@ -81,7 +81,7 @@ public class NewThirdPerson : MonoBehaviour
         {
             readyToJump = false;
 
-            Jump();
+            Jump(jumpForce);
             print(rb.velocity + "AfterJump");
 
 
@@ -118,19 +118,19 @@ public class NewThirdPerson : MonoBehaviour
         {
 
             Physics.gravity = TempGravity * 1.9f;
-            print(Physics.gravity.y);
-        }
+/*            print(Physics.gravity.y);
+*/        }
 
 
     }
 
-    public void Jump()
+    public void Jump(float JForce)
     {
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         print(rb.velocity);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(transform.up * JForce, ForceMode.Impulse);
 
     }
     private void ResetJump()

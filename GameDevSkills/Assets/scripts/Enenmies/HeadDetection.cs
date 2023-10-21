@@ -14,6 +14,7 @@ public class HeadDetection : MonoBehaviour
     public float TimeToBeSquashed;
     public bool isSquashed;
     Vector3 OrigSize;
+    public float BounceAmmount;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class HeadDetection : MonoBehaviour
 /*        HitBox = GC.Player.transform.Ta("HitBox").gameObject;*/
         Parent = transform.parent.gameObject;
         OrigSize = Parent.transform.localScale;
+        GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
 
     }
 
@@ -33,29 +35,39 @@ public class HeadDetection : MonoBehaviour
         {
             TimeSquashed -= Time.deltaTime;
         }
-        if(isSquashed)
+        if(TimeSquashed <= 0 && isSquashed)
         {
 
-            Sqaush();
+            UnSqaush();
         }
-        else
-        {
-            Parent.transform.localScale = OrigSize;
-        }
+
+    }
+
+    private void UnSqaush()
+    {
+        Parent.transform.localScale = new Vector3(Parent.transform.localScale.x, OrigSize.y, Parent.transform.localScale.z);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "HitBox" && rb.velocity.y < 0 && other.transform.parent == GC.Player)
+        print(other.gameObject.name);
+        print(other.gameObject.transform.parent+ "Parent");
+        if (other.gameObject == GC.Player && rb.velocity.y < 0)
         {
             Sqaush();
+            Bounce();
         }
+    }
+
+    private void Bounce()
+    {
+        GC.Player.GetComponent<NewThirdPerson>().Jump(BounceAmmount);    
     }
 
     private void Sqaush()
     {
-        print("Swuashed");
-        Parent.transform.localScale = new Vector3(Parent.transform.localScale.x, Parent.transform.localScale.y * .5f, Parent.transform.localScale.z);
+        eStats.EHp--;
+        Parent.transform.localScale = new Vector3(Parent.transform.localScale.x, OrigSize.y * .5f, Parent.transform.localScale.z);
         isSquashed = true;
         TimeSquashed = TimeToBeSquashed;
     }
