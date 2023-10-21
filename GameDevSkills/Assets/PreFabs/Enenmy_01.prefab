@@ -6348,6 +6348,7 @@ MonoBehaviour:
   TimeSquashed: 0
   TimeToBeSquashed: 1.5
   isSquashed: 0
+  BounceAmmount: 0
 --- !u!1 &4421812310373301219
 GameObject:
   m_ObjectHideFlags: 0
@@ -6395,6 +6396,7 @@ GameObject:
   - component: {fileID: 5541385207982099633}
   - component: {fileID: 2579932903338702286}
   - component: {fileID: -1190485465501384578}
+  - component: {fileID: 757211667070246790}
   m_Layer: 0
   m_Name: Enenmy_01
   m_TagString: Player
@@ -6530,9 +6532,9 @@ MonoBehaviour:
   Isrewinding: 0
   animator: {fileID: 0}
   totalRecordedTime: 0
-  Record_Position: 0
-  Record_Rotation: 0
-  Record_Velocity: 0
+  Record_Position: 1
+  Record_Rotation: 1
+  Record_Velocity: 1
   Record_BlendState: 0
   Record_Cam: 0
   Freecam: {fileID: 0}
@@ -6540,6 +6542,20 @@ MonoBehaviour:
   currentRecordingTime: 0
   blendParameterH: horizontal
   blendParameterV: vertical
+--- !u!114 &757211667070246790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4434457702677363418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24aa82d94e794234f997cea3827d4d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EHp: 10
+  Attack: 0
 --- !u!1 &4548718546156317340
 GameObject:
   m_ObjectHideFlags: 0

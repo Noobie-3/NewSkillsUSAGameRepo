@@ -15,6 +15,7 @@ public class HeadDetection : MonoBehaviour
     public bool isSquashed;
     Vector3 OrigSize;
     public float BounceAmmount;
+    private bool CanBeHurt = true;
 
     // Start is called before the first frame update
     void Start()
@@ -31,9 +32,10 @@ public class HeadDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(TimeSquashed > 0 && isSquashed == true)
+        if(TimeSquashed > 0 && isSquashed == true)// decreasing the time till they can be swuashed again
         {
             TimeSquashed -= Time.deltaTime;
+
         }
         if(TimeSquashed <= 0 && isSquashed)
         {
@@ -41,34 +43,46 @@ public class HeadDetection : MonoBehaviour
             UnSqaush();
         }
 
+
+
     }
 
     private void UnSqaush()
     {
         Parent.transform.localScale = new Vector3(Parent.transform.localScale.x, OrigSize.y, Parent.transform.localScale.z);
+        isSquashed = false;
+        CanBeHurt = true;
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        print(other.gameObject.name);
-        print(other.gameObject.transform.parent+ "Parent");
-        if (other.gameObject == GC.Player && rb.velocity.y < 0)
+    { 
+        if (CanBeHurt)
         {
-            Sqaush();
-            Bounce();
+            print(other.gameObject.name);
+            print(other.gameObject.transform.parent + "Parent");
+            if (other.gameObject == GC.Player && rb.velocity.y < 0)
+            {
+                Sqaush();
+                Bounce();
+            }
         }
     }
 
     private void Bounce()
     {
+
         GC.Player.GetComponent<NewThirdPerson>().Jump(BounceAmmount);    
     }
 
     private void Sqaush()
     {
-        eStats.EHp--;
-        Parent.transform.localScale = new Vector3(Parent.transform.localScale.x, OrigSize.y * .5f, Parent.transform.localScale.z);
-        isSquashed = true;
-        TimeSquashed = TimeToBeSquashed;
+
+            eStats.EHp--;
+            Parent.transform.localScale = new Vector3(Parent.transform.localScale.x, OrigSize.y * .5f, Parent.transform.localScale.z);
+            isSquashed = true;
+            TimeSquashed = TimeToBeSquashed;
+            CanBeHurt = false;
+        
+
     }
 }

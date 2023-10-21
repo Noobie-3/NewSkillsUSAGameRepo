@@ -13,6 +13,8 @@ public class SimpleEnenmy : TimeControlled
     public float max = 3f;
     public bool isCharging;
     public float HP = 1;
+
+    HeadDetection HeadHit;
     // Use this for initialization
 
 
@@ -30,6 +32,10 @@ public class SimpleEnenmy : TimeControlled
         target = GC.Player.transform;
         min = transform.position.x;
         max = transform.position.x + 3;
+        if (gameObject.GetComponentInChildren<HeadDetection>() != null)
+        {
+            HeadHit = gameObject.GetComponentInChildren<HeadDetection>();
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -59,8 +65,13 @@ public class SimpleEnenmy : TimeControlled
         }
         if(isCharging && target != null)
         {
+            if(HeadHit.isSquashed == false)
+            {
+
+            
                 // Calculate the direction from the enemy to the player.
                 Vector3 moveDirection = (target.position - transform.position).normalized;
+                Vector3 LookDirection = new Vector3(target.position.x, transform.position.y, target.position.z);
 
                 // Calculate the new position for the enemy.
                 Vector3 newPosition = transform.position + moveDirection * moveSpeed * Time.deltaTime;
@@ -68,8 +79,8 @@ public class SimpleEnenmy : TimeControlled
                 // Move the enemy towards the player.
                 transform.position = newPosition;
 
-                transform.LookAt(target);
-            
+                transform.LookAt(LookDirection);
+            }
         }
         /*else if(!isCharging)
         {

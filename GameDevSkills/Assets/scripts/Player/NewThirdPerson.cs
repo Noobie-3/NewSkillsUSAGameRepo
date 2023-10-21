@@ -38,6 +38,7 @@ public class NewThirdPerson : MonoBehaviour
     public float Gravity;
 
     Vector3 TempGravity;
+    private bool IsFalling;
 
     private void Start()
     {
@@ -63,6 +64,29 @@ public class NewThirdPerson : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        if (rb.velocity.y < 0 && !grounded)//Falling Animation
+        {
+            IsFalling = true;
+        }
+
+        else if (grounded)
+        {
+            IsFalling = false;
+        }
+
+        if (IsFalling)
+        {
+            anim.SetBool("IsFalling", true);
+
+            
+        }
+        else if(!IsFalling && anim.GetBool("IsFalling") == true)
+        {
+            anim.SetBool("IsFalling", false);
+        }
+
+
     }
 
     private void FixedUpdate()
@@ -131,11 +155,13 @@ public class NewThirdPerson : MonoBehaviour
         print(rb.velocity);
 
         rb.AddForce(transform.up * JForce, ForceMode.Impulse);
-
+        anim.SetBool("Jump", true);
     }
     private void ResetJump()
     {
         readyToJump = true;
+        anim.SetBool("Jump", false);
+
     }
 
     private void Animate()

@@ -34,8 +34,13 @@ public class PointInTime
             blendValueH = BlendH;
             blendValueV = BlendV;
 
-        XLook = xcam;
-        YLook = yCam;
+
+        if (Set_Cam == true )
+        {
+            XLook = xcam;
+            YLook = yCam;
+
+        }
 
     }
     public PointInTime(Vector3 _position, Quaternion _rotation, float xcam, float yCam, bool set_pos, bool set_rotation, bool Set_Cam) {
@@ -45,8 +50,13 @@ public class PointInTime
         if (set_rotation == true)
             rotation = _rotation;
 
-        XLook = xcam;
-        YLook = yCam;
+
+        if (Set_Cam)
+        {
+            XLook = xcam;
+            YLook = yCam;
+
+        }
     }
     public PointInTime(Vector3 _position, Quaternion _rotation, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_rotation, bool set_anim, bool Set_Cam) {
 
@@ -73,8 +83,13 @@ public class PointInTime
             rotation = _rotation;
         if (set_vel == true)
              Velocity = Vel;
-        XLook = xcam;
-        YLook = yCam;
+
+        if (Set_Cam)
+        {
+            XLook = xcam;
+            YLook = yCam;
+
+        }
     }
 
 }

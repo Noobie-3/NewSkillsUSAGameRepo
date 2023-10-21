@@ -138,8 +138,12 @@ public class TimeRewinderV2 : MonoBehaviour
 
     private void Rewind()
     {
-        Freecam.m_XAxis.Value = PointsInTime[0].XLook;
-        Freecam.m_YAxis.Value = PointsInTime[0].YLook;
+        if (Record_Cam)
+        {
+            Freecam.m_XAxis.Value = PointsInTime[0].XLook;
+            Freecam.m_YAxis.Value = PointsInTime[0].YLook;
+        }
+
         currentRecordingTime -= Time.deltaTime;
         if (PointsInTime.Count > 0)
         {
