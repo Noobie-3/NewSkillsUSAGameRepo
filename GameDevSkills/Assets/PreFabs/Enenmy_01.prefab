@@ -4774,7 +4774,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 01726f0222ac82c428f3b25246f191a6, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5551,8 +5550,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 7
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 13.38
+  m_Center: {x: 0, y: 1.0381031, z: 0}
 --- !u!1 &3380065881323842144
 GameObject:
   m_ObjectHideFlags: 0
@@ -6323,7 +6322,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4420963893881619329}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -6348,7 +6347,7 @@ MonoBehaviour:
   TimeSquashed: 0
   TimeToBeSquashed: 1.5
   isSquashed: 0
-  BounceAmmount: 0
+  BounceAmmount: 10
 --- !u!1 &4421812310373301219
 GameObject:
   m_ObjectHideFlags: 0
@@ -6397,9 +6396,10 @@ GameObject:
   - component: {fileID: 2579932903338702286}
   - component: {fileID: -1190485465501384578}
   - component: {fileID: 757211667070246790}
+  - component: {fileID: 297508463}
   m_Layer: 0
   m_Name: Enenmy_01
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6411,10 +6411,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4434457702677363418}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.61, y: 0.58, z: -15.22}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.47, y: 0.47, z: 0.47}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1204660347431164220}
   - {fileID: 2002664786362396437}
@@ -6448,10 +6448,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.51
-  m_Height: 3.79
+  m_Radius: 0.44850898
+  m_Height: 3.4204752
   m_Direction: 1
-  m_Center: {x: -0.31, y: 0.93, z: 0}
+  m_Center: {x: -0.30999994, y: 0.74523765, z: 0.010849567}
 --- !u!111 &1163954147195081827
 Animation:
   m_ObjectHideFlags: 0
@@ -6516,7 +6516,7 @@ MonoBehaviour:
   min: 2
   max: 3
   isCharging: 0
-  HP: 1
+  HP: 100
 --- !u!114 &-1190485465501384578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6543,6 +6543,20 @@ MonoBehaviour:
   blendParameterH: horizontal
   blendParameterV: vertical
 --- !u!114 &757211667070246790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4434457702677363418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24aa82d94e794234f997cea3827d4d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EHp: 10
+  Attack: 0
+--- !u!114 &297508463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11271,7 +11285,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: fed665eb592f66c4c8ab674d70185458, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16098,7 +16111,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 4f0077caf53021a45ac23e48be8a0caf, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
