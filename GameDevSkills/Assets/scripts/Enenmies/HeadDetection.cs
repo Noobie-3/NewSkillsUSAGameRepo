@@ -82,7 +82,6 @@ public class HeadDetection : MonoBehaviour
             isSquashed = true;
             TimeSquashed = TimeToBeSquashed;
             CanBeHurt = false;
-        
 
     }
 }
