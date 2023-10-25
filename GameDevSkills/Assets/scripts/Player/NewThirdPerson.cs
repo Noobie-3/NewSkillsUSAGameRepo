@@ -12,7 +12,7 @@ public class NewThirdPerson : MonoBehaviour
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
-    bool readyToJump;
+    public bool readyToJump;
 
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
@@ -39,6 +39,9 @@ public class NewThirdPerson : MonoBehaviour
 
     Vector3 TempGravity;
     private bool IsFalling;
+    public float GroundedTimer;
+    public float TimeToJumpAfterGround;
+    public bool JumpUsed;
 
     private void Start()
     {
@@ -61,10 +64,24 @@ public class NewThirdPerson : MonoBehaviour
 
         // handle drag
         if (grounded)
+        {
             rb.drag = groundDrag;
+            GroundedTimer = 0;
+            ResetJump();
+        }
         else
             rb.drag = 0;
 
+        if(!grounded && GroundedTimer < TimeToJumpAfterGround)
+        {
+            GroundedTimer += Time.deltaTime;
+            readyToJump = true;
+        }
+        else if( !grounded && GroundedTimer > TimeToJumpAfterGround)
+        {
+            readyToJump = false;
+        }
+        
         if (rb.velocity.y < 0 && !grounded)//Falling Animation
         {
             IsFalling = true;
@@ -101,16 +118,22 @@ public class NewThirdPerson : MonoBehaviour
         Animate();
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && !JumpUsed)
         {
-            readyToJump = false;
+            if (GroundedTimer <= TimeToJumpAfterGround | grounded)
+            {
+                readyToJump = false;
 
-            Jump(jumpForce);
-            print(rb.velocity + "AfterJump");
+                Jump(jumpForce);
+                print(rb.velocity + "AfterJump");
 
-
-            Invoke(nameof(ResetJump), jumpCooldown);
+                
+/*                Invoke(nameof(ResetJump), jumpCooldown);
+*/            }
         }
+    
+        
+        
     }
 
     public void MovePlayer()
@@ -156,12 +179,13 @@ public class NewThirdPerson : MonoBehaviour
 
         rb.AddForce(transform.up * JForce, ForceMode.Impulse);
         anim.SetBool("Jump", true);
+        JumpUsed = true;
     }
     private void ResetJump()
     {
         readyToJump = true;
         anim.SetBool("Jump", false);
-
+        JumpUsed = false;
     }
 
     private void Animate()

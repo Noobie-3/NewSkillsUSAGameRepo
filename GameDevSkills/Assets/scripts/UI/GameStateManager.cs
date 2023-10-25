@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Startgame : MonoBehaviour
+public class GameStateManager : MonoBehaviour
 {
     // Start is called before the first frame update
 public void StartGame()
     {
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
 

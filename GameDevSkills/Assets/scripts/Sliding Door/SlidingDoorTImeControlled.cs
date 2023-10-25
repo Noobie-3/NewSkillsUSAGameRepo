@@ -9,7 +9,7 @@ public class SlidingDoorTImeControlled : MonoBehaviour
     public Vector3 Disance;
     public float DisanceLeft;
     public float MoveSpeed;
-    public Button Button;
+    public List<Button> Button;
     public  bool IsMoving;
 
     private void Awake()
@@ -28,14 +28,20 @@ public class SlidingDoorTImeControlled : MonoBehaviour
 
     public void Update()
     {
-        if(Button.IsPressed)
+        foreach (Button button in Button)
         {
-            IsMoving = true;
+            if (button.IsPressed)
+            {
+                IsMoving = true;
+                break;
+            }
+            else
+            {
+                IsMoving = false;
+            }
         }
-        else
-        {
-            IsMoving = false;
-        }
+
+
         if (IsMoving)
         {
             OpenDoor();
