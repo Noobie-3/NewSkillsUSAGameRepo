@@ -16,7 +16,8 @@ public class HeadDetection : MonoBehaviour
     Vector3 OrigSize;
     public float BounceAmmount;
     private bool CanBeHurt = true;
-
+    KeyCode JumpKey;
+    public float BouceMulti;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class HeadDetection : MonoBehaviour
         Parent = transform.parent.gameObject;
         OrigSize = Parent.transform.localScale;
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-
+        JumpKey = GC.Player.GetComponent<NewThirdPerson>().jumpKey;
     }
 
     // Update is called once per frame
@@ -70,8 +71,16 @@ public class HeadDetection : MonoBehaviour
 
     private void Bounce()
     {
+        if (Input.GetKey(JumpKey))
+        {
+            GC.Player.GetComponent<NewThirdPerson>().Jump(BounceAmmount * BouceMulti);
+            print("TestJump");
 
-        GC.Player.GetComponent<NewThirdPerson>().Jump(BounceAmmount);    
+        }
+        else
+        {
+            GC.Player.GetComponent<NewThirdPerson>().Jump(BounceAmmount);
+        }
     }
 
     private void Sqaush()

@@ -18,7 +18,7 @@ public class NewThirdPerson : MonoBehaviour
     [HideInInspector] public float sprintSpeed;
 
     [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode jumpKey ;
 
     [Header("Ground Check")]
     public float playerHeight;
