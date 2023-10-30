@@ -12,6 +12,7 @@ TagManager:
   - HitBox
   - HItBox
   - Ground
+  - 'InteractRange '
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,8 @@ public class Enemy_Stats : MonoBehaviour
 
     public int EHp;
     public float Attack;
+    public GameObject KillPartcle;
+
 
 
     // Start is called before the first frame update
@@ -20,7 +22,13 @@ public class Enemy_Stats : MonoBehaviour
     {
         if(EHp <= 0)
         {
+            ParticleEffect(gameObject.transform);
             Destroy(gameObject);
         }
+    }
+
+    public void ParticleEffect(Transform Enemy)
+    {
+        Instantiate(KillPartcle, Enemy.position, Enemy.rotation);
     }
 }

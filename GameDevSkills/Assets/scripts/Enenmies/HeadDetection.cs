@@ -18,6 +18,7 @@ public class HeadDetection : MonoBehaviour
     private bool CanBeHurt = true;
     KeyCode JumpKey;
     public float BouceMulti;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,4 +94,5 @@ public class HeadDetection : MonoBehaviour
             CanBeHurt = false;
 
     }
+
 }

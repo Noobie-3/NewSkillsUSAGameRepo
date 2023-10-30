@@ -62,6 +62,24 @@ public class GameController : MonoBehaviour
         }
         return HP;
     }
+    public float TakeDamage(float damage, float HP, GameObject Target, GameObject Particle_effect_Death)
+    {
+        HP -= damage;
+        print(HP);
+
+        if(HP <= 0 && Target != Player)
+        {
+            Instantiate(Particle_effect_Death, Target.transform.position, Quaternion.identity);
+            
+            Destroy(Target, 1);
+            Destroy(Particle_effect_Death, 1);
+        }
+        if (HP <= 0 && Target.tag == "Player")
+        {
+            DeathScene();
+        }
+        return HP;
+    }
 
     private void Awake()
     {
@@ -90,6 +108,8 @@ public class GameController : MonoBehaviour
             Player = GameObject.FindGameObjectWithTag("Player");
         }
     }
+
+
 
 
 

@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HurtEnemmy : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
+{ public GameController GC;
+    public Enemy_Stats Stats;
+    public  float AttackCoolDown;
+    public float DefaultAttackCoolDown;
+    public GameObject Particle_Death;
+
+    public void Awake()
     {
-        
+        GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
+        Stats = gameObject.transform.root.GetComponent<Enemy_Stats>();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject == GC.Player && AttackCoolDown <= 0 && gameObject.tag == "HurtBox" )
+        {
+           GC.PlayerHP = GC.TakeDamage(Stats.Attack, GC.PlayerHP, GC.Player, Particle_Death);
+            AttackCoolDown = DefaultAttackCoolDown;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if( AttackCoolDown >= 0 )
+        {
+            AttackCoolDown -= Time.deltaTime;
+        }
     }
 }

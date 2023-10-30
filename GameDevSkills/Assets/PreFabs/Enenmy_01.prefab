@@ -6348,6 +6348,7 @@ MonoBehaviour:
   TimeToBeSquashed: 1.5
   isSquashed: 0
   BounceAmmount: 10
+  BouceMulti: 0
 --- !u!1 &4421812310373301219
 GameObject:
   m_ObjectHideFlags: 0
@@ -6396,7 +6397,6 @@ GameObject:
   - component: {fileID: 2579932903338702286}
   - component: {fileID: -1190485465501384578}
   - component: {fileID: 757211667070246790}
-  - component: {fileID: 297508463}
   m_Layer: 0
   m_Name: Enenmy_01
   m_TagString: Enemy
@@ -6419,6 +6419,7 @@ Transform:
   - {fileID: 1204660347431164220}
   - {fileID: 2002664786362396437}
   - {fileID: 1994343252757437630}
+  - {fileID: 6434218979457202039}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6449,9 +6450,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.44850898
-  m_Height: 3.4204752
+  m_Height: 2.9323802
   m_Direction: 1
-  m_Center: {x: -0.30999994, y: 0.74523765, z: 0.010849567}
+  m_Center: {x: 0.02, y: 0.98928493, z: 0.010849567}
 --- !u!111 &1163954147195081827
 Animation:
   m_ObjectHideFlags: 0
@@ -6555,21 +6556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EHp: 10
-  Attack: 0
---- !u!114 &297508463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4434457702677363418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24aa82d94e794234f997cea3827d4d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EHp: 10
-  Attack: 0
+  Attack: 1
 --- !u!1 &4548718546156317340
 GameObject:
   m_ObjectHideFlags: 0
@@ -17322,6 +17309,84 @@ Transform:
   m_Father: {fileID: 8712586678647464000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8196959511408813748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6434218979457202039}
+  - component: {fileID: 2566135841944569835}
+  - component: {fileID: 1727115255474482856}
+  - component: {fileID: 5114193909339113407}
+  m_Layer: 0
+  m_Name: HurtBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6434218979457202039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196959511408813748}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.01, y: 1.48, z: 0}
+  m_LocalScale: {x: 2.1276596, y: 2.1276596, z: 2.1276596}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3367000646600986058}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2566135841944569835
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196959511408813748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1727115255474482856
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196959511408813748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.13426048
+  m_Height: 0.5103054
+  m_Direction: 1
+  m_Center: {x: -0.020706475, y: -0.62968516, z: 0.010849565}
+--- !u!114 &5114193909339113407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8196959511408813748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371c5876c2bf6ae4384407133e052595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GC: {fileID: 0}
+  Stats: {fileID: 0}
+  AttackCoolDown: 0
+  DefaultAttackCoolDown: 1
+  Particle_Death: {fileID: 4594694080803912350, guid: 786dc10e303d5444ab980181e45f7146, type: 3}
 --- !u!1 &8221166888932545690
 GameObject:
   m_ObjectHideFlags: 0
