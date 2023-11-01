@@ -15,8 +15,7 @@ public class ThirdPersonCam : MonoBehaviour
     public Transform combatLookAt;
 
     public GameObject thirdPersonCam;
-    public GameObject combatCam;
-    public GameObject topDownCam;
+
 
     public CameraStyle currentStyle;
     public enum CameraStyle
@@ -36,8 +35,7 @@ public class ThirdPersonCam : MonoBehaviour
     {
         // switch styles
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Combat);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchCameraStyle(CameraStyle.Topdown);
+
 
         // rotate orientation
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
@@ -65,13 +63,10 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void SwitchCameraStyle(CameraStyle newStyle)
     {
-        combatCam.SetActive(false);
         thirdPersonCam.SetActive(false);
-        topDownCam.SetActive(false);
 
         if (newStyle == CameraStyle.Basic) thirdPersonCam.SetActive(true);
-        if (newStyle == CameraStyle.Combat) combatCam.SetActive(true);
-        if (newStyle == CameraStyle.Topdown) topDownCam.SetActive(true);
+
 
         currentStyle = newStyle;
     }

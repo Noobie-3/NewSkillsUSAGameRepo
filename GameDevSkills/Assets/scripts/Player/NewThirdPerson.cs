@@ -13,35 +13,34 @@ public class NewThirdPerson : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     public bool readyToJump;
-
+    public Transform orientation;
+    float horizontalInput;
+    float verticalInput;
+    Vector3 moveDirection;
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
+    [HideInInspector] public bool IsSprinting;
 
     [Header("Keybinds")]
-    public KeyCode jumpKey ;
+    public KeyCode jumpKey;
+    public KeyCode sprintKey;
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     bool grounded;
-
-    public Transform orientation;
-
-    float horizontalInput;
-    float verticalInput;
-
-    Vector3 moveDirection;
-
-    Rigidbody rb;
-    Animator anim;
-
-    public float Gravity;
-
     Vector3 TempGravity;
     private bool IsFalling;
     public float GroundedTimer;
     public float TimeToJumpAfterGround;
     public bool JumpUsed;
+
+    [Header("Misc. Vars")]
+    Rigidbody rb;
+    Animator anim;
+
+
+
 
     private void Start()
     {
@@ -57,12 +56,14 @@ public class NewThirdPerson : MonoBehaviour
     private void Update()
     {
         // ground check
+
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .05f, whatIsGround);
 
         MyInput();
         SpeedControl();
 
         // handle drag
+
         if (grounded)
         {
             rb.drag = groundDrag;
@@ -72,17 +73,21 @@ public class NewThirdPerson : MonoBehaviour
         else
             rb.drag = 0;
 
-        if(!grounded && GroundedTimer < TimeToJumpAfterGround)
+        //Ledge Forgivness
+
+        if (!grounded && GroundedTimer < TimeToJumpAfterGround)
         {
             GroundedTimer += Time.deltaTime;
             readyToJump = true;
         }
-        else if( !grounded && GroundedTimer > TimeToJumpAfterGround)
+        else if (!grounded && GroundedTimer > TimeToJumpAfterGround)
         {
             readyToJump = false;
         }
-        
-        if (rb.velocity.y < 0 && !grounded)//Falling Animation
+
+        // accecelerate faster when falling
+
+        if (rb.velocity.y < 0 && !grounded)
         {
             IsFalling = true;
         }
@@ -92,13 +97,16 @@ public class NewThirdPerson : MonoBehaviour
             IsFalling = false;
         }
 
+        //Falling Animation
+
         if (IsFalling)
         {
             anim.SetBool("IsFalling", true);
 
-            
+
         }
-        else if(!IsFalling && anim.GetBool("IsFalling") == true)
+
+        else if (!IsFalling && anim.GetBool("IsFalling") == true)
         {
             anim.SetBool("IsFalling", false);
         }
@@ -123,17 +131,17 @@ public class NewThirdPerson : MonoBehaviour
             if (GroundedTimer <= TimeToJumpAfterGround | grounded)
             {
                 readyToJump = false;
-
                 Jump(jumpForce);
                 print(rb.velocity + "AfterJump");
+            }
 
-                
-/*                Invoke(nameof(ResetJump), jumpCooldown);
-*/            }
+            IsSprinting = Input.GetKey(sprintKey);
         }
-    
-        
-        
+
+
+
+
+
     }
 
     public void MovePlayer()
@@ -161,12 +169,13 @@ public class NewThirdPerson : MonoBehaviour
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
 
-        if(rb.velocity.y < 0)
+        if (rb.velocity.y < 0)
         {
 
             Physics.gravity = TempGravity * 1.9f;
-/*            print(Physics.gravity.y);
-*/        }
+            /*            print(Physics.gravity.y);
+            */
+        }
 
 
     }
