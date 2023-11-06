@@ -349,7 +349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 455, y: 413}
+  m_AnchoredPosition: {x: 340, y: 413}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6590687223636605009
@@ -624,6 +624,34 @@ PrefabInstance:
     - target: {fileID: 2722814301496217124, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713224589504461666, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: jumpForce
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713224589504461666, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: moveSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713224589504461666, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: walkSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713224589504461666, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: groundDrag
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713224589504461666, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: sprintSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713224589504461666, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: playerHeight
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713224589504461666, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: airMultiplier
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6892758570610271464, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
       propertyPath: m_RootOrder

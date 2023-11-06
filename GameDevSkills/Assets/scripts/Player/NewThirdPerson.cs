@@ -58,6 +58,7 @@ public class NewThirdPerson : MonoBehaviour
         // ground check
 
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .05f, whatIsGround);
+        Debug.DrawRay(transform.position, Vector3.down, Color.red,5);
 
         MyInput();
         SpeedControl();

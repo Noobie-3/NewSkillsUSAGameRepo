@@ -307,7 +307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EHp: 10
-  Attack: 0
+  Attack: 1
+  KillPartcle: {fileID: 0}
 --- !u!114 &8588323323466203782
 MonoBehaviour:
   m_ObjectHideFlags: 0
