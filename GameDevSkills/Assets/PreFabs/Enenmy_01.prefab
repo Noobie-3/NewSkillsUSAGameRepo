@@ -6307,7 +6307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4420963893881619329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.15, z: 0}
+  m_LocalPosition: {x: 0, y: 2.98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6325,8 +6325,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.1192267, y: 0.2805327, z: 1.4774768}
+  m_Center: {x: 0.03310344, y: -0.3242603, z: -0.011344729}
 --- !u!114 &4614473870777070986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6347,8 +6347,8 @@ MonoBehaviour:
   TimeSquashed: 0
   TimeToBeSquashed: 1.5
   isSquashed: 0
-  BounceAmmount: 10
-  BouceMulti: 0
+  BounceAmmount: 15
+  BouceMulti: 0.7
 --- !u!1 &4421812310373301219
 GameObject:
   m_ObjectHideFlags: 0
@@ -6450,9 +6450,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.44850898
-  m_Height: 2.9323802
+  m_Height: 3.0290892
   m_Direction: 1
-  m_Center: {x: 0.02, y: 0.98928493, z: 0.010849567}
+  m_Center: {x: 0.01999999, y: 1.0376395, z: 0.010849567}
 --- !u!111 &1163954147195081827
 Animation:
   m_ObjectHideFlags: 0
@@ -6555,8 +6555,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24aa82d94e794234f997cea3827d4d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EHp: 10
+  EHp: 1
   Attack: 1
+  KillPartcle: {fileID: 4594694080803912350, guid: 786dc10e303d5444ab980181e45f7146, type: 3}
+  currencyGiven: 1
+  GC: {fileID: 0}
+  ChanceToHeal: 100
+  RandomNumber: 0
+  HealingItem: {fileID: 0}
 --- !u!1 &4548718546156317340
 GameObject:
   m_ObjectHideFlags: 0
@@ -17323,7 +17329,7 @@ GameObject:
   - component: {fileID: 5114193909339113407}
   m_Layer: 0
   m_Name: HurtBox
-  m_TagString: Untagged
+  m_TagString: HurtBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17351,11 +17357,11 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8196959511408813748}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.4950859
+  m_Center: {x: 0, y: -0.004914105, z: 0}
 --- !u!136 &1727115255474482856
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -17387,6 +17393,7 @@ MonoBehaviour:
   AttackCoolDown: 0
   DefaultAttackCoolDown: 1
   Particle_Death: {fileID: 4594694080803912350, guid: 786dc10e303d5444ab980181e45f7146, type: 3}
+  HeadDetection: {fileID: 4614473870777070986}
 --- !u!1 &8221166888932545690
 GameObject:
   m_ObjectHideFlags: 0

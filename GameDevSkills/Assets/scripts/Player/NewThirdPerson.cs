@@ -57,8 +57,19 @@ public class NewThirdPerson : MonoBehaviour
     {
         // ground check
 
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .05f, whatIsGround);
-        Debug.DrawRay(transform.position, Vector3.down, Color.red,5);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f, whatIsGround);
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, playerHeight * .5f, whatIsGround))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+            Debug.Log("Did Hit");
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down)* playerHeight * .5f, Color.white);
+            Debug.Log("Did not Hit");
+        }
 
         MyInput();
         SpeedControl();

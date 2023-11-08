@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
 
     public float DefaultMoveSpeed = 10;//MOVEMENT VARS
     public float speed;
+    public int Current_Currency = 0;
 
 
 
@@ -107,6 +108,11 @@ public class GameController : MonoBehaviour
         {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
+    }
+
+    public void GainCurrency(int Amount)
+    {
+        Current_Currency += Amount;
     }
 
 

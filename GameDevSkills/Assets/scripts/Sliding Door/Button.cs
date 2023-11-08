@@ -5,7 +5,11 @@ using UnityEngine;
 public class Button : MonoBehaviour
 {
     public float Length;
+    public float DefaultLength;
     public bool IsPressed;
+
+    [HideInInspector]
+    [SerializeField] public List<Transform> waypoints = new List<Transform>();
     // Start is called before the first frame update
     public void BUttonPressLength( )
     {
@@ -21,9 +25,10 @@ public class Button : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && Length <= 0)
         {
             IsPressed = true;
+            Length = DefaultLength;
         }
         else
         {
@@ -35,6 +40,14 @@ public class Button : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             IsPressed = false;
+            BUttonPressLength();
+
+        }
+    }
+    private void Update()
+    {
+         if (Length >= 0) {
+            BUttonPressLength();
         }
     }
 }

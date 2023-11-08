@@ -8,7 +8,7 @@ public class HurtEnemmy : MonoBehaviour
     public  float AttackCoolDown;
     public float DefaultAttackCoolDown;
     public GameObject Particle_Death;
-
+    public HeadDetection HeadDetection;
     public void Awake()
     {
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
@@ -16,7 +16,7 @@ public class HurtEnemmy : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == GC.Player && AttackCoolDown <= 0 && gameObject.tag == "HurtBox" )
+        if(other.gameObject == GC.Player && AttackCoolDown <= 0 && gameObject.tag == "HurtBox" && HeadDetection.isSquashed == false )
         {
            GC.PlayerHP = GC.TakeDamage(Stats.Attack, GC.PlayerHP, GC.Player, Particle_Death);
             AttackCoolDown = DefaultAttackCoolDown;

@@ -63,7 +63,8 @@ MonoBehaviour:
   Stats: {fileID: 0}
   AttackCoolDown: 0
   DefaultAttackCoolDown: 5
-  Particle_Death: {fileID: 0}
+  Particle_Death: {fileID: 4594694080803912350, guid: 786dc10e303d5444ab980181e45f7146, type: 3}
+  HeadDetection: {fileID: 4614473870777070986}
 --- !u!1 &4420963893881619329
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +310,8 @@ MonoBehaviour:
   EHp: 10
   Attack: 1
   KillPartcle: {fileID: 0}
+  currencyGiven: 1
+  GC: {fileID: 0}
 --- !u!114 &8588323323466203782
 MonoBehaviour:
   m_ObjectHideFlags: 0
