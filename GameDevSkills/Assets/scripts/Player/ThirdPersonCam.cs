@@ -15,6 +15,8 @@ public class ThirdPersonCam : MonoBehaviour
     public Transform combatLookAt;
 
     public GameObject thirdPersonCam;
+    public GameController GC;
+
 
 
     public CameraStyle currentStyle;
@@ -29,10 +31,13 @@ public class ThirdPersonCam : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        GC = GameObject.FindWithTag("Gc").GetComponent<GameController>();
     }
 
     private void Update()
     {
+
+
         // switch styles
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
 

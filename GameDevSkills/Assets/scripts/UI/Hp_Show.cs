@@ -23,7 +23,7 @@ public class Hp_Show : MonoBehaviour
     void Update()
     {
         Hp = Controller.PlayerHP;
-        if (Hp == MaxHp && FullHp.activeInHierarchy == false)
+        if (Hp >= MaxHp && FullHp.activeInHierarchy == false)
         {
             FullHp.SetActive(true);
             FirstDropHp.SetActive(false);

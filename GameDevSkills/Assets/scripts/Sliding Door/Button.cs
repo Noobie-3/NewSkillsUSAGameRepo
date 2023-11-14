@@ -16,6 +16,7 @@ public class Button : MonoBehaviour
         if (Length > 0)
         {
             Length -= Time.deltaTime;
+            IsPressed = true;
         }
         else if (Length <= 0) {
             IsPressed = false;
@@ -23,9 +24,9 @@ public class Button : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && Length <= 0)
+        if (other.gameObject.tag == "Player")
         {
             IsPressed = true;
             Length = DefaultLength;
@@ -39,15 +40,20 @@ public class Button : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            IsPressed = false;
-            BUttonPressLength();
-
+            Length = DefaultLength;
         }
     }
     private void Update()
     {
-         if (Length >= 0) {
+        if (Length > 0) {
             BUttonPressLength();
         }
+        else if(Length <= 0)
+        {
+            IsPressed = false;
+        }
+        
+
+        
     }
 }
