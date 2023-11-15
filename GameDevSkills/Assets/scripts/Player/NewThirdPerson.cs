@@ -1,3 +1,4 @@
+using Kino;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,8 +43,10 @@ public class NewThirdPerson : MonoBehaviour
 
 
 
+
     private void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 

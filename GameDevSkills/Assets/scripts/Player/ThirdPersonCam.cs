@@ -1,6 +1,8 @@
+using Kino;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class ThirdPersonCam : MonoBehaviour
 {
@@ -16,9 +18,9 @@ public class ThirdPersonCam : MonoBehaviour
 
     public GameObject thirdPersonCam;
     public GameController GC;
-
-
-
+    public AnalogGlitch aG;
+    public DigitalGlitch DG;
+    PostProcessVolume PPV;
     public CameraStyle currentStyle;
     public enum CameraStyle
     {
@@ -31,12 +33,26 @@ public class ThirdPersonCam : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        GC = GameObject.FindWithTag("Gc").GetComponent<GameController>();
+        aG = gameObject.GetComponent<AnalogGlitch>();
+        DG = gameObject.GetComponent<DigitalGlitch>();
+        PPV = GameObject.FindWithTag("Effects").GetComponent<PostProcessVolume>();
     }
 
     private void Update()
     {
+        if(gameObject.GetComponent<TimeRewinderV2>().Isrewinding)
+        {
+            aG.enabled = true;
+            DG.enabled = true;
+            PPV.enabled = true;
+        }
+        else
+        {
+            aG.enabled = false;
+            DG.enabled = false;
+            PPV.enabled = false;
 
+        }
 
         // switch styles
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
