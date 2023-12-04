@@ -28,7 +28,7 @@ public class TimeRewinderV2 : MonoBehaviour
     public string blendParameterV = "vertical"; // Name of the blend parameter
 
     float blendValueV;
-
+    public bool CanRewind;
 
     private void Start()
     {
@@ -48,50 +48,57 @@ public class TimeRewinderV2 : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && currentRecordingTime >= maxRecordingDuration)
+        if (CanRewind)
         {
-            StartRewind();
-/*            if (gameObject.GetComponent<Rigidbody>())
+            if (Input.GetKeyDown(KeyCode.R) && currentRecordingTime >= maxRecordingDuration)
             {
-                rb.isKinematic = true;
-            }*/
-        }
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            StopRewind();
-/*            if (gameObject.GetComponent<Rigidbody>())
+                StartRewind();
+                /*            if (gameObject.GetComponent<Rigidbody>())
+                            {
+                                rb.isKinematic = true;
+                            }*/
+            }
+            if (Input.GetKeyUp(KeyCode.R))
             {
-                rb.isKinematic = false;
-            }*/
-        }
+                StopRewind();
+                /*            if (gameObject.GetComponent<Rigidbody>())
+                            {
+                                rb.isKinematic = false;
+                            }*/
+            }
 
-        if (currentRecordingTime < maxRecordingDuration && !Isrewinding)
-        {
-            currentRecordingTime += Time.deltaTime;
-        }
-        else if (currentRecordingTime >= maxRecordingDuration)
-        {
-            currentRecordingTime = maxRecordingDuration;
-        }
+            if (currentRecordingTime < maxRecordingDuration && !Isrewinding)
+            {
+                currentRecordingTime += Time.deltaTime;
+            }
+            else if (currentRecordingTime >= maxRecordingDuration)
+            {
+                currentRecordingTime = maxRecordingDuration;
+            }
 
-        // Check if total recorded time exceeds the maximum duration
-        totalRecordedTime = GetTotalRecordedTime();
-        if (totalRecordedTime > maxRecordingDuration)
-        {
-            // Remove the oldest recorded data point
-            PointsInTime.RemoveAt(PointsInTime.Count - 1);
+            // Check if total recorded time exceeds the maximum duration
+            totalRecordedTime = GetTotalRecordedTime();
+            if (totalRecordedTime > maxRecordingDuration)
+            {
+                // Remove the oldest recorded data point
+                PointsInTime.RemoveAt(PointsInTime.Count - 1);
+            }
         }
+    
     }
 
     private void FixedUpdate()
-    {
-        if (Isrewinding)
+    {if (CanRewind)
         {
-            Rewind();
-        }
-        else
-        {
-            Record();
+
+            if (Isrewinding)
+            {
+                Rewind();
+            }
+            else
+            {
+                Record();
+            }
         }
     }
 

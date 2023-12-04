@@ -31,6 +31,7 @@ Shader "Zololgo/Sci-Fi Hologram"
 			#pragma vertex vert
 			#pragma fragment frag 
 			#include "UnityCG.cginc"
+			
 			#pragma multi_compile SCAN2_OFF SCAN2_ON
 			sampler2D _MainTex, _Scanlines, _Scan2;
 			float4 _Color, _RimColor, _MainTex_ST, _Scanlines_ST, _Scan2_ST;
