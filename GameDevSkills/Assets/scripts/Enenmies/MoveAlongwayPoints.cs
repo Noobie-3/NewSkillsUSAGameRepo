@@ -6,13 +6,14 @@ public class MoveAlongwayPoints : MonoBehaviour
 {
     public List<Vector3> WayPoints;
     public float MoveSpeed;
-    public Vector3 Current_Target;
-    public Vector3 FirstPos;
-    public Vector3 LastPos;
-    public bool IsMoving;
-    public int currentWayPoint;
+    private Vector3 Current_Target;
+    private Vector3 FirstPos;
+    private Vector3 LastPos;
+    private bool IsMoving = true;
+    private int currentWayPoint;
     public bool UseY;
     public bool CanMove;
+    public bool canBeInterupted;
 
     // Start is called before the first frame update
     void Start()
@@ -59,11 +60,21 @@ public class MoveAlongwayPoints : MonoBehaviour
     }
     private void OnCollisionStay(Collision collision)
     {
-        CanMove = false;
+
+        if (canBeInterupted) {
+            CanMove = false;
+
+        }
+
     }
     private void OnCollisionExit(Collision collision)
     {
-       CanMove = true;
+
+        if(canBeInterupted)
+        {
+            CanMove = true;
+
+        }
     }
 
 }
