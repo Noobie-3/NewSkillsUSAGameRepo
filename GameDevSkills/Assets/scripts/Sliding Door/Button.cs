@@ -8,8 +8,6 @@ public class Button : MonoBehaviour
     public float DefaultLength;
     public bool IsPressed;
 
-    [HideInInspector]
-    [SerializeField] public List<Transform> waypoints = new List<Transform>();
     // Start is called before the first frame update
     public void BUttonPressLength( )
     {

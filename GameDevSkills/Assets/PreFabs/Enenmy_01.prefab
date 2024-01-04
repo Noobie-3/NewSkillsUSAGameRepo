@@ -6543,6 +6543,7 @@ MonoBehaviour:
   currentRecordingTime: 0
   blendParameterH: horizontal
   blendParameterV: vertical
+  CanRewind: 0
 --- !u!114 &757211667070246790
 MonoBehaviour:
   m_ObjectHideFlags: 0

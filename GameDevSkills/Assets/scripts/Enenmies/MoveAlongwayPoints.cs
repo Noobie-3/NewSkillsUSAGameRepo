@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class MoveAlongwayPoints : MonoBehaviour
@@ -14,6 +15,10 @@ public class MoveAlongwayPoints : MonoBehaviour
     public bool UseY;
     public bool CanMove;
     public bool canBeInterupted;
+    [SerializeField] private bool ReturnFlag;
+    [SerializeField] private bool CanReturn;
+    [SerializeField]
+    private bool DestoryAtEnd;
 
     // Start is called before the first frame update
     void Start()
@@ -51,9 +56,19 @@ public class MoveAlongwayPoints : MonoBehaviour
                 else
                 {
                     // All waypoints reached, reset to initial position
+                    if(DestoryAtEnd)
+                    {
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        if(CanReturn && ReturnFlag) { 
+                            Current_Target = FirstPos;
+                            currentWayPoint = 0;
+                        }
 
-                    Current_Target = FirstPos;
-                    currentWayPoint = 0;
+                    }
+
                 }
             }
         }

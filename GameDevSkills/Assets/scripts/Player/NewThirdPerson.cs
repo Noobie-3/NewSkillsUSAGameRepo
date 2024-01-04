@@ -18,6 +18,7 @@ public class NewThirdPerson : MonoBehaviour
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
+    public List <GameObject> Inventory_items;
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
     [HideInInspector] public bool IsSprinting;

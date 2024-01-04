@@ -1,0 +1,39 @@
+# ProBuilder 5.0.7
+# https://unity3d.com/unity/features/worldbuilding/probuilder
+# 12/14/2023 2:46:34 PM
+
+mtllib ./FloorWTexture_01.mtl
+o FloorWTexture_01
+
+g 0
+v 0 0 5
+v -5 0 5
+v 0 1 5
+v -5 1 5
+v -5 0 0
+v -5 1 0
+v 0 0 0
+v 0 1 0
+
+vt 0 0
+vt -1 0
+vt 0 1
+vt -1 1
+vt 1 0
+vt 1 1
+
+vn 0 0 5
+vn -5 0 0
+vn 0 0 -5
+vn 5 0 0
+vn 0 1 0
+vn 0 -1 0
+
+usemtl 004_basecolor
+f 3/3/1 4/4/1 2/2/1 1/1/1
+f 4/6/2 6/3/2 5/1/2 2/5/2
+f 6/6/3 8/3/3 7/1/3 5/5/3
+f 8/3/4 3/4/4 1/2/4 7/1/4
+f 8/1/5 6/5/5 4/6/5 3/3/5
+f 1/3/6 2/4/6 5/2/6 7/1/6
+
