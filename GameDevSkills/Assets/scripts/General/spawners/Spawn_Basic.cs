@@ -8,33 +8,44 @@ public class Spawn_Basic : MonoBehaviour
 {
 
     [SerializeField]
-    private  GameObject spawnableItem;
+    private GameObject spawnableItem;
     [SerializeField] private float Interval;
     [SerializeField] private float DefaultInterval;
     [SerializeField] private Vector3 Direction;
     [SerializeField] private Vector3 StartDir;
+    [SerializeField] private TimeRewinderV2 tr;
     // Start is called before the first frame update
     void Start()
     {
         StartDir = transform.position;
+        tr = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeRewinderV2>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Interval > 0)
+        if (tr.Isrewinding == false)
         {
-            Interval -= Time.deltaTime;
-        }
-        else { Interval = DefaultInterval;
-            Spawn_Object();
+            if (Interval > 0)
+            {
+                Interval -= Time.deltaTime;
+            }
+            else
+            {
+                Interval = DefaultInterval;
+                Spawn_Object();
+            }
         }
     }
+
+
+
 
     private void Spawn_Object()
     {
         Instantiate(spawnableItem, StartDir + Direction, Quaternion.identity);
     }
 
-    
+
+
 }

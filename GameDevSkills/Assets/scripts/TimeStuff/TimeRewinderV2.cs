@@ -17,6 +17,7 @@ public class TimeRewinderV2 : MonoBehaviour
     public bool Record_Velocity;
     public bool Record_BlendState; // New flag to record blend state
     public bool Record_Cam; // record cam postion and rotation
+    public bool Record_Points;
     public CinemachineFreeLook Freecam;
 
     // Maximum recording duration in seconds
@@ -29,7 +30,8 @@ public class TimeRewinderV2 : MonoBehaviour
 
     float blendValueV;
     public bool CanRewind;
-
+    public NewThirdPerson ntp;
+    public MoveAlongwayPoints PointsToTrack;
     private void Start()
     {
         PointsInTime = new List<PointInTime>();
@@ -43,11 +45,23 @@ public class TimeRewinderV2 : MonoBehaviour
             rb = GetComponent<Rigidbody>();
             
         }
+        
+        if(GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>())
+        {
+            ntp = GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>();
+            
+        }
+        if(GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>())
+        {
+            PointsToTrack = GameObject.FindWithTag("Player").GetComponent<MoveAlongwayPoints>();
+            
+        }
         Freecam = GameObject.Find("CM FreeLook1").GetComponent<CinemachineFreeLook>();
     }
 
     private void Update()
     {
+        CanRewind = ntp.canRewind;
         if (CanRewind)
         {
             if (Input.GetKeyDown(KeyCode.R) && currentRecordingTime >= maxRecordingDuration)
@@ -112,10 +126,17 @@ public class TimeRewinderV2 : MonoBehaviour
             float blendValueV = animator.GetFloat(blendParameterV); // Get the blend value
             float LookDirX = Freecam.m_XAxis.Value;
             float LookDirY = Freecam.m_YAxis.Value;
+            if (PointsToTrack != null)
+            {
+                int Point = PointsToTrack.currentWayPoint;
+                PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState, Record_Cam, Point));
 
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState, Record_Cam));
-            print("StateAdded");
-
+            }
+            else
+            {
+                PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState, Record_Cam));
+                print("StateAdded");
+            }
         }
 
         else if(!Record_BlendState && !Record_Velocity )
@@ -171,6 +192,10 @@ public class TimeRewinderV2 : MonoBehaviour
                  animator.SetFloat( blendParameterV, PointsInTime[0].blendValueV);
                 print(PointsInTime[0].blendValueV);
                  animator.SetFloat( blendParameterH, PointsInTime[0].blendValueH);
+            }
+            if(PointsToTrack != null)
+            {
+                PointsToTrack.currentWayPoint = PointsInTime[0].Points;
             }
             PointsInTime.RemoveAt(0);
         }

@@ -1,3 +1,4 @@
+
 using Kino;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,6 @@ public class NewThirdPerson : MonoBehaviour
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
-    public List <GameObject> Inventory_items;
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
     [HideInInspector] public bool IsSprinting;
@@ -40,6 +40,7 @@ public class NewThirdPerson : MonoBehaviour
     [Header("Misc. Vars")]
     Rigidbody rb;
     Animator anim;
+    public bool canRewind;
 
 
 
@@ -47,7 +48,7 @@ public class NewThirdPerson : MonoBehaviour
 
     private void Start()
     {
-        
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -71,7 +72,7 @@ public class NewThirdPerson : MonoBehaviour
         }
         else
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down)* playerHeight * .5f, Color.white);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * playerHeight * .5f, Color.white);
             Debug.Log("Did not Hit");
         }
 

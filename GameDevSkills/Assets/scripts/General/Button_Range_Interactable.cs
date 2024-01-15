@@ -1,3 +1,4 @@
+
 using Den.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,17 +16,17 @@ public class Button_Range_Interactable : MonoBehaviour
     public GameObject TextMesh_Obj;
     public bool Requires_Object;
     public GameObject Required_Object;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator[] animators;
     [SerializeField] private string WhatTextToDisplay;
     [SerializeField] private string WhatTextToDisplay_OptionON;
     [SerializeField] private string WhatTextToDisplay_OptionOFF;
-    private bool isOn;
+    [SerializeField] private bool isOn;
+    [SerializeField] private NewThirdPerson ntp;
     [HideInInspector]
     private void Start()
     {
         TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
         TextMesh_Obj.SetActive(false);
-
     }
     public void BUttonPressLength()
     {
@@ -44,7 +45,8 @@ public class Button_Range_Interactable : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if(other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "Player")
+        {
             TextMesh_Obj.SetActive(true);
 
             if (Input.GetKey(interact_Key) && Length <= 0)
@@ -57,25 +59,39 @@ public class Button_Range_Interactable : MonoBehaviour
                     if (isOn == true)
                     {
                         isOn = false;
-                        animator.SetBool("Button_Pressed", false);
+                        for (int i = 0; i < animators.Length; i++)
+                        {
+                            animators[i].SetBool("Button_Pressed", false);
+
+                        }
                         WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
+                        print("Help me");
                     }
                     else if (isOn == false)
                     {
                         isOn = true;
-                        animator.SetBool("Button_Pressed", true);
+                        for (int i = 0; i < animators.Length; i++)
+                        {
+                            animators[i].SetBool("Button_Pressed", true);
+
+                        }
                         WhatTextToDisplay = WhatTextToDisplay_OptionON;
+                        print("Help me");
 
                     }
-                }
-                else
 
-    if (isOn == true)
+                }
+
+                else
+                if (isOn == true)
                 {
-                    TextMesh_Obj.SetActive(false);
 
                     isOn = false;
-                    animator.SetBool("Button_Pressed", false);
+                    for (int i = 0; i < animators.Length; i++)
+                    {
+                        animators[i].SetBool("Button_Pressed", false);
+
+                    }
                     WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
                 }
                 else if (isOn == false)
@@ -84,12 +100,17 @@ public class Button_Range_Interactable : MonoBehaviour
                     TextMesh_Obj.SetActive(false);
                     print("should Be Off");
 
-                    animator.SetBool("Button_Pressed", true);
+                    for (int i = 0; i < animators.Length; i++)
+                    {
+                        animators[i].SetBool("Button_Pressed", true);
+
+                    }
                     WhatTextToDisplay = WhatTextToDisplay_OptionON;
 
                 }
-
             }
+
+
         }
     }
     private void OnTriggerExit(Collider other)

@@ -11,7 +11,7 @@ public class MoveAlongwayPoints : MonoBehaviour
     private Vector3 FirstPos;
     private Vector3 LastPos;
     private bool IsMoving = true;
-    private int currentWayPoint;
+    public int currentWayPoint;
     public bool UseY;
     public bool CanMove;
     public bool canBeInterupted;
