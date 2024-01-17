@@ -19,10 +19,12 @@ public class MoveAlongwayPoints : MonoBehaviour
     [SerializeField] private bool CanReturn;
     [SerializeField]
     private bool DestoryAtEnd;
+    private TimeRewinderV2 Tr2;
 
     // Start is called before the first frame update
     void Start()
     {
+        Tr2 = GameObject.FindWithTag("Player").GetComponent<TimeRewinderV2>();
         if(UseY)
         {
             Current_Target = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -40,38 +42,45 @@ public class MoveAlongwayPoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentWayPoint < WayPoints.Count & CanMove)
-        {Current_Target = LastPos + WayPoints[currentWayPoint];
-            float step = MoveSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, Current_Target, step);
+        if (!Tr2.Isrewinding)
+        {
 
-            if (transform.position == Current_Target)
+
+            if (currentWayPoint < WayPoints.Count & CanMove)
             {
-                LastPos = transform.position;
-                currentWayPoint++;
-                if (currentWayPoint < WayPoints.Count)
+                Current_Target = LastPos + WayPoints[currentWayPoint];
+                float step = MoveSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, Current_Target, step);
+
+                if (transform.position == Current_Target)
                 {
-                    Current_Target = WayPoints[currentWayPoint];
-                }
-                else
-                {
-                    // All waypoints reached, reset to initial position
-                    if(DestoryAtEnd)
+                    LastPos = transform.position;
+                    currentWayPoint++;
+                    if (currentWayPoint < WayPoints.Count)
                     {
-                        Destroy(gameObject);
+                        Current_Target = WayPoints[currentWayPoint];
                     }
                     else
                     {
-                        if(CanReturn && ReturnFlag) { 
-                            Current_Target = FirstPos;
-                            currentWayPoint = 0;
+                        // All waypoints reached, reset to initial position
+                        if (DestoryAtEnd)
+                        {
+                            Destroy(gameObject);
+                        }
+                        else
+                        {
+                            if (CanReturn && ReturnFlag)
+                            {
+                                Current_Target = FirstPos;
+                                currentWayPoint = 0;
+                            }
+
                         }
 
                     }
-
                 }
             }
-        }
+        }                                                                  
     }
     private void OnCollisionStay(Collision collision)
     {

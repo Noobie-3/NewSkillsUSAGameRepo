@@ -46,7 +46,7 @@ public class PointInTime
 
     }
     public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 _Velocity, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_vel, bool set_rotation, bool set_anim, bool Set_Cam, int Point) {
-
+        //Points Variant
        if(set_pos == true)
             position = _position;
         if (set_vel == true)
@@ -95,6 +95,31 @@ public class PointInTime
             YLook = yCam;
 
         }
+
+    }
+
+    public PointInTime(Vector3 _position, Quaternion _rotation, float xcam, float yCam, bool set_pos, bool set_rotation, bool Set_Cam, int Point) {
+    //PointsVariant
+       if(set_pos == true)
+            position = _position;
+        if (set_rotation == true)
+            rotation = _rotation;
+
+
+        if (Set_Cam)
+        {
+            XLook = xcam;
+            YLook = yCam;
+
+        }
+        try
+        {
+            Points = Point;
+        }
+        catch
+        {
+            print("Points Not Recorded");
+        }
     }
     public PointInTime(Vector3 _position, Quaternion _rotation, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_rotation, bool set_anim, bool Set_Cam) {
 
@@ -113,6 +138,31 @@ public class PointInTime
 
         }
     }
+    public PointInTime(Vector3 _position, Quaternion _rotation, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_rotation, bool set_anim, bool Set_Cam, int Point) {
+        //Points Variation
+       if(set_pos == true)
+            position = _position;
+        if (set_rotation == true)
+            rotation = _rotation;
+        if (set_anim == true)
+            blendValueH = BlendH;
+            blendValueV = BlendV;
+
+        if (Set_Cam)
+        {
+            XLook = xcam;
+            YLook = yCam;
+
+        }
+        try
+        {
+            Points = Point;
+        }
+        catch
+        {
+            print("Points Not Recorded");
+        }
+    }
     public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 Vel, bool set_pos, float xcam, float yCam, bool set_rotation, bool set_vel, bool Set_Cam) {
 
        if(set_pos == true)
@@ -127,6 +177,31 @@ public class PointInTime
             XLook = xcam;
             YLook = yCam;
 
+        }
+    }
+
+    public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 Vel, bool set_pos, float xcam, float yCam, bool set_rotation, bool set_vel, bool Set_Cam, int Point) {
+        //Points Variaton
+       if(set_pos == true)
+            position = _position;
+        if (set_rotation == true)
+            rotation = _rotation;
+        if (set_vel == true)
+             Velocity = Vel;
+
+        if (Set_Cam)
+        {
+            XLook = xcam;
+            YLook = yCam;
+
+        }
+        try
+        {
+            Points = Point;
+        }
+        catch
+        {
+            print("Points Not Recorded");
         }
     }
 

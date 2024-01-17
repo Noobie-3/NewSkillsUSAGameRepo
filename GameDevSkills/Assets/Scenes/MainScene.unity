@@ -12005,7 +12005,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1457283004, guid: 976d3e3c9d7704d4abfe5f862a9e74b9, type: 3}
       propertyPath: canRewind
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1457283004, guid: 976d3e3c9d7704d4abfe5f862a9e74b9, type: 3}
       propertyPath: playerHeight
@@ -21889,7 +21889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelMusic:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: c475b7a99b58cae47bd157cc136af1f9, type: 3}
 --- !u!4 &616619873 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bdc054c6258899149bf7b7abb289b728, type: 3}
@@ -33904,7 +33904,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866783959}
-  m_LocalRotation: {x: 0.13870127, y: 0.000000008520034, z: -0.0000000011932734, w: 0.9903343}
+  m_LocalRotation: {x: 0.13870127, y: 0.000000008499923, z: -0.000000001190457, w: 0.9903343}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -58418,7 +58418,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512719237}
-  m_LocalRotation: {x: 0.092521094, y: 0.0000000074186235, z: -6.893359e-10, w: 0.99571073}
+  m_LocalRotation: {x: 0.09252109, y: -4.4027957e-16, z: 2.6664086e-17, w: 0.99571073}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

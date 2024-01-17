@@ -103,12 +103,15 @@ MonoBehaviour:
   Record_Velocity: 0
   Record_BlendState: 0
   Record_Cam: 0
+  Record_Points: 1
   Freecam: {fileID: 0}
   maxRecordingDuration: 5
   currentRecordingTime: 0
   blendParameterH: horizontal
   blendParameterV: vertical
   CanRewind: 1
+  ntp: {fileID: 0}
+  PointsToTrack: {fileID: 0}
 --- !u!114 &-8540381176365670169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +133,7 @@ MonoBehaviour:
   - {x: 14.5, y: 0, z: 0}
   - {x: 0, y: 0, z: -27}
   MoveSpeed: 10
+  currentWayPoint: 0
   UseY: 1
   CanMove: 1
   canBeInterupted: 0

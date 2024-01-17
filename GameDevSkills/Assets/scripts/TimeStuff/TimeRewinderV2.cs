@@ -51,9 +51,9 @@ public class TimeRewinderV2 : MonoBehaviour
             ntp = GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>();
             
         }
-        if(GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>())
+        if(gameObject.GetComponent<MoveAlongwayPoints>() != null)
         {
-            PointsToTrack = GameObject.FindWithTag("Player").GetComponent<MoveAlongwayPoints>();
+            PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
             
         }
         Freecam = GameObject.Find("CM FreeLook1").GetComponent<CinemachineFreeLook>();
@@ -120,7 +120,7 @@ public class TimeRewinderV2 : MonoBehaviour
     {
 
 
-        if(Record_BlendState && Record_Velocity)
+        if (Record_BlendState && Record_Velocity)
         {
             float blendValueH = animator.GetFloat(blendParameterH); // Get the blend value
             float blendValueV = animator.GetFloat(blendParameterV); // Get the blend value
@@ -139,13 +139,26 @@ public class TimeRewinderV2 : MonoBehaviour
             }
         }
 
-        else if(!Record_BlendState && !Record_Velocity )
+        else if (!Record_BlendState && !Record_Velocity)
         {
-            float LookDirX = Freecam.m_XAxis.Value;
-            float LookDirY = Freecam.m_YAxis.Value;
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam));
+            {
+                if (PointsToTrack != null)
+                {
+                    int Point = PointsToTrack.currentWayPoint;
+                    float LookDirX = Freecam.m_XAxis.Value;
+                    float LookDirY = Freecam.m_YAxis.Value;
+                    PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam, Point));
+                }
+                else
+                {
+
+                    float LookDirX = Freecam.m_XAxis.Value;
+                    float LookDirY = Freecam.m_YAxis.Value;
+                    PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam));
+                }
+            }
         }
-        else if(!Record_Velocity && Record_BlendState)
+        else if (!Record_Velocity && Record_BlendState)
         {
             float LookDirX = Freecam.m_XAxis.Value;
             float LookDirY = Freecam.m_YAxis.Value;
@@ -155,14 +168,15 @@ public class TimeRewinderV2 : MonoBehaviour
             PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_BlendState, Record_Cam));
 
         }
-        else if(Record_Velocity && !Record_BlendState)
+        else if (Record_Velocity && !Record_BlendState)
         {
             float LookDirX = Freecam.m_XAxis.Value;
             float LookDirY = Freecam.m_YAxis.Value;
-            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity , Record_Position, LookDirX, LookDirY, Record_Rotation, Record_Velocity, Record_Cam));
+            PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, Record_Position, LookDirX, LookDirY, Record_Rotation, Record_Velocity, Record_Cam));
 
         }
-    }
+        }
+    
 
     private void Rewind()
     {
@@ -179,6 +193,7 @@ public class TimeRewinderV2 : MonoBehaviour
             {
                 transform.position = PointsInTime[0].position;
             }
+            if (Record_Rotation)
             if (Record_Rotation)
             {
                 transform.rotation = PointsInTime[0].rotation;
