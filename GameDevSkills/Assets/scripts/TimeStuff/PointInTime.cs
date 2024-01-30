@@ -12,6 +12,10 @@ public class PointInTime
     public float XLook;
     public float YLook;
     public int Points;
+    public Vector3 Last_Pos;
+    public Vector3 Current_T;
+    public Vector3 Last_pos;
+
 
 
     public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 _Velocity, float BlendH, float BlendV) {
@@ -45,7 +49,7 @@ public class PointInTime
         }
 
     }
-    public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 _Velocity, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_vel, bool set_rotation, bool set_anim, bool Set_Cam, int Point) {
+    public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 _Velocity, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_vel, bool set_rotation, bool set_anim, bool Set_Cam, int Point, Vector3 Current_t, Vector3 Last_Pos) {
         //Points Variant
        if(set_pos == true)
             position = _position;
@@ -60,10 +64,11 @@ public class PointInTime
         try
         {
             Points = Point;
+            Current_T = Current_t;
+            Last_pos = Last_Pos;
         }
         catch
         {
-            print("Points Not Recorded");
         }
 
         
@@ -98,7 +103,7 @@ public class PointInTime
 
     }
 
-    public PointInTime(Vector3 _position, Quaternion _rotation, float xcam, float yCam, bool set_pos, bool set_rotation, bool Set_Cam, int Point) {
+    public PointInTime(Vector3 _position, Quaternion _rotation, float xcam, float yCam, bool set_pos, bool set_rotation, bool Set_Cam, int Point, Vector3 Current_t, Vector3 Last_Pos) {
     //PointsVariant
        if(set_pos == true)
             position = _position;
@@ -112,14 +117,11 @@ public class PointInTime
             YLook = yCam;
 
         }
-        try
-        {
+ 
             Points = Point;
-        }
-        catch
-        {
-            print("Points Not Recorded");
-        }
+            Current_T = Current_t;
+            Last_pos = Last_Pos;
+
     }
     public PointInTime(Vector3 _position, Quaternion _rotation, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_rotation, bool set_anim, bool Set_Cam) {
 
@@ -138,7 +140,7 @@ public class PointInTime
 
         }
     }
-    public PointInTime(Vector3 _position, Quaternion _rotation, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_rotation, bool set_anim, bool Set_Cam, int Point) {
+    public PointInTime(Vector3 _position, Quaternion _rotation, float BlendH, float BlendV, float xcam, float yCam, bool set_pos, bool set_rotation, bool set_anim, bool Set_Cam, int Point, Vector3 Current_t, Vector3 Last_Pos) {
         //Points Variation
        if(set_pos == true)
             position = _position;
@@ -154,14 +156,11 @@ public class PointInTime
             YLook = yCam;
 
         }
-        try
-        {
+
             Points = Point;
-        }
-        catch
-        {
-            print("Points Not Recorded");
-        }
+            Current_T = Current_t;
+            Last_pos = Last_Pos;
+
     }
     public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 Vel, bool set_pos, float xcam, float yCam, bool set_rotation, bool set_vel, bool Set_Cam) {
 
@@ -180,7 +179,7 @@ public class PointInTime
         }
     }
 
-    public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 Vel, bool set_pos, float xcam, float yCam, bool set_rotation, bool set_vel, bool Set_Cam, int Point) {
+    public PointInTime(Vector3 _position, Quaternion _rotation, Vector3 Vel, bool set_pos, float xcam, float yCam, bool set_rotation, bool set_vel, bool Set_Cam, int Point, Vector3 Current_t, Vector3 Last_Pos) {
         //Points Variaton
        if(set_pos == true)
             position = _position;
@@ -195,14 +194,11 @@ public class PointInTime
             YLook = yCam;
 
         }
-        try
-        {
+
             Points = Point;
-        }
-        catch
-        {
-            print("Points Not Recorded");
-        }
+            Current_T = Current_t;
+            Last_pos = Last_Pos;
+
     }
 
 }

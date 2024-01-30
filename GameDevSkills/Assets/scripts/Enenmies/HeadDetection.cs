@@ -60,8 +60,6 @@ public class HeadDetection : MonoBehaviour
     { 
         if (CanBeHurt)
         {
-            print(other.gameObject.name);
-            print(other.gameObject.transform.parent + "Parent");
             if (other.gameObject == GC.Player && rb.velocity.y < 0)
             {
                 Sqaush();

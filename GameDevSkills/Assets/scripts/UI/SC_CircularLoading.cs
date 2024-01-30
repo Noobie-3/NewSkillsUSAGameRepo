@@ -10,10 +10,11 @@ public class SC_CircularLoading : MonoBehaviour
     [Range(0, 1)]
     public float loadingProgress = 0;
     GameController GC;
+    NewThirdPerson ntp;
     // Update is called once per frame
     void Update()
     {
-        loadingProgress = (float)((GC.Player.GetComponent<TimeRewinderV2>().currentRecordingTime / GC.Player.GetComponent<TimeRewinderV2>().maxRecordingDuration));
+        loadingProgress = (float)((GC.Player.GetComponent<TimeRewinderV2>().ntp.currentRecordingTime / GC.Player.GetComponent<TimeRewinderV2>().ntp.maxRecordingDuration));
         loadingImage.fillAmount = loadingProgress;
         if (loadingProgress < 1)
         {
@@ -27,7 +28,7 @@ public class SC_CircularLoading : MonoBehaviour
     private void Start()
     {
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-
+        ntp = GameObject.FindGameObjectWithTag("Player").GetComponent<NewThirdPerson>();
 
     }
 }

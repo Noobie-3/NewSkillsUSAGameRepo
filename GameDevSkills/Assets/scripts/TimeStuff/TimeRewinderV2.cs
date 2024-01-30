@@ -51,7 +51,7 @@ public class TimeRewinderV2 : MonoBehaviour
             ntp = GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>();
             
         }
-        if(gameObject.GetComponent<MoveAlongwayPoints>() != null)
+        if(GetComponent<MoveAlongwayPoints>() != null)
         {
             PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
             
@@ -61,10 +61,20 @@ public class TimeRewinderV2 : MonoBehaviour
 
     private void Update()
     {
+        if (GetComponent<MoveAlongwayPoints>() != null && PointsToTrack != null )
+        {
+            PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
+
+        }
+        if(gameObject.tag == "Conveyor_item")
+        {
+            print(GetComponent<MoveAlongwayPoints>() + gameObject.name);
+        }
         CanRewind = ntp.canRewind;
+        Isrewinding = ntp.isrewinding;
         if (CanRewind)
         {
-            if (Input.GetKeyDown(KeyCode.R) && currentRecordingTime >= maxRecordingDuration)
+            if (Input.GetKeyDown(KeyCode.R) && ntp.currentRecordingTime >= ntp.maxRecordingDuration)
             {
                 StartRewind();
                 /*            if (gameObject.GetComponent<Rigidbody>())
@@ -81,17 +91,9 @@ public class TimeRewinderV2 : MonoBehaviour
                             }*/
             }
 
-            if (currentRecordingTime < maxRecordingDuration && !Isrewinding)
-            {
-                currentRecordingTime += Time.deltaTime;
-            }
-            else if (currentRecordingTime >= maxRecordingDuration)
-            {
-                currentRecordingTime = maxRecordingDuration;
-            }
 
-            // Check if total recorded time exceeds the maximum duration
-            totalRecordedTime = GetTotalRecordedTime();
+
+
             if (totalRecordedTime > maxRecordingDuration)
             {
                 // Remove the oldest recorded data point
@@ -129,7 +131,10 @@ public class TimeRewinderV2 : MonoBehaviour
             if (PointsToTrack != null)
             {
                 int Point = PointsToTrack.currentWayPoint;
-                PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState, Record_Cam, Point));
+                Vector3 Current_T = PointsToTrack.Current_Target;
+                Vector3 Last_Pos = PointsToTrack.LastPos;
+
+                PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState, Record_Cam, Point, Current_T, Last_Pos));
 
             }
             else
@@ -145,9 +150,11 @@ public class TimeRewinderV2 : MonoBehaviour
                 if (PointsToTrack != null)
                 {
                     int Point = PointsToTrack.currentWayPoint;
+                    Vector3 Current_T = PointsToTrack.Current_Target;
+                    Vector3 Last_Pos = PointsToTrack.LastPos;
                     float LookDirX = Freecam.m_XAxis.Value;
                     float LookDirY = Freecam.m_YAxis.Value;
-                    PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam, Point));
+                    PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam, Point, Current_T, Last_Pos));
                 }
                 else
                 {
@@ -211,23 +218,23 @@ public class TimeRewinderV2 : MonoBehaviour
             if(PointsToTrack != null)
             {
                 PointsToTrack.currentWayPoint = PointsInTime[0].Points;
+                PointsToTrack.LastPos = PointsInTime[0].Last_pos;
+                print(PointsInTime[0].Last_pos + "This is the value that is getting rewindded");
+                PointsToTrack.Current_Target = PointsInTime[0].Current_T;
             }
             PointsInTime.RemoveAt(0);
         }
-        else
-        {
-            StopRewind();
-        }
+
     }
 
     public void StartRewind()
     {
-        Isrewinding = true;
+        ntp.isrewinding = true;
     }
 
     public void StopRewind()
     {
-        Isrewinding = false;
+        ntp.isrewinding = false;
     }
 
     // Calculate the total recorded time

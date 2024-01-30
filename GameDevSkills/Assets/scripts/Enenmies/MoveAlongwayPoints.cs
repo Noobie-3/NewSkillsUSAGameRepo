@@ -7,9 +7,9 @@ public class MoveAlongwayPoints : MonoBehaviour
 {
     public List<Vector3> WayPoints;
     public float MoveSpeed;
-    private Vector3 Current_Target;
+    public  Vector3 Current_Target;
     private Vector3 FirstPos;
-    private Vector3 LastPos;
+    public Vector3 LastPos;
     private bool IsMoving = true;
     public int currentWayPoint;
     public bool UseY;

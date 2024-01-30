@@ -41,6 +41,12 @@ public class NewThirdPerson : MonoBehaviour
     Rigidbody rb;
     Animator anim;
     public bool canRewind;
+    // Maximum recording duration in seconds
+    public float maxRecordingDuration = 5.0f;
+    public float currentRecordingTime;
+    public float totalRecordedTime;
+    public bool isrewinding;
+
 
 
 
@@ -60,6 +66,7 @@ public class NewThirdPerson : MonoBehaviour
 
     private void Update()
     {
+        TimeTracker();
         // ground check
 
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f, whatIsGround);
@@ -68,12 +75,10 @@ public class NewThirdPerson : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, playerHeight * .5f, whatIsGround))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * playerHeight * .5f, Color.white);
-            Debug.Log("Did not Hit");
         }
 
         MyInput();
@@ -127,6 +132,8 @@ public class NewThirdPerson : MonoBehaviour
         {
             anim.SetBool("IsFalling", false);
         }
+
+
 
 
     }
@@ -218,5 +225,45 @@ public class NewThirdPerson : MonoBehaviour
     {
         anim.SetFloat("horizontal", horizontalInput);
         anim.SetFloat("vertical", verticalInput);
+    }
+
+    public void TimeTracker()
+    {
+        if (currentRecordingTime < maxRecordingDuration && !isrewinding)
+        {
+            currentRecordingTime += Time.deltaTime;
+        }
+        else if (currentRecordingTime >= maxRecordingDuration)
+        {
+            currentRecordingTime = maxRecordingDuration;
+        }
+        if (isrewinding)
+        {
+            currentRecordingTime -= Time.deltaTime;
+        }
+        if (currentRecordingTime <= 0)
+        {
+            isrewinding = false;
+        }
+
+    }
+    void OnTriggerStay(Collider other)
+    { 
+        if (other.gameObject.tag == "Moving_Obj")
+        {
+
+            //This will make the player a child of the Obstacle
+            gameObject.transform.SetParent(other.gameObject.transform.root);
+            if(rb.velocity.x < other.GetComponent<Rigidbody>().velocity.x || rb.velocity.z < other.GetComponent<Rigidbody>().velocity.z  )
+            {
+            rb.velocity = other.GetComponent<Rigidbody>().velocity;
+
+            }
+        }
+    
+    }
+    void OnTriggerExit(Collider other)
+    {
+        transform.parent = null;
     }
 }

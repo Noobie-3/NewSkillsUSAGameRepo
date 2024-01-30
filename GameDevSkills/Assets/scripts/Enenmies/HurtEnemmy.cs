@@ -25,7 +25,15 @@ public class HurtEnemmy : MonoBehaviour
 
     private void Update()
     {
-        if( AttackCoolDown >= 0 )
+        if(Stats == null )
+        {
+            Stats = gameObject.transform.root.GetComponent<Enemy_Stats>();
+        }
+        if(GC == null )
+        {
+            GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
+        }
+        if ( AttackCoolDown >= 0 )
         {
             AttackCoolDown -= Time.deltaTime;
         }
