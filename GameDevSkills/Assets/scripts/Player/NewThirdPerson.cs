@@ -141,8 +141,6 @@ public class NewThirdPerson : MonoBehaviour
         {
             anim.SetBool("IsFalling", false);
         }
-<<<<<<< HEAD
-=======
 
 
 
@@ -151,11 +149,6 @@ public class NewThirdPerson : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
-        MovePlayer();
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-    }
 
     private void MyInput()
     {

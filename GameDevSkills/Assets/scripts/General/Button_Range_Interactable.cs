@@ -23,27 +23,14 @@ public class Button_Range_Interactable : MonoBehaviour
     [SerializeField] private bool isOn;
     [SerializeField] private NewThirdPerson ntp;
     public InventorySystem InventorySystem;
-<<<<<<< HEAD
-<<<<<<< HEAD
     public bool IsQuest;
     public questmanager QM;
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
     [HideInInspector]
     private void Start()
     {
         TextMesh_Obj.SetActive(false);
-<<<<<<< HEAD
-<<<<<<< HEAD
         InventorySystem= GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
-=======
-        InventorySystem= GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
-        InventorySystem= GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
+
     }
     public void BUttonPressLength()
     {
@@ -64,7 +51,7 @@ public class Button_Range_Interactable : MonoBehaviour
 
         if (other.gameObject.tag == "Player_01")
         {
-            TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;                             
+            TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
             TextMesh_Obj.SetActive(true);
 
             if (Input.GetKey(interact_Key) && Length <= 0)
@@ -104,53 +91,48 @@ public class Button_Range_Interactable : MonoBehaviour
 
                         }
                         InventorySystem.inventoryItems.Remove(Required_Object);
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                         if (IsQuest)
                         {
                             QM.OnComplete();
                             IsQuest = false;
                         }
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
                         Requires_Object = false;
                     }
-                }
-
-
-
-                else
-            if (isOn == true)
-                {
-
-                    isOn = false;
-                    for (int i = 0; i < animators.Length; i++)
-                    {
-                        animators[i].SetBool("Button_Pressed", false);
-
-                    }
-                    WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
-                }
-                else if (isOn == false)
-                {
-                    isOn = true;
-                    TextMesh_Obj.SetActive(false);
-                    print("should Be Off");
-
-                    for (int i = 0; i < animators.Length; i++)
-                    {
-                        animators[i].SetBool("Button_Pressed", true);
-
-                    }
-                    WhatTextToDisplay = WhatTextToDisplay_OptionON;
-
                 }
             }
 
 
+
+            else if (isOn == true)
+            {
+
+                isOn = false;
+                for (int i = 0; i < animators.Length; i++)
+                {
+                    animators[i].SetBool("Button_Pressed", false);
+
+                }
+                WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
+            }
+            else if (isOn == false)
+            {
+                isOn = true;
+                TextMesh_Obj.SetActive(false);
+                print("should Be Off");
+
+                for (int i = 0; i < animators.Length; i++)
+                {
+                    animators[i].SetBool("Button_Pressed", true);
+
+                }
+                WhatTextToDisplay = WhatTextToDisplay_OptionON;
+
+            }
         }
+
+
+        
     }
 
     private void OnTriggerExit(Collider other)
