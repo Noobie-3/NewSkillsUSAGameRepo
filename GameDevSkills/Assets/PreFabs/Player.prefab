@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 1411853304}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Player_01
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,6 +134,11 @@ MonoBehaviour:
   GroundedTimer: 0
   TimeToJumpAfterGround: 0.1
   JumpUsed: 0
+  canRewind: 0
+  maxRecordingDuration: 5
+  currentRecordingTime: 0
+  totalRecordedTime: 0
+  isrewinding: 0
 --- !u!114 &2489271884622062646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,12 +159,15 @@ MonoBehaviour:
   Record_Velocity: 0
   Record_BlendState: 0
   Record_Cam: 0
+  Record_Points: 0
   Freecam: {fileID: 0}
   maxRecordingDuration: 5
   currentRecordingTime: 0
   blendParameterH: horizontal
   blendParameterV: vertical
   CanRewind: 0
+  ntp: {fileID: 0}
+  PointsToTrack: {fileID: 0}
 --- !u!136 &1411853304
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -32,6 +32,7 @@ public class NewThirdPerson : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
     Vector3 TempGravity;
+    Vector3 DefaultGravity = new Vector3(0f, -9.8f, 0f);
     private bool IsFalling;
     public float GroundedTimer;
     public float TimeToJumpAfterGround;
@@ -41,6 +42,12 @@ public class NewThirdPerson : MonoBehaviour
     Rigidbody rb;
     Animator anim;
     public bool canRewind;
+    // Maximum recording duration in seconds
+    public float maxRecordingDuration = 5.0f;
+    public float currentRecordingTime;
+    public float totalRecordedTime;
+    public bool isrewinding;
+
 
 
 
@@ -48,32 +55,39 @@ public class NewThirdPerson : MonoBehaviour
 
     private void Start()
     {
-
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
         readyToJump = true;
         anim = GetComponentInChildren<Animator>();
-        TempGravity = Physics.gravity;
+        TempGravity = DefaultGravity;
 
     }
 
     private void Update()
     {
+        TimeTracker();
         // ground check
 
+
+
+
+
+
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f, whatIsGround);
         RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, playerHeight * .5f, whatIsGround))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * playerHeight * .5f, Color.white);
-            Debug.Log("Did not Hit");
         }
 
         MyInput();
@@ -129,12 +143,12 @@ public class NewThirdPerson : MonoBehaviour
         }
 
 
+
+
+
+
     }
 
-    private void FixedUpdate()
-    {
-        MovePlayer();
-    }
 
     private void MyInput()
     {
@@ -149,7 +163,6 @@ public class NewThirdPerson : MonoBehaviour
             {
                 readyToJump = false;
                 Jump(jumpForce);
-                print(rb.velocity + "AfterJump");
             }
 
             IsSprinting = Input.GetKey(sprintKey);
@@ -199,11 +212,12 @@ public class NewThirdPerson : MonoBehaviour
 
     public void Jump(float JForce)
     {
-        // reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        print(rb.velocity);
+        // reset y velocity only if grounded
+/*        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+*/    
 
         rb.AddForce(transform.up * JForce, ForceMode.Impulse);
+        Debug.Log(rb.velocity);
         anim.SetBool("Jump", true);
         JumpUsed = true;
     }
@@ -218,5 +232,45 @@ public class NewThirdPerson : MonoBehaviour
     {
         anim.SetFloat("horizontal", horizontalInput);
         anim.SetFloat("vertical", verticalInput);
+    }
+
+    public void TimeTracker()
+    {
+        if (currentRecordingTime < maxRecordingDuration && !isrewinding)
+        {
+            currentRecordingTime += Time.deltaTime;
+        }
+        else if (currentRecordingTime >= maxRecordingDuration)
+        {
+            currentRecordingTime = maxRecordingDuration;
+        }
+        if (isrewinding)
+        {
+            currentRecordingTime -= Time.deltaTime;
+        }
+        if (currentRecordingTime <= 0)
+        {
+            isrewinding = false;
+        }
+
+    }
+    void OnTriggerStay(Collider other)
+    { 
+        if (other.gameObject.tag == "Moving_Obj")
+        {
+
+            //This will make the player a child of the Obstacle
+            gameObject.transform.SetParent(other.gameObject.transform.root);
+            if(rb.velocity.x < other.GetComponent<Rigidbody>().velocity.x || rb.velocity.z < other.GetComponent<Rigidbody>().velocity.z  )
+            {
+            rb.velocity = other.GetComponent<Rigidbody>().velocity;
+
+            }
+        }
+    
+    }
+    void OnTriggerExit(Collider other)
+    {
+        transform.parent = null;
     }
 }

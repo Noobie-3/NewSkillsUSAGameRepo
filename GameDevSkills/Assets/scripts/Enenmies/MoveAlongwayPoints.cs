@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class MoveAlongwayPoints : MonoBehaviour
 {
     public List<Vector3> WayPoints;
     public float MoveSpeed;
-    private Vector3 Current_Target;
+    public Vector3 Current_Target;
     private Vector3 FirstPos;
-    private Vector3 LastPos;
+    public Vector3 LastPos;
     private bool IsMoving = true;
     public int currentWayPoint;
     public bool UseY;
@@ -39,7 +38,7 @@ public class MoveAlongwayPoints : MonoBehaviour
             FirstPos = new Vector3(transform.position.x, 0f, transform.position.z);
         }
         LastPos = FirstPos;
-        currentWayPoint = 0;    
+        currentWayPoint = 0;
     }
 
     // Update is called once per frame
@@ -87,6 +86,7 @@ public class MoveAlongwayPoints : MonoBehaviour
 
                             }
 
+                        }
                     }
                 }
             }
@@ -95,7 +95,8 @@ public class MoveAlongwayPoints : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
 
-        if (canBeInterupted) {
+        if (canBeInterupted)
+        {
             CanMove = false;
 
         }
@@ -104,7 +105,7 @@ public class MoveAlongwayPoints : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
 
-        if(canBeInterupted)
+        if (canBeInterupted)
         {
             CanMove = true;
 
@@ -112,4 +113,3 @@ public class MoveAlongwayPoints : MonoBehaviour
     }
 
 }
-

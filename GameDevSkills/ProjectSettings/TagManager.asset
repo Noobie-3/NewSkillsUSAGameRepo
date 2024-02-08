@@ -14,6 +14,8 @@ TagManager:
   - Ground
   - 'InteractRange '
   - Effects
+  - Player_01
+  - Kill_Check_Objects
   layers:
   - Default
   - TransparentFX
@@ -43,8 +45,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Passing_Obj
+  - CanBePassed
   - 
   - 
   m_SortingLayers:
