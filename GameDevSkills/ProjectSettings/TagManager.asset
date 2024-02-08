@@ -14,9 +14,6 @@ TagManager:
   - Ground
   - 'InteractRange '
   - Effects
-  - Conveyor_item
-  - Moving_Obj
-  - Pop_UpText
   layers:
   - Default
   - TransparentFX

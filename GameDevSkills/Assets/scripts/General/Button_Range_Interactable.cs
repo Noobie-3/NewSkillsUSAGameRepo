@@ -22,15 +22,12 @@ public class Button_Range_Interactable : MonoBehaviour
     [SerializeField] private string WhatTextToDisplay_OptionOFF;
     [SerializeField] private bool isOn;
     [SerializeField] private NewThirdPerson ntp;
-    public InventorySystem InventorySystem;
-    public bool IsQuest;
-    public questmanager QM;
     [HideInInspector]
     private void Start()
     {
+        TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
         TextMesh_Obj.SetActive(false);
-        InventorySystem= GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
-
+        InventorySystem= GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
     }
     public void BUttonPressLength()
     {
@@ -51,61 +48,49 @@ public class Button_Range_Interactable : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
+            TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;                             
             TextMesh_Obj.SetActive(true);
 
             if (Input.GetKey(interact_Key) && Length <= 0)
             {
-
-
                 Length = DefaultLength;
-                /*                print("Button Pressed ");*/
+                print("Button Pressed ");
 
                 if (Requires_Object)
                 {
-
-                    if (InventorySystem.inventoryItems.Contains(Required_Object))
+                    if (isOn == true)
                     {
-                        if (isOn == true)
+                        isOn = false;
+                        for (int i = 0; i < animators.Length; i++)
                         {
-                            isOn = false;
-                            for (int i = 0; i < animators.Length; i++)
-                            {
-                                animators[i].SetBool("Button_Pressed", false);
+                            animators[i].SetBool("Button_Pressed", false);
 
-                            }
-                            WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
                         }
-
-
-                        else if (isOn == false)
+                        WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
+                        print("Help me");
+                    }
+                    else if (isOn == false)
+                    {
+                        isOn = true;
+                        for (int i = 0; i < animators.Length; i++)
                         {
-                            isOn = true;
-                            for (int i = 0; i < animators.Length; i++)
-                            {
-                                animators[i].SetBool("Button_Pressed", true);
+                            animators[i].SetBool("Button_Pressed", true);
 
-                            }
-                            WhatTextToDisplay = WhatTextToDisplay_OptionON;
-                            print("Help me");
+                        }
+                        WhatTextToDisplay = WhatTextToDisplay_OptionON;
+                        print("Help me");
 
                         }
                         InventorySystem.inventoryItems.Remove(Required_Object);
-
-                        if (IsQuest)
-                        {
-                            QM.OnComplete();
-                            IsQuest = false;
-                        }
                         Requires_Object = false;
                     }
                 }
-            }
 
+                }
 
-
-            else if (isOn == true)
-            {
+                else
+            if (isOn == true)
+                {
 
                 isOn = false;
                 for (int i = 0; i < animators.Length; i++)
@@ -132,7 +117,7 @@ public class Button_Range_Interactable : MonoBehaviour
         }
 
 
-        
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -149,6 +134,7 @@ public class Button_Range_Interactable : MonoBehaviour
 
     private void Update()
     {
+        TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
 
         if (Length > 0)
         {

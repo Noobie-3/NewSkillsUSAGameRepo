@@ -41,8 +41,8 @@ public class Hp_Show : MonoBehaviour
             FirstDropHp.SetActive(false);
             SecondDropHp.SetActive(true);
         }
-/*        print(Hp);
+        print(Hp);
         print(MaxHp / FirstDropoff + "FirstDrop");    
-        print(MaxHp / SecondDropoff + "Second");    */
+        print(MaxHp / SecondDropoff + "Second");    
     }
 }
