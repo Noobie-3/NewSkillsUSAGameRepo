@@ -24,7 +24,7 @@ public class Button : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player_01")
+        if (other.gameObject.tag == "Player")
         {
             IsPressed = true;
             Length = DefaultLength;
@@ -36,7 +36,7 @@ public class Button : MonoBehaviour
     }
     private void OnCollisionExit(Collision other)
     {
-        if (other.gameObject.tag == "Player_01")
+        if (other.gameObject.tag == "Player")
         {
             Length = DefaultLength;
         }

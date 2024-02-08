@@ -49,7 +49,7 @@ public class Button_Range_Interactable : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if (other.gameObject.tag == "Player_01")
+        if (other.gameObject.tag == "Player")
         {
             TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
             TextMesh_Obj.SetActive(true);

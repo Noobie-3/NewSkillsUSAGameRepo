@@ -46,9 +46,9 @@ public class TimeRewinderV2 : MonoBehaviour
             
         }
         
-        if(GameObject.FindWithTag("Player_01").GetComponent<NewThirdPerson>())
+        if(GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>())
         {
-            ntp = GameObject.FindWithTag("Player_01").GetComponent<NewThirdPerson>();
+            ntp = GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>();
             
         }
         if(GetComponent<MoveAlongwayPoints>() != null)
@@ -213,7 +213,7 @@ public class TimeRewinderV2 : MonoBehaviour
             }
             if (Record_Velocity)
             {
-                rb.velocity.Set(-PointsInTime[0].Velocity.x, -PointsInTime[0].Velocity.y, -PointsInTime[0].Velocity.z);
+                rb.velocity.Set(PointsInTime[0].Velocity.x, PointsInTime[0].Velocity.y,PointsInTime[0].Velocity.z);
             }
             if (Record_BlendState)
             {

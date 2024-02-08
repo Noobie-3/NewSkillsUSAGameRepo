@@ -18,37 +18,22 @@ public class Spawn_Basic : MonoBehaviour
     void Start()
     {
         StartDir = transform.position;
-        if (GameObject.FindGameObjectWithTag("Player_01").GetComponent<TimeRewinderV2>() != null)
-        {
-            tr = GameObject.FindGameObjectWithTag("Player_01").GetComponent<TimeRewinderV2>();
-
-        }
-
+        tr = GameObject.FindGameObjectWithTag("Player").GetComponent<TimeRewinderV2>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindGameObjectWithTag("Player_01").GetComponent<TimeRewinderV2>() != null)
+        if (tr.Isrewinding == false)
         {
-            tr = GameObject.FindGameObjectWithTag("Player_01").GetComponent<TimeRewinderV2>();
-
-        }
-        if (tr != null)
-        {
-
-
-            if (tr.Isrewinding == false)
+            if (Interval > 0)
             {
-                if (Interval > 0)
-                {
-                    Interval -= Time.deltaTime;
-                }
-                else
-                {
-                    Interval = DefaultInterval;
-                    Spawn_Object();
-                }
+                Interval -= Time.deltaTime;
+            }
+            else
+            {
+                Interval = DefaultInterval;
+                Spawn_Object();
             }
         }
     }

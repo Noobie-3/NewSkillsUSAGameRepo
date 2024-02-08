@@ -7,10 +7,6 @@ public class TurnTimeON : MonoBehaviour
 {
     public NewThirdPerson ntp;
     public bool IsinsideTrigger;
-    public Animator Ani;
-    public GameObject Partical;
-    public questmanager QM;
-    public bool IsQuest;
     // Start is called before the first frame update
     private void Start()
     {
@@ -18,24 +14,12 @@ public class TurnTimeON : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player_01"))
+      if(other.CompareTag("Player"))
         {
-
-            ntp.canRewind = true;
-            Ani.SetBool("Button_Pressed", false);
-            Instantiate(Partical,transform.position, Quaternion.identity);
-            Destroy(gameObject.transform.parent.gameObject);
-
-            if(IsQuest)
-            {
-                QM.OnComplete();
-            }
-
-
-
-        }
             
-    
+            ntp.canRewind = true;
+            Destroy(gameObject.transform.parent.gameObject);
+        }  
     }
 
     

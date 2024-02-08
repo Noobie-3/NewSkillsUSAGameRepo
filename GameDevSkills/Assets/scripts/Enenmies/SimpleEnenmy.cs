@@ -13,7 +13,6 @@ public class SimpleEnenmy : TimeControlled
     public float max = 3f;
     public bool isCharging;
     public float HP = 1;
-    public NewThirdPerson NTP;
 
     HeadDetection HeadHit;
     // Use this for initialization
@@ -27,35 +26,21 @@ public class SimpleEnenmy : TimeControlled
     }
     private void Start()
     {
-        if (gameObject.GetComponent<Rigidbody>() is not null)
-        {
-            rb = gameObject.GetComponent<Rigidbody>();
-
-        }
-        if (gameObject.GetComponent<Animator>() is not null)
-        {
-            animator = gameObject.GetComponent<Animator>();
-
-        }
-        if(GameObject.FindWithTag("GC").GetComponent<GameController>() is not null)
-        {
-            GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        }
+        rb = gameObject.GetComponent<Rigidbody>();
+        animator = gameObject.GetComponent<Animator>();
+        GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
+        target = GC.Player.transform;
         min = transform.position.x;
         max = transform.position.x + 3;
-        if (gameObject.GetComponentInChildren<HeadDetection>() is not null)
+        if (gameObject.GetComponentInChildren<HeadDetection>() != null)
         {
             HeadHit = gameObject.GetComponentInChildren<HeadDetection>();
-        }
-        if (GameObject.FindWithTag("Player_01").TryGetComponent<NewThirdPerson>(out NTP))
-        {
-            target = NTP.transform;
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player_01"))
+        if (other.gameObject.CompareTag("Player"))
         {
             isCharging = true;
         }
@@ -70,35 +55,31 @@ public class SimpleEnenmy : TimeControlled
 
     public void Update()
     {
-
-
-        if (NTP != null)
+        if (rb == null | animator == null | GC == null | target == null)
         {
+            rb = gameObject.GetComponent<Rigidbody>();
+            animator = gameObject.GetComponent<Animator>();
+            GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
+            target = GC.Player.transform;
 
-
-            if (!NTP.isrewinding)
+        }
+        if(isCharging && target != null)
+        {
+            if(HeadHit.isSquashed == false)
             {
-                
 
-                if (isCharging && target != null)
-                {
-                    if (HeadHit.isSquashed == false)
-                    {
+            
+                // Calculate the direction from the enemy to the player.
+                Vector3 moveDirection = (target.position - transform.position).normalized;
+                Vector3 LookDirection = new Vector3(target.position.x, transform.position.y, target.position.z);
 
+                // Calculate the new position for the enemy.
+                Vector3 newPosition = transform.position + moveDirection * moveSpeed * Time.deltaTime;
 
-                        // Calculate the direction from the enemy to the player.
-                        Vector3 moveDirection = (target.position - transform.position).normalized;
-                        Vector3 LookDirection = new Vector3(target.position.x, transform.position.y, target.position.z);
+                // Move the enemy towards the player.
+                transform.position = newPosition;
 
-                        // Calculate the new position for the enemy.
-                        Vector3 newPosition = transform.position + moveDirection * moveSpeed * Time.deltaTime;
-
-                        // Move the enemy towards the player.
-                        transform.position = newPosition;
-
-                        transform.LookAt(LookDirection);
-                    }
-                }
+                transform.LookAt(LookDirection);
             }
         }
         /*else if(!isCharging)

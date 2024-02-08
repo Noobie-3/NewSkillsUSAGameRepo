@@ -25,17 +25,7 @@ public class SC_CircularLoading : MonoBehaviour
         else
         {
             // loadingText.text = "Done.";
-
         }
-        if(ntp.canRewind == false) {
-
-            loadingImage.fillAmount = 0;
-
-        }
-
-
-
-
     }
     private void Start()
     {

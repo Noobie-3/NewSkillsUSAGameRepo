@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9121608412900832994}
   - component: {fileID: 5292309060830162721}
   - component: {fileID: 5216009104688694515}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cylinder096
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2506391267073832211}
   - component: {fileID: 2448238684737166199}
   - component: {fileID: 1480528794594099834}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Box360
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 2946953484357101681}
   - component: {fileID: 642457347576685912}
   - component: {fileID: 6734338608065548531}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Object415
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 3672466154940102444}
   - component: {fileID: 2907188363574741612}
   - component: {fileID: 4290072415613858514}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Object412
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 1446159501154497396}
   - component: {fileID: 3954031280526837725}
   - component: {fileID: 600074629212867942}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cylinder098
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8452526075889616784}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Point006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4703626301462295708}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Point003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1706457510024116282}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Mechanical arm 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +556,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2658556411358712944}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Point005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 6096903622466621575}
   - component: {fileID: 4853538604364387882}
   - component: {fileID: 1592460413148546411}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cylinder100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 7838373465445911067}
   - component: {fileID: 1961488947145677717}
   - component: {fileID: 2516645446790114208}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Box357
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 6791443352424745664}
   - component: {fileID: 849704343606966255}
   - component: {fileID: 2009969230649566394}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Object400
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +870,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4861653991032707993}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Point004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,7 +907,7 @@ GameObject:
   - component: {fileID: 6163700179530345928}
   - component: {fileID: 1217451824195693365}
   - component: {fileID: 1341525125043652567}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cylinder097
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -991,7 +991,7 @@ GameObject:
   - component: {fileID: 8521339793451527470}
   - component: {fileID: 2126013135627131487}
   - component: {fileID: 8698836747546973602}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Object394
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1089,7 +1089,7 @@ GameObject:
   - component: {fileID: 1057567630177158325}
   - component: {fileID: 8863694260945756859}
   - component: {fileID: 9097751037704594139}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1187,7 +1187,7 @@ GameObject:
   - component: {fileID: 8028312872146661107}
   - component: {fileID: 655330092486975531}
   - component: {fileID: 749204954100729724}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Box355
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1284,7 +1284,7 @@ GameObject:
   - component: {fileID: 6379773608748699875}
   - component: {fileID: 2014052529397537952}
   - component: {fileID: 6688046400144764639}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cylinder093
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1365,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1777383814447161248}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Point001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1402,7 +1402,7 @@ GameObject:
   - component: {fileID: 9110298923901786205}
   - component: {fileID: 9172798465214667559}
   - component: {fileID: 4304009973774196146}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cylinder095
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1486,7 +1486,7 @@ GameObject:
   - component: {fileID: 2529965790283252944}
   - component: {fileID: 3097318969161288809}
   - component: {fileID: 4806376927772920046}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cylinder094
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1584,7 +1584,7 @@ GameObject:
   - component: {fileID: 7483837923270559108}
   - component: {fileID: 3188441287893025459}
   - component: {fileID: 7911581887233523232}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Box356
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1682,7 +1682,7 @@ GameObject:
   - component: {fileID: 4386233755214431930}
   - component: {fileID: 7470976764284871775}
   - component: {fileID: 7854782118610171603}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Object388
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1777,7 +1777,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3048153141933243411}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Point008
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1813,7 +1813,7 @@ GameObject:
   - component: {fileID: 6448700233096109013}
   - component: {fileID: 5301612316608844862}
   - component: {fileID: 1986531656610743883}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Object387
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1908,7 +1908,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 741816042937250346}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Point002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1945,7 +1945,7 @@ GameObject:
   - component: {fileID: 8813063614394161081}
   - component: {fileID: 381491234911908419}
   - component: {fileID: 330591566824710578}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Box361
   m_TagString: Untagged
   m_Icon: {fileID: 0}

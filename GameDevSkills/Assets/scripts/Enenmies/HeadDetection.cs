@@ -23,32 +23,18 @@ public class HeadDetection : MonoBehaviour
     void Start()
     {
         eStats = GetComponentInParent<Enemy_Stats>();
-        if (GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>())
-        {
-            rb = GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>();
-        }
-        /*        HitBox = GC.Player.transform.Ta("HitBox").gameObject;*/
+        rb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
+/*        HitBox = GC.Player.transform.Ta("HitBox").gameObject;*/
         Parent = transform.parent.gameObject;
         OrigSize = Parent.transform.localScale;
-        if (GameObject.FindWithTag("GC").GetComponent<GameController>())
-        {
-            GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        }
-/*        JumpKey = GC.Player.GetComponent<NewThirdPerson>().jumpKey;
-*/    }
+        GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
+        JumpKey = GC.Player.GetComponent<NewThirdPerson>().jumpKey;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>() != null && rb == null)
-        {
-            rb = GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>();
-        }
-        if (GameObject.FindWithTag("GC").GetComponent<GameController>() != null && GC == null)
-        {
-            GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        }
-        if (TimeSquashed > 0 && isSquashed == true)// decreasing the time till they can be swuashed again
+        if(TimeSquashed > 0 && isSquashed == true)// decreasing the time till they can be swuashed again
         {
             TimeSquashed -= Time.deltaTime;
 

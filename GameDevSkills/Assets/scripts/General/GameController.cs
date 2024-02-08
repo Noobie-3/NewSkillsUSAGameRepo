@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour
         {
             Destroy(Target);
         }
-        if (HP <= 0 && Target.tag == "Player_01")
+        if (HP <= 0 && Target.tag == "Player")
         {
             DeathScene();
         }
@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour
             Destroy(Target, 1);
             Destroy(Particle_effect_Death, 1);
         }
-        if (HP <= 0 && Target.tag == "Player_01")
+        if (HP <= 0 && Target.tag == "Player")
         {
             DeathScene();
         }
@@ -84,12 +84,12 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-/*        Cursor.visible = false;
-*/        
+        Cursor.visible = false;
+        Player = GameObject.FindGameObjectWithTag("Player");
         speed = DefaultMoveSpeed;
         PlayerHP = PlayerMaxHP;
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 45;
     }
 
     private void Update()
@@ -104,9 +104,9 @@ public class GameController : MonoBehaviour
             IsInvincable = false;
         }
 
-        if (Player == null && GameObject.FindGameObjectWithTag("Player_01") != null)
+        if (Player == null && GameObject.FindGameObjectWithTag("Player") != null)
         {
-            Player = GameObject.FindGameObjectWithTag("Player_01");
+            Player = GameObject.FindGameObjectWithTag("Player");
         }
     }
 

@@ -203,13 +203,6 @@ GameObject:
   - component: {fileID: 5800372508281187969}
   - component: {fileID: 4048393103289836066}
   - component: {fileID: 4140283193607596110}
-<<<<<<< HEAD
-<<<<<<< HEAD
-  - component: {fileID: 1128690060756595373}
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
   m_Layer: 0
   m_Name: Robot_enemy_01
   m_TagString: Enemy
@@ -234,13 +227,6 @@ Transform:
   - {fileID: 5236433536337936826}
   - {fileID: 5075157060039298981}
   - {fileID: 2279957861275475716}
-<<<<<<< HEAD
-<<<<<<< HEAD
-  - {fileID: 204175613696658404}
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -274,13 +260,6 @@ MonoBehaviour:
   max: 3
   isCharging: 0
   HP: 1
-<<<<<<< HEAD
-<<<<<<< HEAD
-  NTP: {fileID: 0}
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
 --- !u!114 &4048393103289836066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,47 +294,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-<<<<<<< HEAD
-<<<<<<< HEAD
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &1128690060756595373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5606915566998502517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2ea52e6fca74af43bf4aa8de456bfec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Isrewinding: 0
-  animator: {fileID: 0}
-  totalRecordedTime: 0
-  Record_Position: 1
-  Record_Rotation: 1
-  Record_Velocity: 1
-  Record_BlendState: 0
-  Record_Cam: 0
-  Record_Points: 0
-  Freecam: {fileID: 0}
-  maxRecordingDuration: 5
-  currentRecordingTime: 0
-  blendParameterH: horizontal
-  blendParameterV: vertical
-  CanRewind: 0
-  ntp: {fileID: 0}
-  PointsToTrack: {fileID: 0}
-=======
   m_Constraints: 96
   m_CollisionDetection: 0
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
-  m_Constraints: 96
-  m_CollisionDetection: 0
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
 --- !u!1 &5844202182546112638
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,90 +369,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.33, y: 0.73, z: 0.34}
   m_Center: {x: 0.02, y: -0.56, z: 0.02}
-<<<<<<< HEAD
-<<<<<<< HEAD
---- !u!1001 &1179772514515866568
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 5081209012746053327}
-    m_Modifications:
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.026
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.026
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.026
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.006
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.012
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.063
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1855998541334528662, guid: ba7ce90701616c9499981917985c9294, type: 3}
-      propertyPath: m_Name
-      value: RobotSCENEReparented(2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ba7ce90701616c9499981917985c9294, type: 3}
---- !u!4 &204175613696658404 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1335885163201239084, guid: ba7ce90701616c9499981917985c9294, type: 3}
-  m_PrefabInstance: {fileID: 1179772514515866568}
-  m_PrefabAsset: {fileID: 0}
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
 --- !u!1001 &1742524604080093423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -580,16 +436,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Robot_enemy_01 _ver03
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-<<<<<<< HEAD
-    - target: {fileID: 919132149155446097, guid: aca1aa8a16ec81e418c343e5ded3da7f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
-=======
->>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aca1aa8a16ec81e418c343e5ded3da7f, type: 3}
 --- !u!4 &2279957861275475716 stripped
