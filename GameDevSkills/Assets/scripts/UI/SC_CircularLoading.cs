@@ -27,7 +27,7 @@ public class SC_CircularLoading : MonoBehaviour
     private void Start()
     {
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        ntp = GameObject.FindGameObjectWithTag("Player").GetComponent<NewThirdPerson>();
+
 
     }
 }

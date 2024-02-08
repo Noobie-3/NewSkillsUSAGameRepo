@@ -27,7 +27,6 @@ public class Button_Range_Interactable : MonoBehaviour
     {
         TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
         TextMesh_Obj.SetActive(false);
-        InventorySystem= GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
     }
     public void BUttonPressLength()
     {
@@ -48,7 +47,6 @@ public class Button_Range_Interactable : MonoBehaviour
 
         if (other.gameObject.tag == "Player")
         {
-            TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;                             
             TextMesh_Obj.SetActive(true);
 
             if (Input.GetKey(interact_Key) && Length <= 0)
@@ -80,16 +78,12 @@ public class Button_Range_Interactable : MonoBehaviour
                         WhatTextToDisplay = WhatTextToDisplay_OptionON;
                         print("Help me");
 
-                        }
-                        InventorySystem.inventoryItems.Remove(Required_Object);
-                        Requires_Object = false;
                     }
-                }
 
                 }
 
                 else
-            if (isOn == true)
+                if (isOn == true)
                 {
 
                 isOn = false;
@@ -119,7 +113,6 @@ public class Button_Range_Interactable : MonoBehaviour
 
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         TextMesh_Obj.SetActive(false);
