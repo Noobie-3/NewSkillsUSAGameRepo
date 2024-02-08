@@ -23,11 +23,27 @@ public class Button_Range_Interactable : MonoBehaviour
     [SerializeField] private bool isOn;
     [SerializeField] private NewThirdPerson ntp;
     public InventorySystem InventorySystem;
+<<<<<<< HEAD
+<<<<<<< HEAD
+    public bool IsQuest;
+    public questmanager QM;
+=======
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
+=======
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
     [HideInInspector]
     private void Start()
     {
         TextMesh_Obj.SetActive(false);
+<<<<<<< HEAD
+<<<<<<< HEAD
+        InventorySystem= GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
+=======
         InventorySystem= GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
+=======
+        InventorySystem= GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
     }
     public void BUttonPressLength()
     {
@@ -46,7 +62,7 @@ public class Button_Range_Interactable : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player_01")
         {
             TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;                             
             TextMesh_Obj.SetActive(true);
@@ -88,6 +104,17 @@ public class Button_Range_Interactable : MonoBehaviour
 
                         }
                         InventorySystem.inventoryItems.Remove(Required_Object);
+<<<<<<< HEAD
+<<<<<<< HEAD
+                        if (IsQuest)
+                        {
+                            QM.OnComplete();
+                            IsQuest = false;
+                        }
+=======
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
+=======
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
                         Requires_Object = false;
                     }
                 }

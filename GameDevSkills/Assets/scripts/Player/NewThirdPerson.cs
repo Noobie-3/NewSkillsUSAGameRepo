@@ -32,6 +32,7 @@ public class NewThirdPerson : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
     Vector3 TempGravity;
+    Vector3 DefaultGravity = new Vector3(0f, -9.8f, 0f);
     private bool IsFalling;
     public float GroundedTimer;
     public float TimeToJumpAfterGround;
@@ -54,13 +55,12 @@ public class NewThirdPerson : MonoBehaviour
 
     private void Start()
     {
-
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
         readyToJump = true;
         anim = GetComponentInChildren<Animator>();
-        TempGravity = Physics.gravity;
+        TempGravity = DefaultGravity;
 
     }
 
@@ -69,9 +69,18 @@ public class NewThirdPerson : MonoBehaviour
         TimeTracker();
         // ground check
 
+
+
+
+
+
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f, whatIsGround);
         RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, playerHeight * .5f, whatIsGround))
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
@@ -132,6 +141,10 @@ public class NewThirdPerson : MonoBehaviour
         {
             anim.SetBool("IsFalling", false);
         }
+<<<<<<< HEAD
+=======
+
+
 
 
 
@@ -141,6 +154,7 @@ public class NewThirdPerson : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
     }
 
     private void MyInput()
@@ -156,7 +170,6 @@ public class NewThirdPerson : MonoBehaviour
             {
                 readyToJump = false;
                 Jump(jumpForce);
-                print(rb.velocity + "AfterJump");
             }
 
             IsSprinting = Input.GetKey(sprintKey);
@@ -206,11 +219,12 @@ public class NewThirdPerson : MonoBehaviour
 
     public void Jump(float JForce)
     {
-        // reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        print(rb.velocity);
+        // reset y velocity only if grounded
+/*        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+*/    
 
         rb.AddForce(transform.up * JForce, ForceMode.Impulse);
+        Debug.Log(rb.velocity);
         anim.SetBool("Jump", true);
         JumpUsed = true;
     }

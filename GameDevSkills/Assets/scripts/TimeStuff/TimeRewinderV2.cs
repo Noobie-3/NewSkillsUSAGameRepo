@@ -46,9 +46,9 @@ public class TimeRewinderV2 : MonoBehaviour
             
         }
         
-        if(GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>())
+        if(GameObject.FindWithTag("Player_01").GetComponent<NewThirdPerson>())
         {
-            ntp = GameObject.FindWithTag("Player").GetComponent<NewThirdPerson>();
+            ntp = GameObject.FindWithTag("Player_01").GetComponent<NewThirdPerson>();
             
         }
         if(GetComponent<MoveAlongwayPoints>() != null)
@@ -61,6 +61,17 @@ public class TimeRewinderV2 : MonoBehaviour
 
     private void Update()
     {
+<<<<<<< HEAD
+<<<<<<< HEAD
+        if (GameObject.FindWithTag("Player_01").GetComponent<NewThirdPerson>())
+        {
+            ntp = GameObject.FindWithTag("Player_01").GetComponent<NewThirdPerson>();
+
+        }
+=======
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
+=======
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
         if (GetComponent<MoveAlongwayPoints>() != null && PointsToTrack != null )
         {
             PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
@@ -70,8 +81,22 @@ public class TimeRewinderV2 : MonoBehaviour
         {
             print(GetComponent<MoveAlongwayPoints>() + gameObject.name);
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
+        if(ntp != null)
+        {
+            CanRewind = ntp.canRewind;
+            Isrewinding = ntp.isrewinding;
+
+        }
+=======
         CanRewind = ntp.canRewind;
         Isrewinding = ntp.isrewinding;
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
+=======
+        CanRewind = ntp.canRewind;
+        Isrewinding = ntp.isrewinding;
+>>>>>>> 6f84346c9bb722518521706b8623486b82fd633e
         if (CanRewind)
         {
             if (Input.GetKeyDown(KeyCode.R) && ntp.currentRecordingTime >= ntp.maxRecordingDuration)
@@ -207,7 +232,7 @@ public class TimeRewinderV2 : MonoBehaviour
             }
             if (Record_Velocity)
             {
-                rb.velocity.Set(PointsInTime[0].Velocity.x, PointsInTime[0].Velocity.y,PointsInTime[0].Velocity.z);
+                rb.velocity.Set(-PointsInTime[0].Velocity.x, -PointsInTime[0].Velocity.y, -PointsInTime[0].Velocity.z);
             }
             if (Record_BlendState)
             {

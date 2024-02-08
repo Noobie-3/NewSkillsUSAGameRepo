@@ -2,16 +2,25 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Techware
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _DISPLACEMENT_LOCK_TILING_SCALE _HEIGHTMAP _MASKMAP _METALLICGLOSSMAP
-    _NORMALMAP _NORMALMAP_TANGENT_SPACE _PARALLAXMAP _PIXEL_DISPLACEMENT _PIXEL_DISPLACEMENT_LOCK_OBJECT_SCALE
-    _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  m_ValidKeywords:
+  - _NORMALMAP
+  - _PARALLAXMAP
+  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_InvalidKeywords:
+  - _DISPLACEMENT_LOCK_TILING_SCALE
+  - _HEIGHTMAP
+  - _MASKMAP
+  - _METALLICGLOSSMAP
+  - _NORMALMAP_TANGENT_SPACE
+  - _PIXEL_DISPLACEMENT
+  - _PIXEL_DISPLACEMENT_LOCK_OBJECT_SCALE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -26,6 +35,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AnisotropyMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -118,6 +131,18 @@ Material:
         m_Texture: {fileID: 2800000, guid: 975e257f44c497d479c69e023fbb5c13, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Scan2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Scanlines:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -142,7 +167,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - PixelSnap: 0
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -157,8 +184,10 @@ Material:
     - _AlphaSrcBlend: 1
     - _Anisotropy: 0
     - _BlendMode: 0
+    - _Brightness: 1
     - _BumpScale: 1
     - _CoatMask: 0
+    - _ColorMask: 15
     - _CullMode: 2
     - _CullModeForward: 2
     - _Cutoff: 0.5
@@ -194,10 +223,12 @@ Material:
     - _EmissiveIntensity: 1
     - _EmissiveIntensityUnit: 0
     - _EnableBlendModePreserveSpecularLighting: 1
+    - _EnableExternalAlpha: 0
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnableSpecularOcclusion: 0
     - _EnergyConservingSpecularColor: 1
+    - _Fade: 0
     - _GlossMapScale: 0.195
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -230,7 +261,11 @@ Material:
     - _Parallax: 0.02
     - _ReceivesSSR: 1
     - _RefractionModel: 0
+    - _RimFalloff: 1
+    - _RimStrenght: 0
     - _SSRefractionProjectionModel: 0
+    - _ScanStr: 1
+    - _ScanStr2: 0
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 0.82914394
     - _SmoothnessRemapMin: 0.37785447
@@ -239,6 +274,10 @@ Material:
     - _SpecularAAThreshold: 0.2
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
     - _StencilRef: 2
     - _StencilRefDepth: 0
     - _StencilRefDistortionVec: 64
@@ -269,6 +308,7 @@ Material:
     - _UVSec: 0
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
+    - _UseUIAlphaClip: 0
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 4
     - _ZTestModeDistortion: 4
@@ -283,11 +323,16 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
     - _UVDetailsMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
