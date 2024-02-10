@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
+
 public class TimeRewinderV2 : MonoBehaviour
 {
     public bool Isrewinding = false;
@@ -32,9 +34,12 @@ public class TimeRewinderV2 : MonoBehaviour
     public bool CanRewind;
     public NewThirdPerson ntp;
     public MoveAlongwayPoints PointsToTrack;
+    public GameController GC;
     private void Start()
     {
+        GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
         PointsInTime = new List<PointInTime>();
+
         if (GetComponent<Animator>()){
             animator = gameObject.GetComponent<Animator>();
         
@@ -67,10 +72,7 @@ public class TimeRewinderV2 : MonoBehaviour
             PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
 
         }
-        if(gameObject.tag == "Conveyor_item")
-        {
-            print(GetComponent<MoveAlongwayPoints>() + gameObject.name);
-        }
+
         if(ntp != null)
         {
             CanRewind = ntp.canRewind;

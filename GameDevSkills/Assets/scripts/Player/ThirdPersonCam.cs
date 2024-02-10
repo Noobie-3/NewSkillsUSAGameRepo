@@ -1,3 +1,4 @@
+using Cinemachine;
 using Kino;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Start()
     {
+        GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         aG = gameObject.GetComponent<AnalogGlitch>();
@@ -39,46 +41,52 @@ public class ThirdPersonCam : MonoBehaviour
     }
 
     private void Update()
-    {
-        if(gameObject.GetComponent<TimeRewinderV2>().Isrewinding)
+    {if (GC.isDead != true)
         {
-            aG.enabled = true;
-            DG.enabled = true;
-            PPV.enabled = true;
+            if (gameObject.GetComponent<TimeRewinderV2>().Isrewinding)
+            {
+                aG.enabled = true;
+                DG.enabled = true;
+                PPV.enabled = true;
+            }
+            else
+            {
+                aG.enabled = false;
+                DG.enabled = false;
+                PPV.enabled = false;
+
+            }
+
+            // switch styles
+            if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
+
+
+            // rotate orientation
+            Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+            orientation.forward = viewDir.normalized;
+
+            // roate player object
+            if (currentStyle == CameraStyle.Basic || currentStyle == CameraStyle.Topdown)
+            {
+                float horizontalInput = Input.GetAxis("Horizontal");
+                float verticalInput = Input.GetAxis("Vertical");
+                Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+                if (inputDir != Vector3.zero)
+                    playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            }
+
+            else if (currentStyle == CameraStyle.Combat)
+            {
+                Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
+                orientation.forward = dirToCombatLookAt.normalized;
+
+                playerObj.forward = dirToCombatLookAt.normalized;
+            }
         }
-        else
+    else
         {
-            aG.enabled = false;
-            DG.enabled = false;
-            PPV.enabled = false;
-
-        }
-
-        // switch styles
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
-
-
-        // rotate orientation
-        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
-
-        // roate player object
-        if(currentStyle == CameraStyle.Basic || currentStyle == CameraStyle.Topdown)
-        {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
-            Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-            if (inputDir != Vector3.zero)
-                playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
-        }
-
-        else if(currentStyle == CameraStyle.Combat)
-        {
-            Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
-            orientation.forward = dirToCombatLookAt.normalized;
-
-            playerObj.forward = dirToCombatLookAt.normalized;
+            GetComponent<CinemachineBrain>().enabled = false;
         }
     }
 

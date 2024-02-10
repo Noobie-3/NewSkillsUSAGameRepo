@@ -1,8 +1,11 @@
 
 using Kino;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NewThirdPerson : MonoBehaviour
 {
@@ -47,6 +50,7 @@ public class NewThirdPerson : MonoBehaviour
     public float currentRecordingTime;
     public float totalRecordedTime;
     public bool isrewinding;
+    public GameController GC;
 
 
 
@@ -61,14 +65,15 @@ public class NewThirdPerson : MonoBehaviour
         readyToJump = true;
         anim = GetComponentInChildren<Animator>();
         TempGravity = DefaultGravity;
-
+        GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
     }
 
     private void Update()
     {
-        TimeTracker();
-        // ground check
-
+        if (GC.isDead != true)
+        {
+            TimeTracker();
+        }
 
 
 
@@ -78,75 +83,86 @@ public class NewThirdPerson : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f, whatIsGround);
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, playerHeight * .5f, whatIsGround))
+        if (GC.isDead != true)
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+
+
+            MovePlayer();
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f, whatIsGround);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, playerHeight * .5f, whatIsGround))
+            {
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * playerHeight * .5f, Color.white);
+            }
+
+            MyInput();
+            SpeedControl();
+
+            // handle drag
+
+            if (grounded)
+            {
+                rb.drag = groundDrag;
+                GroundedTimer = 0;
+                ResetJump();
+            }
+            else
+                rb.drag = 0;
+
+            //Ledge Forgivness
+
+            if (!grounded && GroundedTimer < TimeToJumpAfterGround)
+            {
+                GroundedTimer += Time.deltaTime;
+                readyToJump = true;
+            }
+            else if (!grounded && GroundedTimer > TimeToJumpAfterGround)
+            {
+                readyToJump = false;
+            }
+
+            // accecelerate faster when falling
+
+            if (rb.velocity.y < 0 && !grounded)
+            {
+                IsFalling = true;
+            }
+
+            else if (grounded)
+            {
+                IsFalling = false;
+            }
+
+            //Falling Animation
+
+            if (IsFalling)
+            {
+                anim.SetBool("IsFalling", true);
+
+
+            }
+
+            else if (!IsFalling && anim.GetBool("IsFalling") == true)
+            {
+                anim.SetBool("IsFalling", false);
+            }
+
+
+
+
         }
         else
-        {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * playerHeight * .5f, Color.white);
+        {anim.speed = 0;
+
+            if(Input.GetKey(KeyCode.E))
+            {
+                SceneManager.LoadScene("MainScene");
+            }
         }
-
-        MyInput();
-        SpeedControl();
-
-        // handle drag
-
-        if (grounded)
-        {
-            rb.drag = groundDrag;
-            GroundedTimer = 0;
-            ResetJump();
-        }
-        else
-            rb.drag = 0;
-
-        //Ledge Forgivness
-
-        if (!grounded && GroundedTimer < TimeToJumpAfterGround)
-        {
-            GroundedTimer += Time.deltaTime;
-            readyToJump = true;
-        }
-        else if (!grounded && GroundedTimer > TimeToJumpAfterGround)
-        {
-            readyToJump = false;
-        }
-
-        // accecelerate faster when falling
-
-        if (rb.velocity.y < 0 && !grounded)
-        {
-            IsFalling = true;
-        }
-
-        else if (grounded)
-        {
-            IsFalling = false;
-        }
-
-        //Falling Animation
-
-        if (IsFalling)
-        {
-            anim.SetBool("IsFalling", true);
-
-
-        }
-
-        else if (!IsFalling && anim.GetBool("IsFalling") == true)
-        {
-            anim.SetBool("IsFalling", false);
-        }
-
-
-
-
-
-
     }
 
 

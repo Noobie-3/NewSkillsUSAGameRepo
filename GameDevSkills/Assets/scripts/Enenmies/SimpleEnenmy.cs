@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,10 +55,14 @@ public class SimpleEnenmy : TimeControlled
     }
 
     private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player_01"))
+    {if (GC.isDead == false)
         {
-            isCharging = true;
+
+
+            if (other.gameObject.CompareTag("Player_01"))
+            {
+                isCharging = true;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -71,14 +76,14 @@ public class SimpleEnenmy : TimeControlled
     public void Update()
     {
 
+        if (NTP != null && GC.isDead == false)
 
-        if (NTP != null)
         {
 
 
             if (!NTP.isrewinding)
             {
-                
+
 
                 if (isCharging && target != null)
                 {
@@ -91,7 +96,7 @@ public class SimpleEnenmy : TimeControlled
                         Vector3 LookDirection = new Vector3(target.position.x, transform.position.y, target.position.z);
 
                         // Calculate the new position for the enemy.
-                        Vector3 newPosition = transform.position + moveDirection * moveSpeed * Time.deltaTime;
+                        Vector3 newPosition = transform.position + (moveSpeed * Time.deltaTime * new Vector3(moveDirection.x, 0, moveDirection.z));
 
                         // Move the enemy towards the player.
                         transform.position = newPosition;
@@ -101,6 +106,13 @@ public class SimpleEnenmy : TimeControlled
                 }
             }
         }
+        else if (GC.isDead)
+        {
+            animator.speed = 0; 
+
+
+        }
+        
         /*else if(!isCharging)
         {
             transform.position = new Vector3(Mathf.PingPong(Time.time * 2, max - min) + min, transform.position.y, transform.position.z);

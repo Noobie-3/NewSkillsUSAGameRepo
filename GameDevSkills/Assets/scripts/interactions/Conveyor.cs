@@ -6,11 +6,19 @@ public class Conveyor : MonoBehaviour
 { 
 
     public float speed;
-
-    void FixedUpdate()
+    public GameController Gc;
+    private void Start()
     {
-        GetComponent<Rigidbody>().position -= transform.forward * speed * Time.deltaTime;
-        GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + transform.forward * speed * Time.deltaTime);
+        Gc = GameObject.FindWithTag("GC").GetComponent<GameController>();
+    }
+    void FixedUpdate()
+    {if(Gc.isDead == false)
+        {
+            GetComponent<Rigidbody>().position -= transform.forward * speed * Time.deltaTime;
+            GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + transform.forward * speed * Time.deltaTime);
+
+        }
+
 
     }
 

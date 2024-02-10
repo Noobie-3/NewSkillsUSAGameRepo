@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour
     public float DefaultMoveSpeed = 10;//MOVEMENT VARS
     public float speed;
     public int Current_Currency = 0;
-
+    public bool isDead;
 
 
     public void addXP(float amount)//LEVEL UP AND XP FUNCTION
@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
 
     public void DeathScene()
     {
-        SceneManager.LoadScene("DeathScene");
+        isDead = true;
     }
 
     public float TakeDamage(float damage, float HP, GameObject Target)
