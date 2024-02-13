@@ -140,6 +140,8 @@ MonoBehaviour:
   totalRecordedTime: 0
   isrewinding: 0
   GC: {fileID: 0}
+  NewMat: {fileID: 2100000, guid: cab92f15f7be6534a8a9e59e89e64535, type: 2}
+  OldMat: {fileID: 2100000, guid: 24860de83215fdf4b95b120efc0d97ad, type: 2}
 --- !u!114 &2489271884622062646
 MonoBehaviour:
   m_ObjectHideFlags: 0

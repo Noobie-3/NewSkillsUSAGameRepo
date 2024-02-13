@@ -21,13 +21,14 @@ public class GameController : MonoBehaviour
     public float PlayerMaxHP = 3;
     public bool IsInvincable = false;
     public float TimeTillDamageAgain = 2.0f;
+    public float hurt_Time_Default;
     public float JumpForce;
 
     public float DefaultMoveSpeed = 10;//MOVEMENT VARS
     public float speed;
     public int Current_Currency = 0;
     public bool isDead;
-
+   
 
     public void addXP(float amount)//LEVEL UP AND XP FUNCTION
     {

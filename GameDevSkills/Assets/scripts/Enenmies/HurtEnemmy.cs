@@ -9,17 +9,18 @@ public class HurtEnemmy : MonoBehaviour
     public float DefaultAttackCoolDown;
     public GameObject Particle_Death;
     public HeadDetection HeadDetection;
+    
     public void Awake()
     {
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
         Stats = gameObject.transform.root.GetComponent<Enemy_Stats>();
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject == GC.Player && AttackCoolDown <= 0 && gameObject.tag == "HurtBox" && HeadDetection.isSquashed == false )
+        if(other.gameObject == GC.Player && GC.TimeTillDamageAgain <= 0 && gameObject.tag == "HurtBox" && HeadDetection.isSquashed == false )
         {
            GC.PlayerHP = GC.TakeDamage(Stats.Attack, GC.PlayerHP, GC.Player, Particle_Death);
-            AttackCoolDown = DefaultAttackCoolDown;
+            GC.TimeTillDamageAgain = GC.hurt_Time_Default;
         }
     }
 

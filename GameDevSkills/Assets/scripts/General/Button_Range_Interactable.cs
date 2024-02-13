@@ -37,11 +37,9 @@ public class Button_Range_Interactable : MonoBehaviour
         if (Length > 0 && CanBePressed)
         {
             Length -= Time.deltaTime;
-            IsPressed = true;
         }
         else if (Length >= 0)
         {
-            IsPressed = false;
         }
 
     }
@@ -58,7 +56,6 @@ public class Button_Range_Interactable : MonoBehaviour
             {
 
 
-                Length = DefaultLength;
                 /*                print("Button Pressed ");*/
 
                 if (Requires_Object)
@@ -66,6 +63,8 @@ public class Button_Range_Interactable : MonoBehaviour
 
                     if (InventorySystem.inventoryItems.Contains(Required_Object))
                     {
+                        Length = DefaultLength;
+
                         if (isOn == true)
                         {
                             isOn = false;
@@ -106,6 +105,8 @@ public class Button_Range_Interactable : MonoBehaviour
 
                 else if (isOn == true)
                 {
+                    Length = DefaultLength;
+
 
                     isOn = false;
                     for (int i = 0; i < animators.Length; i++)

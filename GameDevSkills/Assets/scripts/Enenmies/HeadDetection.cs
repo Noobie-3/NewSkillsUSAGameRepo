@@ -18,6 +18,11 @@ public class HeadDetection : MonoBehaviour
     private bool CanBeHurt = true;
     KeyCode JumpKey;
     public float BouceMulti;
+    public Material NewMat;
+    public Material OldMat;
+    public Material[] Materials;
+
+    public Animator Anim;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +40,11 @@ public class HeadDetection : MonoBehaviour
             GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
         }
 /*        JumpKey = GC.Player.GetComponent<NewThirdPerson>().jumpKey;
-*/    }
+ *        
+*/    
+    
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -65,9 +74,19 @@ public class HeadDetection : MonoBehaviour
 
     private void UnSqaush()
     {
+        Anim.speed = 1;
+
         gameObject.transform.root.localScale = new Vector3(gameObject.transform.root.localScale.x, OrigSize.y, gameObject.transform.root.localScale.z);
         isSquashed = false;
         CanBeHurt = true;
+        Materials = gameObject.GetComponentInParent<Renderer>().materials;
+
+        for (int i = 0; i < Materials.Length; i++)
+        {
+            Materials[i] = OldMat;
+        }
+        gameObject.GetComponentInParent<Renderer>().materials = Materials;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -98,13 +117,20 @@ public class HeadDetection : MonoBehaviour
 
     private void Sqaush()
     {
-
+        Anim.speed = 0;
             eStats.EHp--;
             gameObject.transform.root.localScale = new Vector3(gameObject.transform.root.localScale.x, OrigSize.y * .5f, gameObject.transform.root.localScale.z);
             isSquashed = true;
             TimeSquashed = TimeToBeSquashed;
             CanBeHurt = false;
 
+        Materials = gameObject.GetComponentInParent<Renderer>().materials;
+
+        for (int i = 0; i < Materials.Length; i++)
+        {
+            Materials[i] = NewMat;
+        }
+        gameObject.GetComponentInParent<Renderer>().materials = Materials;
     }
 
 }

@@ -58,7 +58,8 @@ public class Player : MonoBehaviour
     decimal maxValue;
 
 
-
+    public Material NewMat;
+    public Material OldMat;
 
 
 
@@ -75,7 +76,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
+        if(GC.TimeTillDamageAgain <= 0 && GetComponentInChildren<Renderer>().material == NewMat)
+        {
+            GetComponentInChildren<Renderer>().material = OldMat;
+        }
         if (!gameObject.GetComponent<TimeRewinderV2>().Isrewinding)
         {
             Move();
@@ -141,7 +145,7 @@ public class Player : MonoBehaviour
             // Take damage from enemy
             GC.PlayerHP = GC.TakeDamage(enemy.damage, GC.PlayerHP, gameObject);
             GC.TimeTillDamageAgain = 3;
-
+            gameObject.GetComponentInChildren<Renderer>().material = NewMat;
             print(GC.PlayerHP);
 
         }
