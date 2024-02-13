@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationTime: 0
   rb: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 5541385207982099633}
   isRewinding: 0
   wasSteppingBack: 0
   RecordAnimation: 0
@@ -218,6 +218,7 @@ MonoBehaviour:
   isCharging: 0
   HP: 100
   NTP: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &-1190485465501384578
 MonoBehaviour:
   m_ObjectHideFlags: 0

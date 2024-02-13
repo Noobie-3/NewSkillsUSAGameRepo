@@ -16,6 +16,7 @@ TagManager:
   - Effects
   - Player_01
   - Kill_Check_Objects
+  - Moving_Obj
   layers:
   - Default
   - TransparentFX

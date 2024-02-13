@@ -62,12 +62,15 @@ public class SimpleEnenmy : TimeControlled
             if (other.gameObject.CompareTag("Player_01"))
             {
                 isCharging = true;
+                animator.SetBool("IsCharging", true);
             }
         }
     }
     private void OnTriggerExit(Collider other)
     {
         isCharging = false;
+        animator.SetBool("IsCharging", false);
+
     }
 
 

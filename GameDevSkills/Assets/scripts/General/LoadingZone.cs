@@ -9,7 +9,7 @@ public class LoadingZone : MonoBehaviour
     
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player_01"))
         {
             SceneManager.LoadScene(area);
 
