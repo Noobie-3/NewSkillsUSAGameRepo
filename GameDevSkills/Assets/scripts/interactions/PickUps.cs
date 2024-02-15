@@ -1,4 +1,5 @@
 using GameDevSkills;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -58,7 +59,7 @@ public class PickUps : MonoBehaviour
     }
 
     private void Update()
-    { if (HasCollectedItem)
+    { if (HasCollectedItem && GameController.instance.IsPaused)
         {
             Timer_For_Text -= Time.deltaTime;
             TextMesh_Obj.GetComponent<Text>().text = Alt_Text_Display;
@@ -101,7 +102,7 @@ public class PickUps : MonoBehaviour
                     TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
 
                     TextMesh_Obj.SetActive(true);
-            if (Input.GetKeyDown(Interact_Key))
+            if (Input.GetKeyDown(Interact_Key) && GameController.instance.IsPaused == false)
             {
                 if (IsQuest)
                 {

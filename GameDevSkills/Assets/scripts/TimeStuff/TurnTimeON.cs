@@ -1,3 +1,4 @@
+using GameDevSkills;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,8 +10,8 @@ public class TurnTimeON : MonoBehaviour
     public bool IsinsideTrigger;
     public Animator Ani;
     public GameObject Partical;
-    public questmanager QM;
     public bool IsQuest;
+    public int QuestID;
     // Start is called before the first frame update
     private void Start()
     {
@@ -28,7 +29,7 @@ public class TurnTimeON : MonoBehaviour
 
             if(IsQuest)
             {
-                QM.OnComplete();
+                QuestManager.Instance.CompleteQuest(QuestID);
             }
 
 

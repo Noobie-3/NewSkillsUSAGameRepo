@@ -1,5 +1,6 @@
 
 using Den.Tools;
+using GameDevSkills;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class Button_Range_Interactable : MonoBehaviour
     [SerializeField] private NewThirdPerson ntp;
     public InventorySystem InventorySystem;
     public bool IsQuest;
-    public questmanager QM;
+    public int QuestID;
     [HideInInspector]
     private void Start()
     {
@@ -56,7 +57,7 @@ public class Button_Range_Interactable : MonoBehaviour
             TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
             TextMesh_Obj.SetActive(true);
 
-            if (Input.GetKey(interact_Key) && Length <= 0)
+            if (Input.GetKey(interact_Key) && Length <= 0 && GameController.instance.IsPaused == false)
             {
 
 
@@ -67,6 +68,7 @@ public class Button_Range_Interactable : MonoBehaviour
 
                     if (InventorySystem.inventoryItems.Contains(Required_Object))
                     {
+                        QuestCheck();
 
                         if (isOn == true)
                         {
@@ -97,12 +99,6 @@ public class Button_Range_Interactable : MonoBehaviour
 
                         }
                         InventorySystem.inventoryItems.Remove(Required_Object);
-
-                        if (IsQuest)
-                        {
-                            QM.OnComplete();
-                            IsQuest = false;
-                        }
                         Requires_Object = false;
                     }
                     else
@@ -116,7 +112,7 @@ public class Button_Range_Interactable : MonoBehaviour
 
                 else if (!Requires_Object)
                 {
-
+                    QuestCheck();
 
                     if (isOn == true)
                     {
@@ -155,6 +151,16 @@ public class Button_Range_Interactable : MonoBehaviour
         
     }
 
+
+    private void QuestCheck()
+    {
+
+        if (IsQuest)
+        {
+            QuestManager.Instance.CompleteQuest(QuestID);
+            IsQuest = false;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         TextMesh_Obj.SetActive(false);

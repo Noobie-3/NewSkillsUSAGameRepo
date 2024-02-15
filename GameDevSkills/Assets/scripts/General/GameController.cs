@@ -28,8 +28,9 @@ public class GameController : MonoBehaviour
     public float speed;
     public int Current_Currency = 0;
     public bool isDead;
-   
-
+    public static GameController instance;
+    public bool IsPaused = false;
+    
     public void addXP(float amount)//LEVEL UP AND XP FUNCTION
     {
         //add xp
@@ -48,6 +49,7 @@ public class GameController : MonoBehaviour
     {
         isDead = true;
     }
+    
 
     public float TakeDamage(float damage, float HP, GameObject Target)
     {
@@ -91,6 +93,14 @@ public class GameController : MonoBehaviour
         PlayerHP = PlayerMaxHP;
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
         Application.targetFrameRate = 60;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()

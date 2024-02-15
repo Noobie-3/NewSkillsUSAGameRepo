@@ -10,6 +10,7 @@ public class QuestManager : MonoBehaviour
 
     public List<Quest> quests = new List<Quest>();
     public TextMeshProUGUI questDisplay;
+        public AudioSource questAudioSource;
 
     private Quest currentQuest;
 
@@ -53,6 +54,7 @@ public class QuestManager : MonoBehaviour
             if (quest.ID == questID)
             {
                 quest.CompleteQuest();
+                    questAudioSource.Play();
                 break; // Exit loop after completing the quest
             }
         }
@@ -106,7 +108,7 @@ public class QuestManager : MonoBehaviour
     {
         if (currentQuest != null)
         {
-            questDisplay.text = "Current Quest: " + currentQuest.title;
+            questDisplay.text = currentQuest.title;
         }
         else
         {
