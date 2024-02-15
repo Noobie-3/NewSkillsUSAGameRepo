@@ -1,3 +1,4 @@
+using GameDevSkills;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -21,7 +22,7 @@ public class PickUps : MonoBehaviour
     public GameObject Partical;
     public AudioSource Collection_Effect;
     public bool IsQuest;
-    public questmanager QM;
+    public int QuestID;
     /*    public Color Text_color;
         public Color Alt_Text_color;*/
 
@@ -65,7 +66,7 @@ public class PickUps : MonoBehaviour
 
             {
                 TextMesh_Obj.gameObject.SetActive(false);
-                Destroy(gameObject.transform.root.gameObject);
+                Destroy(gameObject.transform.parent.gameObject);
             }
 
             if (TextMesh_Obj == null)
@@ -104,7 +105,7 @@ public class PickUps : MonoBehaviour
             {
                 if (IsQuest)
                 {
-                    QM.OnComplete();
+;                    QuestManager.Instance.CompleteQuest(QuestID);
                 }
                 InventorySystem.AddItem(Item_To_Be_PickedUp);
                 HasCollectedItem = true;

@@ -20,6 +20,7 @@ public class Button_Range_Interactable : MonoBehaviour
     [SerializeField] private string WhatTextToDisplay;
     [SerializeField] private string WhatTextToDisplay_OptionON;
     [SerializeField] private string WhatTextToDisplay_OptionOFF;
+    [SerializeField] private string WhatTextToDisplay_OptionLOCKED;
     [SerializeField] private bool isOn;
     [SerializeField] private NewThirdPerson ntp;
     public InventorySystem InventorySystem;
@@ -49,6 +50,9 @@ public class Button_Range_Interactable : MonoBehaviour
 
         if (other.gameObject.tag == "Player_01")
         {
+            if(Requires_Object && !InventorySystem.inventoryItems.Contains(Required_Object)) {
+                WhatTextToDisplay = WhatTextToDisplay_OptionLOCKED;
+            }
             TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
             TextMesh_Obj.SetActive(true);
 
@@ -63,10 +67,11 @@ public class Button_Range_Interactable : MonoBehaviour
 
                     if (InventorySystem.inventoryItems.Contains(Required_Object))
                     {
-                        Length = DefaultLength;
 
                         if (isOn == true)
                         {
+                            Length = DefaultLength;
+
                             isOn = false;
                             for (int i = 0; i < animators.Length; i++)
                             {
@@ -79,6 +84,8 @@ public class Button_Range_Interactable : MonoBehaviour
 
                         else if (isOn == false)
                         {
+                            Length = DefaultLength;
+
                             isOn = true;
                             for (int i = 0; i < animators.Length; i++)
                             {
@@ -98,37 +105,48 @@ public class Button_Range_Interactable : MonoBehaviour
                         }
                         Requires_Object = false;
                     }
+                    else
+                    {
+                        WhatTextToDisplay = WhatTextToDisplay_OptionLOCKED;
+                    }
+
                 }
 
 
 
-
-                else if (isOn == true)
+                else if (!Requires_Object)
                 {
-                    Length = DefaultLength;
 
 
-                    isOn = false;
-                    for (int i = 0; i < animators.Length; i++)
+                    if (isOn == true)
                     {
-                        animators[i].SetBool("Button_Pressed", false);
+                        Length = DefaultLength;
+
+
+                        isOn = false;
+                        for (int i = 0; i < animators.Length; i++)
+                        {
+                            animators[i].SetBool("Button_Pressed", false);
+
+                        }
+                        WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
+                    }
+                    else if (isOn == false)
+                    {
+                        Length = DefaultLength;
+
+                        isOn = true;
+                        TextMesh_Obj.SetActive(false);
+                        print("should Be Off");
+
+                        for (int i = 0; i < animators.Length; i++)
+                        {
+                            animators[i].SetBool("Button_Pressed", true);
+
+                        }
+                        WhatTextToDisplay = WhatTextToDisplay_OptionON;
 
                     }
-                    WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
-                }
-                else if (isOn == false)
-                {
-                    isOn = true;
-                    TextMesh_Obj.SetActive(false);
-                    print("should Be Off");
-
-                    for (int i = 0; i < animators.Length; i++)
-                    {
-                        animators[i].SetBool("Button_Pressed", true);
-
-                    }
-                    WhatTextToDisplay = WhatTextToDisplay_OptionON;
-
                 }
             }
         }

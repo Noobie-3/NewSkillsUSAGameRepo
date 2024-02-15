@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleEnenmy : TimeControlled
+public class SimpleEnenmy : MonoBehaviour 
 {
     public float moveSpeed = 3.0f; // Adjust this to control the speed of the enemy.
     public Transform target; // The player's transform.
@@ -15,6 +15,8 @@ public class SimpleEnenmy : TimeControlled
     public bool isCharging;
     public float HP = 1;
     public NewThirdPerson NTP;
+    public Rigidbody rb;
+    public Animator animator;
 
     HeadDetection HeadHit;
     // Use this for initialization
@@ -24,7 +26,6 @@ public class SimpleEnenmy : TimeControlled
 
 
     private void Awake() {
-        type = Type.Enenmy;
     }
     private void Start()
     {
@@ -102,7 +103,7 @@ public class SimpleEnenmy : TimeControlled
                         Vector3 newPosition = transform.position + (moveSpeed * Time.deltaTime * new Vector3(moveDirection.x, 0, moveDirection.z));
 
                         // Move the enemy towards the player.
-                        transform.position = newPosition;
+                        rb.MovePosition(newPosition);
 
                         transform.LookAt(LookDirection);
                     }
