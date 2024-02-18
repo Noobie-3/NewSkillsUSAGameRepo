@@ -33,16 +33,21 @@ public class ThirdPersonCam : MonoBehaviour
     private void Start()
     {
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+/*        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;*/
         aG = gameObject.GetComponent<AnalogGlitch>();
         DG = gameObject.GetComponent<DigitalGlitch>();
         PPV = GameObject.FindWithTag("Effects").GetComponent<PostProcessVolume>();
     }
 
     private void Update()
-    {if (GC.isDead != true)
+    {
+        if (GC.isDead != true)
         {
+            if(GameController.instance.IsPaused == false && GetComponent<CinemachineBrain>().enabled == false)
+            {
+                GetComponent<CinemachineBrain>().enabled = true;
+            }
             if (gameObject.GetComponent<TimeRewinderV2>().Isrewinding)
             {
                 aG.enabled = true;
@@ -84,10 +89,16 @@ public class ThirdPersonCam : MonoBehaviour
                 playerObj.forward = dirToCombatLookAt.normalized;
             }
         }
-    else
+        else
         {
             GetComponent<CinemachineBrain>().enabled = false;
         }
+        if (GameController.instance.IsPaused)
+        {
+            GetComponent<CinemachineBrain>().enabled = false;
+
+        }
+
     }
 
     private void SwitchCameraStyle(CameraStyle newStyle)

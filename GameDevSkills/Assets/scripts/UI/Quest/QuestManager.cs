@@ -11,6 +11,7 @@ public class QuestManager : MonoBehaviour
     public List<Quest> quests = new List<Quest>();
     public TextMeshProUGUI questDisplay;
         public AudioSource questAudioSource;
+        public GameObject Popup;
 
     private Quest currentQuest;
 
@@ -54,6 +55,7 @@ public class QuestManager : MonoBehaviour
             if (quest.ID == questID)
             {
                 quest.CompleteQuest();
+                    Popup.gameObject.SetActive(true);
                     questAudioSource.Play();
                 break; // Exit loop after completing the quest
             }
