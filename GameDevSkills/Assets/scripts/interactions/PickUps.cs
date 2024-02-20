@@ -24,6 +24,7 @@ public class PickUps : MonoBehaviour
     public AudioSource Collection_Effect;
     public bool IsQuest;
     public int QuestID;
+    public GameObject mesh;
     /*    public Color Text_color;
         public Color Alt_Text_color;*/
 
@@ -59,10 +60,11 @@ public class PickUps : MonoBehaviour
     }
 
     private void Update()
-    { if (HasCollectedItem && GameController.instance.IsPaused)
+    { if (HasCollectedItem && GameController.instance.IsPaused == false)
         {
+            mesh.active = false;
             Timer_For_Text -= Time.deltaTime;
-            TextMesh_Obj.GetComponent<Text>().text = Alt_Text_Display;
+            TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = Alt_Text_Display;
             if (Timer_For_Text <= 0)//Destory after set time
 
             {
@@ -99,7 +101,7 @@ public class PickUps : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player_01" && !HasCollectedItem) {
-                    TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
+                    TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = WhatTextToDisplay;
 
                     TextMesh_Obj.SetActive(true);
             if (Input.GetKeyDown(Interact_Key) && GameController.instance.IsPaused == false)
@@ -118,7 +120,6 @@ public class PickUps : MonoBehaviour
                 InventorySystem.AddItem(Item_To_Be_PickedUp);
                 HasCollectedItem = true;
                 InventorySystem.AddItem(Item_To_Be_PickedUp);
-                HasCollectedItem = true;
             }
         }
     }

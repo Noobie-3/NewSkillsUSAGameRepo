@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Music : MonoBehaviour
 {
-    public AudioClip[] levelMusic; // Array of music clips for each level
+    public AudioSource[] levelMusic; // Array of music clips for each level
 
     private AudioSource audioSource;
 
@@ -16,7 +16,7 @@ public class Music : MonoBehaviour
     {
         if (levelIndex >= 0 && levelIndex < levelMusic.Length)
         {
-            audioSource.clip = levelMusic[levelIndex];
+            audioSource = levelMusic[levelIndex];
             audioSource.Play();
         }
         else

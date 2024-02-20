@@ -3,6 +3,7 @@ using Den.Tools;
 using GameDevSkills;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,7 +55,23 @@ public class Button_Range_Interactable : MonoBehaviour
             if(Requires_Object && !InventorySystem.inventoryItems.Contains(Required_Object)) {
                 WhatTextToDisplay = WhatTextToDisplay_OptionLOCKED;
             }
-            TextMesh_Obj.GetComponent<Text>().text = WhatTextToDisplay;
+            if (animators[0].GetBool("Button_Pressed") == true)
+            {
+                WhatTextToDisplay = WhatTextToDisplay_OptionON;
+                isOn = true;
+
+            }
+            else if (animators[0].GetBool("Button_Pressed") == false)
+            {
+                WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
+                isOn = false;
+
+            }
+
+
+
+
+            TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = WhatTextToDisplay;
             TextMesh_Obj.SetActive(true);
 
             if (Input.GetKey(interact_Key) && Length <= 0 && GameController.instance.IsPaused == false)

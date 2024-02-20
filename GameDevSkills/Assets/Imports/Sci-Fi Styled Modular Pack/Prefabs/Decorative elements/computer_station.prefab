@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 116326}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2876267618562430969}
@@ -108,8 +108,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2876267618562430969}
-  - component: {fileID: 5292847461095050406}
   - component: {fileID: 8666610799780449868}
+  - component: {fileID: 1360132893595135478}
   m_Layer: 0
   m_Name: Insteractable Range
   m_TagString: Untagged
@@ -125,26 +125,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5935827081243338796}
   m_LocalRotation: {x: -0, y: -1, z: 0, w: 0.00000044703478}
-  m_LocalPosition: {x: 0, y: 1.735, z: 0}
+  m_LocalPosition: {x: 0, y: 1.735, z: 0.999}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 448042}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &5292847461095050406
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5935827081243338796}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3.32
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8666610799780449868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,3 +144,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e771df4d1ea26a04ebf38f32ee8b6570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Length: 0
+  DefaultLength: 0
+  IsPressed: 0
+  CanBePressed: 1
+  interact_Key: 0
+  TextMesh_Obj: {fileID: 0}
+  Requires_Object: 0
+  Required_Object: {fileID: 0}
+  animators: []
+  WhatTextToDisplay: 
+  WhatTextToDisplay_OptionON: 
+  WhatTextToDisplay_OptionOFF: 
+  WhatTextToDisplay_OptionLOCKED: 
+  isOn: 0
+  ntp: {fileID: 0}
+  InventorySystem: {fileID: 0}
+  IsQuest: 0
+  QuestID: 0
+--- !u!65 &1360132893595135478
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935827081243338796}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.96, y: 3.94, z: 2.45}
+  m_Center: {x: 0, y: 0, z: -0.03}

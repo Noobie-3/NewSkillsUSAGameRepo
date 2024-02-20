@@ -70,7 +70,7 @@ public class NewThirdPerson : MonoBehaviour
 
     private void Update()
     {
-        if (GC.isDead != true)
+        if (GC.isDead != true && canRewind)
         {
             TimeTracker();
         }
@@ -156,9 +156,10 @@ public class NewThirdPerson : MonoBehaviour
 
         }
         else
-        {anim.speed = 0;
+        {
+            anim.speed = 0;
 
-            if(Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.E))
             {
                 SceneManager.LoadScene("MainScene");
             }
@@ -229,8 +230,8 @@ public class NewThirdPerson : MonoBehaviour
     public void Jump(float JForce)
     {
         // reset y velocity only if grounded
-/*        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-*/    
+        /*        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        */
 
         rb.AddForce(transform.up * JForce, ForceMode.Impulse);
         Debug.Log(rb.velocity);
@@ -271,19 +272,17 @@ public class NewThirdPerson : MonoBehaviour
 
     }
     void OnTriggerStay(Collider other)
-    { 
+    {
         if (other.gameObject.tag == "Moving_Obj")
         {
 
             //This will make the player a child of the Obstacle
-            gameObject.transform.SetParent(other.gameObject.transform.root);
-            if(rb.velocity.x < other.GetComponent<Rigidbody>().velocity.x || rb.velocity.z < other.GetComponent<Rigidbody>().velocity.z  )
-            {
+            /*            gameObject.transform.SetParent(other.gameObject.transform.root);
+            */
             rb.velocity = other.GetComponent<Rigidbody>().velocity;
 
-            }
         }
-    
+
     }
     void OnTriggerExit(Collider other)
     {

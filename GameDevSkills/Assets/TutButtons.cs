@@ -19,6 +19,7 @@ public class TutButtons : MonoBehaviour
         Time.timeScale = 0f;
         GameController.instance.IsPaused = true;
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         MainScene.SetActive(false);
     }
 
