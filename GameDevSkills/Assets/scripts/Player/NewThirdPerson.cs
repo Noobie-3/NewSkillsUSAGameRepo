@@ -277,10 +277,10 @@ public class NewThirdPerson : MonoBehaviour
         {
 
             //This will make the player a child of the Obstacle
-            /*            gameObject.transform.SetParent(other.gameObject.transform.root);
-            */
-            rb.velocity = other.GetComponent<Rigidbody>().velocity;
+            gameObject.transform.parent = other.gameObject.transform;
 
+            rb.velocity = other.GetComponent<Rigidbody>().velocity;
+            Debug.Log("The player is now a child of " + gameObject.transform.parent.name);
         }
 
     }
