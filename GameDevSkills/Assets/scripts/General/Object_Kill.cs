@@ -13,7 +13,7 @@ public class Object_Kill : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if(other.gameObject.CompareTag("Kill_Check_Objects")) {
-            Destroy(other.gameObject.transform.root.gameObject);
+            Destroy(other.gameObject.transform.parent);
         }
     }
 }
