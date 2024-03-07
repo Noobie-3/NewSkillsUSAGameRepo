@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
 
 
     public float TimeCooldown = 1;//TIMECONTROL and DAMAGE STUFF + HP
+    public bool Canrewind;
     public float PlayerMight = 1;
     public float PlayerDef = 1;
     public float HealingEffect = 1;
@@ -23,9 +24,7 @@ public class GameController : MonoBehaviour
     public float TimeTillDamageAgain = 2.0f;
     public float hurt_Time_Default;
     public float JumpForce;
-
-    public float DefaultMoveSpeed = 10;//MOVEMENT VARS
-    public float speed;
+    public bool CanRewind;
     public int Current_Currency = 0;
     public bool isDead;
     public static GameController instance;
@@ -89,7 +88,6 @@ public class GameController : MonoBehaviour
     {
 /*        Cursor.visible = false;
 */        
-        speed = DefaultMoveSpeed;
         PlayerHP = PlayerMaxHP;
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
         Application.targetFrameRate = 60;
@@ -104,8 +102,11 @@ public class GameController : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (TimeTillDamageAgain > 0 )
+    {if(isDead)
+        {
+            IsPaused = true;
+        }
+        if (TimeTillDamageAgain > 0 && IsPaused == false )
         {
             IsInvincable = true;
             TimeTillDamageAgain -= Time.deltaTime;
@@ -114,7 +115,17 @@ public class GameController : MonoBehaviour
         {
             IsInvincable = false;
         }
-
+        if(IsPaused)
+        {
+            Cursor.visible = true;
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
+            Time.timeScale = 1;
+        }
         if (Player == null && GameObject.FindGameObjectWithTag("Player_01") != null)
         {
             Player = GameObject.FindGameObjectWithTag("Player_01");

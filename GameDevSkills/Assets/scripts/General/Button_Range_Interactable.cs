@@ -24,7 +24,6 @@ public class Button_Range_Interactable : MonoBehaviour
     [SerializeField] private string WhatTextToDisplay_OptionOFF;
     [SerializeField] private string WhatTextToDisplay_OptionLOCKED;
     [SerializeField] private bool isOn;
-    [SerializeField] private NewThirdPerson ntp;
     public InventorySystem InventorySystem;
     public bool IsQuest;
     public int QuestID;
@@ -32,7 +31,7 @@ public class Button_Range_Interactable : MonoBehaviour
     private void Start()
     {
         TextMesh_Obj.SetActive(false);
-        InventorySystem= GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
+        InventorySystem = GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
 
     }
     public void BUttonPressLength()
@@ -50,26 +49,11 @@ public class Button_Range_Interactable : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if (other.gameObject.tag == "Player_01")
+        if (other.gameObject == GameController.instance.Player.gameObject)
         {
-            if(Requires_Object && !InventorySystem.inventoryItems.Contains(Required_Object)) {
+            if (Requires_Object && !InventorySystem.inventoryItems.Contains(Required_Object)) {
                 WhatTextToDisplay = WhatTextToDisplay_OptionLOCKED;
             }
-            if (animators[0].GetBool("Button_Pressed") == true)
-            {
-                WhatTextToDisplay = WhatTextToDisplay_OptionON;
-                isOn = true;
-
-            }
-            else if (animators[0].GetBool("Button_Pressed") == false)
-            {
-                WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
-                isOn = false;
-
-            }
-
-
-
 
             TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = WhatTextToDisplay;
             TextMesh_Obj.SetActive(true);
@@ -77,95 +61,21 @@ public class Button_Range_Interactable : MonoBehaviour
             if (Input.GetKey(interact_Key) && Length <= 0 && GameController.instance.IsPaused == false)
             {
 
-
-                /*                print("Button Pressed ");*/
-
-                if (Requires_Object)
+                if(Requires_Object)
                 {
-
-                    if (InventorySystem.inventoryItems.Contains(Required_Object))
-                    {
-                        QuestCheck();
-
-                        if (isOn == true)
-                        {
-                            Length = DefaultLength;
-
-                            isOn = false;
-                            for (int i = 0; i < animators.Length; i++)
-                            {
-                                animators[i].SetBool("Button_Pressed", false);
-
-                            }
-                            WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
-                        }
-
-
-                        else if (isOn == false)
-                        {
-                            Length = DefaultLength;
-
-                            isOn = true;
-                            for (int i = 0; i < animators.Length; i++)
-                            {
-                                animators[i].SetBool("Button_Pressed", true);
-
-                            }
-                            WhatTextToDisplay = WhatTextToDisplay_OptionON;
-                            print("Help me");
-
-                        }
-                        InventorySystem.inventoryItems.Remove(Required_Object);
-                        Requires_Object = false;
-                    }
-                    else
-                    {
-                        WhatTextToDisplay = WhatTextToDisplay_OptionLOCKED;
-                    }
-
+                    RequiresItem();
+                }
+                else
+                {
+                    NoItemNeeded();
                 }
 
-
-
-                else if (!Requires_Object)
-                {
-                    QuestCheck();
-
-                    if (isOn == true)
-                    {
-                        Length = DefaultLength;
-
-
-                        isOn = false;
-                        for (int i = 0; i < animators.Length; i++)
-                        {
-                            animators[i].SetBool("Button_Pressed", false);
-
-                        }
-                        WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
-                    }
-                    else if (isOn == false)
-                    {
-                        Length = DefaultLength;
-
-                        isOn = true;
-                        TextMesh_Obj.SetActive(false);
-                        print("should Be Off");
-
-                        for (int i = 0; i < animators.Length; i++)
-                        {
-                            animators[i].SetBool("Button_Pressed", true);
-
-                        }
-                        WhatTextToDisplay = WhatTextToDisplay_OptionON;
-
-                    }
-                }
+                
             }
         }
 
 
-        
+
     }
 
 
@@ -185,6 +95,79 @@ public class Button_Range_Interactable : MonoBehaviour
     }
 
 
+    public void RequiresItem()
+    {
+        if (InventorySystem.inventoryItems.Contains(Required_Object))
+        {
+            QuestCheck();
+            if (isOn == true)
+            {
+                Length = DefaultLength;
+                isOn = false;
+                for (int i = 0; i < animators.Length; i++)
+                {
+                    animators[i].SetBool("Button_Pressed", false);
+                }
+                WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
+            }
+
+            else if (isOn == false)
+            {
+                Length = DefaultLength;
+
+                isOn = true;
+                for (int i = 0; i < animators.Length; i++)
+                {
+                    animators[i].SetBool("Button_Pressed", true);
+
+                }
+                WhatTextToDisplay = WhatTextToDisplay_OptionON;
+                print("Help me");
+
+            }
+            InventorySystem.inventoryItems.Remove(Required_Object);
+            Requires_Object = false;
+        }
+        else
+        {
+            WhatTextToDisplay = WhatTextToDisplay_OptionLOCKED;
+        }
+    }
+
+    public void NoItemNeeded() 
+    {
+        QuestCheck();
+        if (isOn == true)
+        {
+            Length = DefaultLength;
+
+
+            isOn = false;
+            for (int i = 0; i < animators.Length; i++)
+            {
+                animators[i].SetBool("Button_Pressed", false);
+
+            }
+            WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
+        }
+        else if (isOn == false)
+        {
+            Length = DefaultLength;
+
+            isOn = true;
+            TextMesh_Obj.SetActive(false);
+            print("should Be Off");
+
+            for (int i = 0; i < animators.Length; i++)
+            {
+                animators[i].SetBool("Button_Pressed", true);
+
+            }
+            WhatTextToDisplay = WhatTextToDisplay_OptionON;
+
+        }
+        
+    }
 
 
 

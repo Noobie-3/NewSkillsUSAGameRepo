@@ -80,10 +80,15 @@ public class SimpleEnenmy : MonoBehaviour
     public void Update()
     {
 
-        if (NTP != null && GC.isDead == false)
+        if (GC.IsPaused == false)
 
         {
+            if (GC.IsPaused == false)
+            {
+                animator.speed = 1;
 
+
+            }
 
             if (!NTP.isrewinding)
             {
@@ -110,7 +115,7 @@ public class SimpleEnenmy : MonoBehaviour
                 }
             }
         }
-        else if (GC.isDead)
+        else if (GC.IsPaused)
         {
             animator.speed = 0; 
 

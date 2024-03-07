@@ -53,11 +53,8 @@ public class HeadDetection : MonoBehaviour
         {
             rb = GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>();
         }
-        if (GameObject.FindWithTag("GC").GetComponent<GameController>() != null && GC == null)
-        {
-            GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        }
-        if (TimeSquashed > 0 && isSquashed == true)// decreasing the time till they can be swuashed again
+
+        if (TimeSquashed > 0 && isSquashed == true && GameController.instance.IsPaused == false)// decreasing the time till they can be swuashed again
         {
             TimeSquashed -= Time.deltaTime;
 
@@ -91,7 +88,7 @@ public class HeadDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     { 
-        if (CanBeHurt)
+        if (CanBeHurt && GameController.instance.IsPaused == false)
         {
             if (other.gameObject == GC.Player && rb.velocity.y < 0)
             {
@@ -105,13 +102,13 @@ public class HeadDetection : MonoBehaviour
     {
         if (Input.GetKey(JumpKey))
         {
-            GC.Player.GetComponent<NewThirdPerson>().Jump(BounceAmmount * BouceMulti);
+            GC.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().Jump(BounceAmmount * BouceMulti);
             print("TestJump");
 
         }
         else
         {
-            GC.Player.GetComponent<NewThirdPerson>().Jump(BounceAmmount);
+            GC.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().Jump(BounceAmmount);
         }
     }
 

@@ -42,9 +42,9 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Update()
     {
-        if (GC.isDead != true)
+        if (GC.IsPaused ==false)
         {
-            if(GameController.instance.IsPaused == false && GetComponent<CinemachineBrain>().enabled == false)
+            if(GetComponent<CinemachineBrain>().enabled == false)
             {
                 GetComponent<CinemachineBrain>().enabled = true;
             }
@@ -93,11 +93,7 @@ public class ThirdPersonCam : MonoBehaviour
         {
             GetComponent<CinemachineBrain>().enabled = false;
         }
-        if (GameController.instance.IsPaused)
-        {
-            GetComponent<CinemachineBrain>().enabled = false;
 
-        }
 
     }
 

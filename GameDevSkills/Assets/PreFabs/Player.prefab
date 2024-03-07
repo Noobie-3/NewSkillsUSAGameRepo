@@ -100,8 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  TempmoveSpeed: 6
-  DefaultmoveSpeed: 6
   groundDrag: 5
   jumpForce: 22
   jumpCooldown: 0.25
@@ -117,16 +115,18 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  grounded: 0
   GroundedTimer: 0
   TimeToJumpAfterGround: 0.1
   JumpUsed: 0
-  rb: {fileID: 1889379593946816657}
   canRewind: 0
   maxRecordingDuration: 5
   currentRecordingTime: 0
   totalRecordedTime: 0
   isrewinding: 0
   GC: {fileID: 0}
+  jumpHeight: 2
+  gravity: -9.8
 --- !u!114 &2489271884622062646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,9 +154,7 @@ MonoBehaviour:
   blendParameterH: horizontal
   blendParameterV: vertical
   CanRewind: 0
-  ntp: {fileID: 0}
   PointsToTrack: {fileID: 0}
-  GC: {fileID: 0}
 --- !u!54 &1889379593946816657
 Rigidbody:
   m_ObjectHideFlags: 0

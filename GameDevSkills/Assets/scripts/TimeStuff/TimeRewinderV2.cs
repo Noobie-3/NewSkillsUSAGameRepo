@@ -32,12 +32,9 @@ public class TimeRewinderV2 : MonoBehaviour
 
     float blendValueV;
     public bool CanRewind;
-    public NewThirdPerson ntp;
     public MoveAlongwayPoints PointsToTrack;
-    public GameController GC;
     private void Start()
     {
-        GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
         PointsInTime = new List<PointInTime>();
 
         if (GetComponent<Animator>()){
@@ -51,11 +48,6 @@ public class TimeRewinderV2 : MonoBehaviour
             
         }
         
-        if(GameObject.FindWithTag("Player_01").GetComponent<NewThirdPerson>())
-        {
-            ntp = GameObject.FindWithTag("Player_01").GetComponent<NewThirdPerson>();
-            
-        }
         if(GetComponent<MoveAlongwayPoints>() != null)
         {
             PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
@@ -73,16 +65,16 @@ public class TimeRewinderV2 : MonoBehaviour
 
         }
 
-        if(ntp != null)
+        if(NewThirdPerson.Instance != null)
         {
-            CanRewind = ntp.canRewind;
-            Isrewinding = ntp.isrewinding;
+            CanRewind = NewThirdPerson.Instance.canRewind;
+            Isrewinding = NewThirdPerson.Instance.isrewinding;
 
         }
 
         if (CanRewind)
         {
-            if (Input.GetKeyDown(KeyCode.R) && ntp.currentRecordingTime >= ntp.maxRecordingDuration)
+            if (Input.GetKeyDown(KeyCode.R) && NewThirdPerson.Instance.currentRecordingTime >= NewThirdPerson.Instance.maxRecordingDuration)
             {
                 StartRewind();
                 /*            if (gameObject.GetComponent<Rigidbody>())
@@ -237,12 +229,12 @@ public class TimeRewinderV2 : MonoBehaviour
 
     public void StartRewind()
     {
-        ntp.isrewinding = true;
+        NewThirdPerson.Instance.isrewinding = true;
     }
 
     public void StopRewind()
     {
-        ntp.isrewinding = false;
+        NewThirdPerson.Instance.isrewinding = false;
     }
 
     // Calculate the total recorded time
