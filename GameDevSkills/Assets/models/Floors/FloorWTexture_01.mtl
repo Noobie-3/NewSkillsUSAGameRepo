@@ -1,9 +1,0 @@
-newmtl 004_basecolor
-map_Kd 004_basecolor.png
-map_Pm 005_roughness.png
-bump 004_emission.png
-disp 004_height.png
-map_d 004_emission.png
-Kd 0.3003738 0.829294 0.8490566
-d 1
-

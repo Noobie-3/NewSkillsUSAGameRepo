@@ -17,6 +17,7 @@ TagManager:
   - Player_01
   - Kill_Check_Objects
   - Moving_Obj
+  - TutScreen
   layers:
   - Default
   - TransparentFX
