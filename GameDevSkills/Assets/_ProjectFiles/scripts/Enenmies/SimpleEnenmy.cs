@@ -7,7 +7,6 @@ public class SimpleEnenmy : MonoBehaviour
 {
     public float moveSpeed = 3.0f; // Adjust this to control the speed of the enemy.
     public Transform target; // The player's transform.
-    GameController GC;
     public float damage = 2;
 
     public float min = 2f;
@@ -39,24 +38,19 @@ public class SimpleEnenmy : MonoBehaviour
             animator = gameObject.GetComponent<Animator>();
 
         }
-        if(GameObject.FindWithTag("GC").GetComponent<GameController>() is not null)
-        {
-            GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        }
+
         min = transform.position.x;
         max = transform.position.x + 3;
         if (gameObject.GetComponentInChildren<HeadDetection>() is not null)
         {
             HeadHit = gameObject.GetComponentInChildren<HeadDetection>();
         }
-        if (GameObject.FindWithTag("Player_01").TryGetComponent<NewThirdPerson>(out NTP))
-        {
-            target = NTP.transform;
-        }
+        target = GameController.instance.Player.transform;
+
     }
 
     private void OnTriggerStay(Collider other)
-    {if (GC.isDead == false)
+    {if (GameController.instance.isDead == false)
         {
 
 
@@ -80,17 +74,15 @@ public class SimpleEnenmy : MonoBehaviour
     public void Update()
     {
 
-        if (GC.IsPaused == false)
+        if (GameController.instance.IsPaused == false)
 
         {
-            if (GC.IsPaused == false)
+            if (GameController.instance.IsPaused == false && animator.speed != 1)
             {
                 animator.speed = 1;
-
-
             }
 
-            if (!NTP.isrewinding)
+            if (!GameController.instance.Player.GetComponent<TimeRewinderV2>().Isrewinding)
             {
 
 
@@ -115,7 +107,7 @@ public class SimpleEnenmy : MonoBehaviour
                 }
             }
         }
-        else if (GC.IsPaused)
+        else if (GameController.instance.IsPaused)
         {
             animator.speed = 0; 
 

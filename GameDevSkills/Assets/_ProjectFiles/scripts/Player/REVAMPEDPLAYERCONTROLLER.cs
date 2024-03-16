@@ -11,6 +11,8 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
     public float jumpForce;
     public float jumpCooldown;
     public AnimationCurve jumpCurve;
+    public float TimeAfterJump;
+    public float TimetoJump;
 
     [Header("Input")]
     private float horizontalInput;
@@ -29,12 +31,15 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
     [Header("Misc")]
     public Animator anim;
-
     public Rigidbody rb;
     public bool isJumping = false;
     public bool JumpUsed = false;
     public bool readyToJump = true;
     public bool grounded;
+    public bool isRewinding;
+    public float maxRecordingDuration;
+    public bool canRewind;
+    public float currentRecordingTime;
 
     void Start()
     {
@@ -44,14 +49,14 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
     void FixedUpdate()
     {
+        TimeTracker();
         ApplyGravity();
         GroundCheck();
         MyInput();
-        MovePlayer();
         Animate();
     }
 
-    void MovePlayer()
+    public void MovePlayer()
     {
         Vector3 moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.MovePosition(rb.position + moveDirection.normalized * moveSpeed * Time.fixedDeltaTime);
@@ -61,13 +66,17 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
         if (Input.GetKey(jumpKey) && readyToJump && !JumpUsed)
         {
             Jump(jumpForce);
             isJumping = true;
             JumpUsed = true;
             readyToJump = false;
+        }
+
+        if(horizontalInput != 0 || verticalInput != 0)
+        {
+            MovePlayer();
         }
     }
 
@@ -76,6 +85,7 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         //set velocity to 0
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         //add jump velocity
+        rb.isKinematic = false;
          jumpHeight = jumpForce * jumpCurve.Evaluate(0); // Evaluate the jump curve at the beginning
         rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
         isJumping = true;
@@ -98,8 +108,8 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
     private void GroundCheck()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * .5f, whatIsGround);
-        if (!grounded && rb.velocity.y <= 0)
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, whatIsGround);
+        if (!grounded && rb.velocity.y <= 0 && TimeAfterJump >= TimetoJump)
         {
             IsFalling = true;
         }
@@ -107,9 +117,14 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         {
             IsFalling = false;
         }
+
         if (grounded)
         {
             ResetJump();
+        }
+        else if(!grounded && TimetoJump > TimeAfterJump)
+        {
+            TimeAfterJump += Time.deltaTime;
         }
     }
 
@@ -118,9 +133,32 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         JumpUsed = false;
         isJumping = false;
         readyToJump = true;
+        TimeAfterJump = 0;
     }
     private void ResetIsJumping()
     {
         isJumping = false;
+    }
+
+    public void TimeTracker()
+    {
+        if (currentRecordingTime < maxRecordingDuration && !isRewinding)
+        {
+            currentRecordingTime += Time.deltaTime;
+        }
+        else if (currentRecordingTime >= maxRecordingDuration)
+        {
+            currentRecordingTime = maxRecordingDuration;
+            
+        }
+        if (isRewinding)
+        {
+            currentRecordingTime -= Time.deltaTime;
+        }
+        if (currentRecordingTime <= 0)
+        {
+            isRewinding = false;
+        }
+
     }
 }

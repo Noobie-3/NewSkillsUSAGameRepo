@@ -6,14 +6,19 @@ public class move_with_object : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject == GameController.instance.Player.gameObject)
         {
-            other.gameObject.transform.parent = transform;
-                }
+            other.gameObject.transform.SetParent(transform);
+            other.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        other.gameObject.transform.SetParent(transform, false);
-        print("Test");
+        if (other.gameObject == GameController.instance.Player.gameObject)
+        {
+            other.gameObject.transform.SetParent(null);
+            other.GetComponent<Rigidbody>().isKinematic = false;
+
+        }
     }
 }

@@ -29,7 +29,9 @@ public class GameController : MonoBehaviour
     public bool isDead;
     public static GameController instance;
     public bool IsPaused = false;
-    
+    internal bool isRewinding;
+    internal float maxRecordingDuration;
+
     public void addXP(float amount)//LEVEL UP AND XP FUNCTION
     {
         //add xp
@@ -86,8 +88,9 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-/*        Cursor.visible = false;
-*/        
+        /*        Cursor.visible = false;
+        */
+        DontDestroyOnLoad(gameObject);
         PlayerHP = PlayerMaxHP;
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
         Application.targetFrameRate = 60;

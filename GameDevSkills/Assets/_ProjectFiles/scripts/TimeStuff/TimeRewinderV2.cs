@@ -1,8 +1,6 @@
-using System.Collections;
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
-using System;
 
 public class TimeRewinderV2 : MonoBehaviour
 {
@@ -37,21 +35,22 @@ public class TimeRewinderV2 : MonoBehaviour
     {
         PointsInTime = new List<PointInTime>();
 
-        if (GetComponent<Animator>()){
+        if (GetComponent<Animator>())
+        {
             animator = gameObject.GetComponent<Animator>();
-        
+
         }
 
-        if(GetComponent<Rigidbody>())
+        if (GetComponent<Rigidbody>())
         {
             rb = GetComponent<Rigidbody>();
-            
+
         }
-        
-        if(GetComponent<MoveAlongwayPoints>() != null)
+
+        if (GetComponent<MoveAlongwayPoints>() != null)
         {
             PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
-            
+
         }
         Freecam = GameObject.Find("CM FreeLook1").GetComponent<CinemachineFreeLook>();
     }
@@ -59,22 +58,22 @@ public class TimeRewinderV2 : MonoBehaviour
     private void Update()
     {
 
-        if (GetComponent<MoveAlongwayPoints>() != null && PointsToTrack != null )
+        if (GetComponent<MoveAlongwayPoints>() != null && PointsToTrack != null)
         {
             PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
 
         }
 
-        if(NewThirdPerson.Instance != null)
+        if (GameController.instance.Player != null)
         {
-            CanRewind = NewThirdPerson.Instance.canRewind;
-            Isrewinding = NewThirdPerson.Instance.isrewinding;
+            CanRewind = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind;
+            Isrewinding = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding;
 
         }
 
         if (CanRewind)
         {
-            if (Input.GetKeyDown(KeyCode.R) && NewThirdPerson.Instance.currentRecordingTime >= NewThirdPerson.Instance.maxRecordingDuration)
+            if (Input.GetKeyDown(KeyCode.R) && GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime >= GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration)
             {
                 StartRewind();
                 /*            if (gameObject.GetComponent<Rigidbody>())
@@ -92,7 +91,10 @@ public class TimeRewinderV2 : MonoBehaviour
             }
 
 
-
+            // Update the total recorded time
+            totalRecordedTime = GetTotalRecordedTime();
+            // If the total recorded time exceeds the maximum recording duration            
+            // remove the oldest recorded data point
 
             if (totalRecordedTime > maxRecordingDuration)
             {
@@ -100,11 +102,12 @@ public class TimeRewinderV2 : MonoBehaviour
                 PointsInTime.RemoveAt(PointsInTime.Count - 1);
             }
         }
-    
+
     }
 
     private void FixedUpdate()
-    {if (CanRewind)
+    {
+        if (CanRewind)
         {
 
             if (Isrewinding)
@@ -182,8 +185,8 @@ public class TimeRewinderV2 : MonoBehaviour
             PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, Record_Position, LookDirX, LookDirY, Record_Rotation, Record_Velocity, Record_Cam));
 
         }
-        }
-    
+    }
+
 
     private void Rewind()
     {
@@ -201,21 +204,21 @@ public class TimeRewinderV2 : MonoBehaviour
                 transform.position = PointsInTime[0].position;
             }
             if (Record_Rotation)
-            if (Record_Rotation)
-            {
-                transform.rotation = PointsInTime[0].rotation;
-            }
+                if (Record_Rotation)
+                {
+                    transform.rotation = PointsInTime[0].rotation;
+                }
             if (Record_Velocity)
             {
                 rb.velocity.Set(-PointsInTime[0].Velocity.x, -PointsInTime[0].Velocity.y, -PointsInTime[0].Velocity.z);
             }
             if (Record_BlendState)
             {
-                 animator.SetFloat( blendParameterV, PointsInTime[0].blendValueV);
+                animator.SetFloat(blendParameterV, PointsInTime[0].blendValueV);
                 print(PointsInTime[0].blendValueV);
-                 animator.SetFloat( blendParameterH, PointsInTime[0].blendValueH);
+                animator.SetFloat(blendParameterH, PointsInTime[0].blendValueH);
             }
-            if(PointsToTrack != null)
+            if (PointsToTrack != null)
             {
                 PointsToTrack.currentWayPoint = PointsInTime[0].Points;
                 PointsToTrack.LastPos = PointsInTime[0].Last_pos;
@@ -229,12 +232,13 @@ public class TimeRewinderV2 : MonoBehaviour
 
     public void StartRewind()
     {
-        NewThirdPerson.Instance.isrewinding = true;
+        GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding = true;
     }
 
     public void StopRewind()
     {
-        NewThirdPerson.Instance.isrewinding = false;
+        GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding = false;
+        
     }
 
     // Calculate the total recorded time

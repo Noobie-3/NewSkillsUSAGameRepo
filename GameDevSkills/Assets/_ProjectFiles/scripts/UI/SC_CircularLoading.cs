@@ -9,13 +9,13 @@ public class SC_CircularLoading : MonoBehaviour
     public Text loadingText;
     [Range(0, 1)]
     public float loadingProgress = 0;
-    GameController GC;
     // Update is called once per frame
     void Update()
-    { if (GC != null && GameController.instance.Canrewind)
+    { if (GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind)
         {
-            loadingProgress = (float)((GameController.instance.Player.gameObject.GetComponent<TimeRewinderV2>().currentRecordingTime / NewThirdPerson.Instance.gameObject.GetComponent<TimeRewinderV2>().maxRecordingDuration));
+            loadingProgress = (float)((GameController.instance.Player.gameObject.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime / GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration));
             loadingImage.fillAmount = loadingProgress;
+            print(loadingProgress);
         }
         if (loadingProgress < 1)
         {
@@ -26,7 +26,7 @@ public class SC_CircularLoading : MonoBehaviour
             // loadingText.text = "Done.";
 
         }
-        if(GameController.instance.CanRewind == false) {
+        if(GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind == false) {
 
             loadingImage.fillAmount = 0;
 
@@ -38,10 +38,7 @@ public class SC_CircularLoading : MonoBehaviour
     }
     private void Start()
     {
-        if (GameObject.FindWithTag("GC").GetComponent<GameController>())
-        {
-            GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        }
+
 
 
 

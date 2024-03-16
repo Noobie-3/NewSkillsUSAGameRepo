@@ -55,7 +55,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6892758570610271464}
-  - component: {fileID: 4713224589504461666}
   - component: {fileID: 2489271884622062646}
   - component: {fileID: 1889379593946816657}
   - component: {fileID: 7100674781352032013}
@@ -87,46 +86,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4713224589504461666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2722814301496217124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a879c3a8b49e8a4989750013f2d72fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 6
-  groundDrag: 5
-  jumpForce: 22
-  jumpCooldown: 0.25
-  airMultiplier: 1
-  readyToJump: 1
-  orientation: {fileID: 4713224588524968478}
-  walkSpeed: 0
-  sprintSpeed: 0
-  IsSprinting: 0
-  jumpKey: 32
-  sprintKey: 0
-  playerHeight: 1
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  grounded: 0
-  GroundedTimer: 0
-  TimeToJumpAfterGround: 0.1
-  JumpUsed: 0
-  canRewind: 0
-  maxRecordingDuration: 5
-  currentRecordingTime: 0
-  totalRecordedTime: 0
-  isrewinding: 0
-  GC: {fileID: 0}
-  jumpHeight: 2
-  gravity: -9.8
 --- !u!114 &2489271884622062646
 MonoBehaviour:
   m_ObjectHideFlags: 0

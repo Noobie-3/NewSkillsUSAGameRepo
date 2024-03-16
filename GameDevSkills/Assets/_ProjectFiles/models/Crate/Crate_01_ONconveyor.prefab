@@ -144,8 +144,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.1, y: 4.37, z: 7.7}
-  m_Center: {x: 0.37, y: 0, z: 0.16}
+  m_Size: {x: 4.36, y: 5.72, z: 5.99}
+  m_Center: {x: 0.37, y: 0.43, z: 0.16}
 --- !u!114 &-9131901940847520054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,9 +173,19 @@ MonoBehaviour:
   blendParameterH: horizontal
   blendParameterV: vertical
   CanRewind: 1
-  ntp: {fileID: 0}
   PointsToTrack: {fileID: 0}
-  GC: {fileID: 0}
+--- !u!114 &7014354969435315035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130865364071369794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a495623876a3b745b43260f4db009ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &764272690290759416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 40961212329190637, guid: a3b9cf3c3bd8a654cac9934f5e73d04f, type: 3}

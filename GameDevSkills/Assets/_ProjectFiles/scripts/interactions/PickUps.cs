@@ -62,7 +62,7 @@ public class PickUps : MonoBehaviour
     private void Update()
     { if (HasCollectedItem && GameController.instance.IsPaused == false)
         {
-            mesh.active = false;
+            mesh.SetActive(false);
             Timer_For_Text -= Time.deltaTime;
             TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = Alt_Text_Display;
             if (Timer_For_Text <= 0)//Destory after set time
