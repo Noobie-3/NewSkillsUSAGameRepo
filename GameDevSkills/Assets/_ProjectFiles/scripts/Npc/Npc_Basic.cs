@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Npc_Basic : MonoBehaviour
 {
@@ -13,30 +14,36 @@ public class Npc_Basic : MonoBehaviour
     [SerializeField] private string OneTimeDiologe;
     [SerializeField] private string CurrentDialogue;
     [SerializeField] private float dialogueTime = 3f;
-    private float dialogueTimeDelayPerChar;
+    public float dialogueTimeDelayPerChar;
     [SerializeField] private int CurrentDialogueIndex;
-    public string CurrentText; 
+    public string CurrentText;
+    public Image[] AnimFrames;
 
     [SerializeField] private GameObject PopUpBox;
     public bool isTalking;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == GameController.instance.Player)
+        if(Input.GetKeyDown(KeyCode.E) && isTalking == false && CurrentText == "")
         {
-            NpcTalk_Animate.instance.gameObject.SetActive(true);
-            if (isOneTimeDialogue)
+            if (other.gameObject == GameController.instance.Player)
             {
-                dialogueTimeDelayPerChar = TimePerChar(OneTimeDiologe);
-                CurrentDialogue = OneTimeDiologe;
-                StartCoroutine(StartDialogue(OneTimeDiologe));
-                isOneTimeDialogue = false;
-            }
-            else if ((!isOneTimeDialogue))
-            {
-                dialogueTimeDelayPerChar = TimePerChar(dialogues[CurrentDialogueIndex]);
-                CurrentDialogue = dialogues[CurrentDialogueIndex];
-                StartCoroutine(StartDialogue(CurrentDialogue));
+
+                NpcTalk_Animate.instance.npcAnimations = AnimFrames;
+                NpcTalk_Animate.instance.gameObject.SetActive(true);
+                if (isOneTimeDialogue)
+                {
+                    dialogueTimeDelayPerChar = TimePerChar(OneTimeDiologe);
+                    CurrentDialogue = OneTimeDiologe;
+                    StartCoroutine(StartDialogue(OneTimeDiologe));
+                }
+                else if ((!isOneTimeDialogue))
+                {
+                    dialogueTimeDelayPerChar = TimePerChar(dialogues[CurrentDialogueIndex]);
+                    CurrentDialogue = dialogues[CurrentDialogueIndex];
+                    StartCoroutine(StartDialogue(CurrentDialogue));
+                }
+
             }
 
         }
@@ -47,7 +54,7 @@ public class Npc_Basic : MonoBehaviour
         if (other.gameObject == GameController.instance.Player)
         {
             StopCoroutine(StartDialogue(CurrentDialogue));
-            CurrentText = "";
+            ResetText();
             isTalking = false;
         }
     }
@@ -67,7 +74,7 @@ public class Npc_Basic : MonoBehaviour
             }
 /*            Debug.Log(CurrentText);
 */
-            yield return new WaitForSeconds(.25f);
+            yield return new WaitForSeconds(dialogueTimeDelayPerChar);
         }
         isTalking = false;
         NpcTalk_Animate.instance.LoopOn = true;
@@ -76,7 +83,7 @@ public class Npc_Basic : MonoBehaviour
 
     private float TimePerChar(string text)
     {
-        return text.Length / dialogueTime;
+        return dialogueTime / text.Length;
     }
     private void Update()
     {
@@ -85,10 +92,62 @@ public class Npc_Basic : MonoBehaviour
 /*            Debug.Log("Talking" + CurrentText);
 */            //Animate
         }
-        else if (!isTalking && CurrentText != "")
-        {
-/*            Debug.Log("Not Talking");
-*/            CurrentText = "";
+        else if (!isTalking )
+        {if(CurrentText != "")
+            {
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    if (isOneTimeDialogue == false)
+                    {
+
+                        if (CurrentDialogueIndex < dialogues.Length - 1)
+                        {
+                            CurrentDialogueIndex++;
+
+                            dialogueTimeDelayPerChar = TimePerChar(dialogues[CurrentDialogueIndex]);
+                            CurrentDialogue = dialogues[CurrentDialogueIndex];
+                            StartCoroutine(StartDialogue(CurrentDialogue));
+                        }
+                        else
+                        {
+                            ResetText();
+                        }
+                    }
+
+                    else if (isOneTimeDialogue == true)
+                    {
+                        isOneTimeDialogue = false;
+                        ResetText();
+                    }
+                    else
+                    {
+                        ResetText();
+                    }
+                }
+
+            }
+            /*            Debug.Log("Not Talking");
+            */
         }
     }
+
+
+    private void Start()
+    {
+/*        if(AnimParent != null)
+        {
+            AnimFrames = new GameObject[AnimParent.transform.childCount];
+            for (int i = 0; i < AnimParent.transform.childCount; i++)
+            {
+                AnimFrames[i] = AnimParent.transform.GetChild(i).gameObject;
+            }
+        }*/
+    }
+
+    private void ResetText()
+    {
+        CurrentText = "";
+        NpcTalk_Animate.instance.gameObject.SetActive(false);
+    }
+    
 }

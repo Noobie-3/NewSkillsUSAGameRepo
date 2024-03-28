@@ -3,16 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NpcTalk_Animate : MonoBehaviour
 {
 
     public Npc_Basic npc_Basic;
     public static NpcTalk_Animate instance;
-    public GameObject[] npcAnimations;
+    public Image[] npcAnimations;
     public bool LoopOn = true;
     public float BetweenTimeForFrames;
     public TextMeshProUGUI text;
+    public Image image;
     private void Awake()
     {
         if(instance == null)
@@ -50,9 +52,9 @@ public class NpcTalk_Animate : MonoBehaviour
     private IEnumerator Animate()
     {
 
-            GameObject PrevAnim = null;
+           // GameObject PrevAnim = null;
 
-        for (int i = 0; i < npcAnimations.Length; i++)
+/*        for (int i = 0; i < npcAnimations.Length; i++)
         {
             npcAnimations[i].SetActive(true);
 
@@ -74,11 +76,11 @@ public class NpcTalk_Animate : MonoBehaviour
             if (i == npcAnimations.Length - 1)
             {
 
- /*               if (npcAnimations[i].activeSelf == true)
+ *//*               if (npcAnimations[i].activeSelf == true)
                 {
                     npcAnimations[i].SetActive(false);
                     print(npcAnimations[i].name + "Name of npcAnnim");
-                }*/
+                }*//*
                 LoopOn = true;
                 PrevAnim = npcAnimations[i];
             }
@@ -89,16 +91,26 @@ public class NpcTalk_Animate : MonoBehaviour
 
 
         }
+*/
+
+        for (int i = 0; i < npcAnimations.Length; i++)
+        { 
+            image.sprite = npcAnimations[i].sprite;
+            yield return new WaitForSeconds(BetweenTimeForFrames);
+        }
+
+        LoopOn = true;
+
 
 
     }
 
     private void ResetAnimState()
     {
-        foreach (GameObject anim in npcAnimations)
+/*        foreach (GameObject anim in npcAnimations)
         {
             anim.SetActive(false);
-        }
+        }*/
         LoopOn = true;
     }
 }
