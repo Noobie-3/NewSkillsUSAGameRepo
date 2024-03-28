@@ -10,27 +10,24 @@ public class TimeRewinderV2 : MonoBehaviour
     public Animator animator;
     public float totalRecordedTime;
 
-
-    // Flags to control what to record
     public bool Record_Position;
     public bool Record_Rotation;
     public bool Record_Velocity;
-    public bool Record_BlendState; // New flag to record blend state
-    public bool Record_Cam; // record cam postion and rotation
+    public bool Record_BlendState;
+    public bool Record_Cam;
     public bool Record_Points;
     public CinemachineFreeLook Freecam;
 
-    // Maximum recording duration in seconds
     public float maxRecordingDuration = 5.0f;
     public float currentRecordingTime;
 
-    // Blend parameter name
-    public string blendParameterH = "horizontal"; // Name of the blend parameter
-    public string blendParameterV = "vertical"; // Name of the blend parameter
+    public string blendParameterH = "horizontal";
+    public string blendParameterV = "vertical";
 
     float blendValueV;
     public bool CanRewind;
     public MoveAlongwayPoints PointsToTrack;
+
     private void Start()
     {
         PointsInTime = new List<PointInTime>();
@@ -38,78 +35,59 @@ public class TimeRewinderV2 : MonoBehaviour
         if (GetComponent<Animator>())
         {
             animator = gameObject.GetComponent<Animator>();
-
         }
 
         if (GetComponent<Rigidbody>())
         {
             rb = GetComponent<Rigidbody>();
-
         }
 
         if (GetComponent<MoveAlongwayPoints>() != null)
         {
             PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
-
         }
         Freecam = GameObject.Find("CM FreeLook1").GetComponent<CinemachineFreeLook>();
     }
 
     private void Update()
     {
-
-        if (GetComponent<MoveAlongwayPoints>() != null && PointsToTrack != null)
+        if (GameController.instance.IsPaused != true)
         {
-            PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
-
-        }
-
-        if (GameController.instance.Player != null)
-        {
-            CanRewind = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind;
-            Isrewinding = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding;
-
-        }
-
-        if (CanRewind)
-        {
-            if (Input.GetKeyDown(KeyCode.R) && GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime >= GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration)
+            if (GetComponent<MoveAlongwayPoints>() != null && PointsToTrack != null)
             {
-                StartRewind();
-                /*            if (gameObject.GetComponent<Rigidbody>())
-                            {
-                                rb.isKinematic = true;
-                            }*/
-            }
-            if (Input.GetKeyUp(KeyCode.R))
-            {
-                StopRewind();
-                /*            if (gameObject.GetComponent<Rigidbody>())
-                            {
-                                rb.isKinematic = false;
-                            }*/
+                PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
             }
 
-
-            // Update the total recorded time
-            totalRecordedTime = GetTotalRecordedTime();
-            // If the total recorded time exceeds the maximum recording duration            
-            // remove the oldest recorded data point
-
-            if (totalRecordedTime > maxRecordingDuration)
+            if (GameController.instance.Player != null)
             {
-                // Remove the oldest recorded data point
-                PointsInTime.RemoveAt(PointsInTime.Count - 1);
+                CanRewind = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind;
+                Isrewinding = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding;
+            }
+
+            if (CanRewind)
+            {
+                if (Input.GetKeyDown(KeyCode.R) && GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime >= GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration)
+                {
+                    StartRewind();
+                }
+                if (Input.GetKeyUp(KeyCode.R))
+                {
+                    StopRewind();
+                }
+
+                totalRecordedTime = GetTotalRecordedTime();
+
+                if (totalRecordedTime > maxRecordingDuration)
+                {
+                    PointsInTime.RemoveAt(PointsInTime.Count - 1);
+                }
             }
         }
-
     }
-
     private void FixedUpdate()
     {
         if (CanRewind)
         {
-
             if (Isrewinding)
             {
                 Rewind();
@@ -123,12 +101,10 @@ public class TimeRewinderV2 : MonoBehaviour
 
     public void Record()
     {
-
-
         if (Record_BlendState && Record_Velocity)
         {
-            float blendValueH = animator.GetFloat(blendParameterH); // Get the blend value
-            float blendValueV = animator.GetFloat(blendParameterV); // Get the blend value
+            float blendValueH = animator.GetFloat(blendParameterH);
+            float blendValueV = animator.GetFloat(blendParameterV);
             float LookDirX = Freecam.m_XAxis.Value;
             float LookDirY = Freecam.m_YAxis.Value;
             if (PointsToTrack != null)
@@ -138,55 +114,46 @@ public class TimeRewinderV2 : MonoBehaviour
                 Vector3 Last_Pos = PointsToTrack.LastPos;
 
                 PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState, Record_Cam, Point, Current_T, Last_Pos));
-
             }
             else
             {
                 PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Velocity, Record_BlendState, Record_Cam));
-                print("StateAdded");
             }
         }
-
         else if (!Record_BlendState && !Record_Velocity)
         {
+            if (PointsToTrack != null)
             {
-                if (PointsToTrack != null)
-                {
-                    int Point = PointsToTrack.currentWayPoint;
-                    Vector3 Current_T = PointsToTrack.Current_Target;
-                    Vector3 Last_Pos = PointsToTrack.LastPos;
-                    float LookDirX = Freecam.m_XAxis.Value;
-                    float LookDirY = Freecam.m_YAxis.Value;
-                    PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam, Point, Current_T, Last_Pos));
-                }
-                else
-                {
-
-                    float LookDirX = Freecam.m_XAxis.Value;
-                    float LookDirY = Freecam.m_YAxis.Value;
-                    PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam));
-                }
+                int Point = PointsToTrack.currentWayPoint;
+                Vector3 Current_T = PointsToTrack.Current_Target;
+                Vector3 Last_Pos = PointsToTrack.LastPos;
+                float LookDirX = Freecam.m_XAxis.Value;
+                float LookDirY = Freecam.m_YAxis.Value;
+                PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam, Point, Current_T, Last_Pos));
+            }
+            else
+            {
+                float LookDirX = Freecam.m_XAxis.Value;
+                float LookDirY = Freecam.m_YAxis.Value;
+                PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_Cam));
             }
         }
         else if (!Record_Velocity && Record_BlendState)
         {
             float LookDirX = Freecam.m_XAxis.Value;
             float LookDirY = Freecam.m_YAxis.Value;
-            float blendValueH = animator.GetFloat(blendParameterH); // Get the blend value
-            float blendValueV = animator.GetFloat(blendParameterV); // Get the blend value
+            float blendValueH = animator.GetFloat(blendParameterH);
+            float blendValueV = animator.GetFloat(blendParameterV);
 
             PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, blendValueH, blendValueV, LookDirX, LookDirY, Record_Position, Record_Rotation, Record_BlendState, Record_Cam));
-
         }
         else if (Record_Velocity && !Record_BlendState)
         {
             float LookDirX = Freecam.m_XAxis.Value;
             float LookDirY = Freecam.m_YAxis.Value;
             PointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, rb.velocity, Record_Position, LookDirX, LookDirY, Record_Rotation, Record_Velocity, Record_Cam));
-
         }
     }
-
 
     private void Rewind()
     {
@@ -204,10 +171,9 @@ public class TimeRewinderV2 : MonoBehaviour
                 transform.position = PointsInTime[0].position;
             }
             if (Record_Rotation)
-                if (Record_Rotation)
-                {
-                    transform.rotation = PointsInTime[0].rotation;
-                }
+            {
+                transform.rotation = PointsInTime[0].rotation;
+            }
             if (Record_Velocity)
             {
                 rb.velocity.Set(-PointsInTime[0].Velocity.x, -PointsInTime[0].Velocity.y, -PointsInTime[0].Velocity.z);
@@ -215,19 +181,16 @@ public class TimeRewinderV2 : MonoBehaviour
             if (Record_BlendState)
             {
                 animator.SetFloat(blendParameterV, PointsInTime[0].blendValueV);
-                print(PointsInTime[0].blendValueV);
                 animator.SetFloat(blendParameterH, PointsInTime[0].blendValueH);
             }
             if (PointsToTrack != null)
             {
                 PointsToTrack.currentWayPoint = PointsInTime[0].Points;
                 PointsToTrack.LastPos = PointsInTime[0].Last_pos;
-                print(PointsInTime[0].Last_pos + "This is the value that is getting rewindded");
                 PointsToTrack.Current_Target = PointsInTime[0].Current_T;
             }
             PointsInTime.RemoveAt(0);
         }
-
     }
 
     public void StartRewind()

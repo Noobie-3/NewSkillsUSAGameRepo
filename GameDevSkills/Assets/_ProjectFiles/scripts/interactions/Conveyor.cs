@@ -15,7 +15,7 @@ public class Conveyor : MonoBehaviour
 
     }
     void FixedUpdate()
-    {if(Gc.isDead == false)
+    {if(GameController.instance.IsPaused == false)
         {
             GetComponent<Rigidbody>().position -= transform.forward * speed * Time.deltaTime;
             GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + transform.forward * speed * Time.deltaTime);

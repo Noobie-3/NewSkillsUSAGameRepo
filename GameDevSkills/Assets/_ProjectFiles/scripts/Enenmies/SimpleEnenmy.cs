@@ -74,10 +74,16 @@ public class SimpleEnenmy : MonoBehaviour
     public void Update()
     {
 
-        if (GameController.instance.IsPaused == false)
+        if (GameController.instance.IsPaused == true)
+        {
+            animator.speed = 0;
+
+
+        }
+        else if (GameController.instance.IsPaused == false)
 
         {
-            if (GameController.instance.IsPaused == false && animator.speed != 1)
+            if (animator.speed != 1)
             {
                 animator.speed = 1;
             }
@@ -107,12 +113,7 @@ public class SimpleEnenmy : MonoBehaviour
                 }
             }
         }
-        else if (GameController.instance.IsPaused)
-        {
-            animator.speed = 0; 
 
-
-        }
         
         /*else if(!isCharging)
         {

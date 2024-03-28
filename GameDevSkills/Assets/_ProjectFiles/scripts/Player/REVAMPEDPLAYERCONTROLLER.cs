@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using Unity.VisualScripting; // Unused namespace
 using UnityEngine;
 
 public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
@@ -49,19 +49,26 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
     void FixedUpdate()
     {
-        TimeTracker();
-        ApplyGravity();
-        GroundCheck();
-        MyInput();
-        Animate();
+        if (GameController.instance.IsPaused != true)
+        {
+
+            TimeTracker(); // Track time for recording and rewinding
+            ApplyGravity(); // Apply gravity if not grounded or jumping
+            GroundCheck(); // Check if the player is grounded
+            MyInput(); // Get input from player
+            Animate(); // Update animator parameters
+        }
+
     }
 
+    // Move the player based on input
     public void MovePlayer()
     {
         Vector3 moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.MovePosition(rb.position + moveDirection.normalized * moveSpeed * Time.fixedDeltaTime);
     }
 
+    // Get input from player
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -74,30 +81,31 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
             readyToJump = false;
         }
 
-        if(horizontalInput != 0 || verticalInput != 0)
+        if (horizontalInput != 0 || verticalInput != 0)
         {
             MovePlayer();
         }
     }
 
+    // Perform a jump
     public void Jump(float jumpHeight)
-    {        
-        //set velocity to 0
+    {
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        //add jump velocity
         rb.isKinematic = false;
-         jumpHeight = jumpForce * jumpCurve.Evaluate(0); // Evaluate the jump curve at the beginning
+        jumpHeight = jumpForce * jumpCurve.Evaluate(0); // Evaluate the jump curve at the beginning
         rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
         isJumping = true;
         Invoke("ResetIsJumping", jumpCooldown);
     }
 
+    // Apply gravity to the player
     private void ApplyGravity()
     {
-        if (!grounded && !isJumping) // Apply gravity only if not grounded and not jumping
+        if (!grounded && !isJumping)
             rb.velocity += gravity * Time.fixedDeltaTime * Vector3.up;
     }
 
+    // Update animator parameters
     private void Animate()
     {
         anim.SetFloat("horizontal", horizontalInput);
@@ -106,6 +114,7 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         anim.SetBool("IsFalling", IsFalling);
     }
 
+    // Check if the player is grounded
     private void GroundCheck()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, whatIsGround);
@@ -122,12 +131,13 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         {
             ResetJump();
         }
-        else if(!grounded && TimetoJump > TimeAfterJump)
+        else if (!grounded && TimetoJump > TimeAfterJump)
         {
             TimeAfterJump += Time.deltaTime;
         }
     }
 
+    // Reset jump-related variables
     private void ResetJump()
     {
         JumpUsed = false;
@@ -135,11 +145,14 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         readyToJump = true;
         TimeAfterJump = 0;
     }
+
+    // Reset isJumping variable
     private void ResetIsJumping()
     {
         isJumping = false;
     }
 
+    // Track time for recording and rewinding
     public void TimeTracker()
     {
         if (currentRecordingTime < maxRecordingDuration && !isRewinding)
@@ -149,7 +162,6 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         else if (currentRecordingTime >= maxRecordingDuration)
         {
             currentRecordingTime = maxRecordingDuration;
-            
         }
         if (isRewinding)
         {
@@ -159,6 +171,5 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         {
             isRewinding = false;
         }
-
     }
 }

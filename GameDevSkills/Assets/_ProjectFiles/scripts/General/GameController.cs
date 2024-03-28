@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class GameController : MonoBehaviour
 {
-    //acsess to player
+
+    //self reference
+    public static GameController instance;
+
+    // Access to player GameObject
     public GameObject Player;
+    
+    // Experience and level variables
     private float XP = 0;
-    public uint level = 1;//LEVEL UP STUFF
+    public uint level = 1;
     public uint experienceToNextLevel = 100;
 
-
-    public float TimeCooldown = 1;//TIMECONTROL and DAMAGE STUFF + HP
+    // Player attributes
+    public float TimeCooldown = 1;
     public bool Canrewind;
     public float PlayerMight = 1;
     public float PlayerDef = 1;
@@ -27,37 +32,37 @@ public class GameController : MonoBehaviour
     public bool CanRewind;
     public int Current_Currency = 0;
     public bool isDead;
-    public static GameController instance;
     public bool IsPaused = false;
     internal bool isRewinding;
     internal float maxRecordingDuration;
+    
+    // Materials for player object
+    public Material[] Materials;
+    public Material OldMat;
 
-    public void addXP(float amount)//LEVEL UP AND XP FUNCTION
+    // Function to add experience points
+    public void addXP(float amount)
     {
-        //add xp
         XP += amount;
         if (XP >= experienceToNextLevel)
         {
-            //enough xp to level up
             level++;
             XP -= experienceToNextLevel;
-            //adds more to the experience needed to level up (scaling)
-            experienceToNextLevel += 10;
+            experienceToNextLevel += 10; // Scaling experience needed to level up
         }
     }
 
+    // Function to handle player death
     public void DeathScene()
     {
         isDead = true;
     }
-    
 
+    // Function to handle taking damage without particle effect
     public float TakeDamage(float damage, float HP, GameObject Target)
     {
         HP -= damage;
-        print(HP);
-
-        if(HP <= 0 && Target != Player)
+        if (HP <= 0 && Target != Player)
         {
             Destroy(Target);
         }
@@ -67,15 +72,14 @@ public class GameController : MonoBehaviour
         }
         return HP;
     }
+
+    // Function to handle taking damage with particle effect
     public float TakeDamage(float damage, float HP, GameObject Target, GameObject Particle_effect_Death)
     {
         HP -= damage;
-        print(HP);
-
-        if(HP <= 0 && Target != Player)
+        if (HP <= 0 && Target != Player)
         {
             Instantiate(Particle_effect_Death, Target.transform.position, Quaternion.identity);
-            
             Destroy(Target, 1);
             Destroy(Particle_effect_Death, 1);
         }
@@ -86,13 +90,13 @@ public class GameController : MonoBehaviour
         return HP;
     }
 
+    // Awake function is called when the script instance is being loaded
     private void Awake()
     {
-        /*        Cursor.visible = false;
-        */
+        OldMat = Player.gameObject.GetComponentInChildren<Renderer>().materials[0];
         DontDestroyOnLoad(gameObject);
         PlayerHP = PlayerMaxHP;
-        QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
         if (instance == null)
         {
@@ -104,30 +108,31 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // Update is called once per frame
     private void Update()
-    {if(isDead)
+    {
+        if (isDead)
         {
             IsPaused = true;
         }
-        if (TimeTillDamageAgain > 0 && IsPaused == false )
+        if (TimeTillDamageAgain > 0 && !IsPaused)
         {
             IsInvincable = true;
             TimeTillDamageAgain -= Time.deltaTime;
         }
-        else if(TimeTillDamageAgain < 0)
+        else if (TimeTillDamageAgain < 0)
         {
             IsInvincable = false;
+            MatChange(OldMat);
         }
-        if(IsPaused)
+        if (IsPaused)
         {
             Cursor.visible = true;
-            Time.timeScale = 0.0f;
         }
         else
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
-            Time.timeScale = 1;
         }
         if (Player == null && GameObject.FindGameObjectWithTag("Player_01") != null)
         {
@@ -135,15 +140,23 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // Function to gain currency
     public void GainCurrency(int Amount)
     {
         Current_Currency += Amount;
     }
 
-
-
-
-
-
+    // Function to change material
+    private void MatChange(Material Mat)
+    {
+        Materials = GameController.instance.Player.gameObject.GetComponentInChildren<Renderer>().materials;
+        if (Materials != null)
+        {
+            for (int i = 0; i < Materials.Length; i++)
+            {
+                Materials[i] = Mat;
+            }
+            GameController.instance.Player.gameObject.GetComponentInChildren<Renderer>().materials = Materials;
+        }
+    }
 }
-

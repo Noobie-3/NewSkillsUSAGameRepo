@@ -9,7 +9,11 @@ public class HurtEnemmy : MonoBehaviour
     public float DefaultAttackCoolDown;
     public GameObject Particle_Death;
     public HeadDetection HeadDetection;
-    
+    private Material[] Materials;
+    public Material OldMat;
+    public Material NewMat;
+    public float FlashTime;
+
     public void Awake()
     {
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
@@ -21,6 +25,8 @@ public class HurtEnemmy : MonoBehaviour
         {
            GC.PlayerHP = GC.TakeDamage(Stats.Attack, GC.PlayerHP, GC.Player, Particle_Death);
             GC.TimeTillDamageAgain = GC.hurt_Time_Default;
+
+            MatChange(NewMat);
         }
     }
 
@@ -38,5 +44,22 @@ public class HurtEnemmy : MonoBehaviour
         {
             AttackCoolDown -= Time.deltaTime;
         }
+
+
+    }
+
+    private void MatChange(Material Mat)
+    {
+        Materials = GameController.instance.Player.gameObject.GetComponentInChildren<Renderer>().materials;
+        if(Materials !=  null )
+        {
+            for (int i = 0; i < Materials.Length; i++)
+            {
+                Materials[i] = Mat;
+                print(Materials[i].name + "" + i + "   " +  Materials.Length);
+            }
+            GameController.instance.Player.gameObject.GetComponentInChildren<Renderer>().materials = Materials;
+        }
+
     }
 }

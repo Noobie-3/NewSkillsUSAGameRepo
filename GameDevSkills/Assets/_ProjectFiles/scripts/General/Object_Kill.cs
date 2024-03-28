@@ -13,7 +13,8 @@ public class Object_Kill : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if(other.gameObject.CompareTag("Kill_Check_Objects")) {
-            Destroy(other.gameObject.transform.parent);
+            print(other.gameObject.transform.parent.name + " HelpINeinfonndnawjdnjwndjnwjdniondjnijdnjindjiklawnudjnawujkildn");
+            Destroy(other.gameObject.transform.parent.gameObject);
         }
     }
 }

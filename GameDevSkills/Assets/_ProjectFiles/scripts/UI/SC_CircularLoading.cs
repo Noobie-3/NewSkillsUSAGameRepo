@@ -15,7 +15,6 @@ public class SC_CircularLoading : MonoBehaviour
         {
             loadingProgress = (float)((GameController.instance.Player.gameObject.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime / GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration));
             loadingImage.fillAmount = loadingProgress;
-            print(loadingProgress);
         }
         if (loadingProgress < 1)
         {

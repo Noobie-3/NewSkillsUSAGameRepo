@@ -202,17 +202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91395355d1f8f024cad6d258bf23c4c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationTime: 0
-  rb: {fileID: 0}
-  animator: {fileID: 5541385207982099633}
-  isRewinding: 0
-  wasSteppingBack: 0
-  RecordAnimation: 0
-  RecordTransform: 0
-  RecordVelocity: 0
-  RecordRotation: 0
-  record_all: 0
-  type: 2
   moveSpeed: 3
   target: {fileID: 0}
   damage: 2
@@ -221,6 +210,8 @@ MonoBehaviour:
   isCharging: 0
   HP: 100
   NTP: {fileID: 0}
+  rb: {fileID: 0}
+  animator: {fileID: 5541385207982099633}
 --- !u!114 &-1190485465501384578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,9 +239,7 @@ MonoBehaviour:
   blendParameterH: horizontal
   blendParameterV: vertical
   CanRewind: 0
-  ntp: {fileID: 0}
   PointsToTrack: {fileID: 0}
-  GC: {fileID: 0}
 --- !u!114 &757211667070246790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +326,9 @@ MonoBehaviour:
   DefaultAttackCoolDown: 1
   Particle_Death: {fileID: 4594694080803912350, guid: 786dc10e303d5444ab980181e45f7146, type: 3}
   HeadDetection: {fileID: 4614473870777070986}
+  OldMat: {fileID: 2100000, guid: 24860de83215fdf4b95b120efc0d97ad, type: 2}
+  NewMat: {fileID: 2100000, guid: cab92f15f7be6534a8a9e59e89e64535, type: 2}
+  FlashTime: 0
 --- !u!65 &1459628518884209686
 BoxCollider:
   m_ObjectHideFlags: 0
