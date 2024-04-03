@@ -20,6 +20,7 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
     [Header("Physics")]
     public float gravity;
+    public float Tempgravity;
     public float airMultiplier;
     public float playerHeight;
     public bool IsFalling;
@@ -45,6 +46,7 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        Tempgravity = gravity;
     }
 
     void FixedUpdate()
@@ -59,6 +61,9 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
             Animate(); // Update animator parameters
         }
 
+            PauseEffects();
+
+        
     }
 
     // Move the player based on input
@@ -171,5 +176,38 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         {
             isRewinding = false;
         }
+    }
+
+    private void PauseEffects()
+    {
+
+
+
+        if (GameController.instance.IsPaused)
+        {
+            if (anim.speed == 1)
+            {
+                anim.speed = 0;
+            }
+
+            if(gravity != 0)
+            {
+                gravity = 0;
+            }
+        }
+        else
+        {
+            if (anim.speed == 0)
+            {
+                anim.speed = 1;
+            }
+
+            if(gravity == 0)
+            {
+                gravity = Tempgravity;
+            }
+        }
+
+        
     }
 }

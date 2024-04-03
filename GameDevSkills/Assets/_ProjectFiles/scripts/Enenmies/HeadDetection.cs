@@ -33,8 +33,11 @@ public class HeadDetection : MonoBehaviour
             rb = GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>();
         }
         /*        HitBox = GC.Player.transform.Ta("HitBox").gameObject;*/
-        Parent = transform.parent.gameObject;
-        OrigSize = gameObject.transform.root.localScale;
+        if(Parent  != null)
+        {
+            Parent = transform.parent.gameObject;
+        }
+        OrigSize = gameObject.transform.parent.localScale;
         if (GameObject.FindWithTag("GC").GetComponent<GameController>())
         {
             GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
@@ -73,7 +76,7 @@ public class HeadDetection : MonoBehaviour
     {
         Anim.speed = 1;
 
-        gameObject.transform.root.localScale = new Vector3(gameObject.transform.root.localScale.x, OrigSize.y, gameObject.transform.root.localScale.z);
+        gameObject.transform.parent.localScale = new Vector3(gameObject.transform.parent.localScale.x, OrigSize.y, gameObject.transform.parent.localScale.z);
         isSquashed = false;
         CanBeHurt = true;
         Materials = gameObject.GetComponentInParent<Renderer>().materials;
@@ -116,7 +119,7 @@ public class HeadDetection : MonoBehaviour
     {
         Anim.speed = 0;
             eStats.EHp--;
-            gameObject.transform.root.localScale = new Vector3(gameObject.transform.root.localScale.x, OrigSize.y * .5f, gameObject.transform.root.localScale.z);
+            gameObject.transform.parent.localScale = new Vector3(gameObject.transform.parent.localScale.x, OrigSize.y * .5f, gameObject.transform.parent.localScale.z);
             isSquashed = true;
             TimeSquashed = TimeToBeSquashed;
             CanBeHurt = false;
