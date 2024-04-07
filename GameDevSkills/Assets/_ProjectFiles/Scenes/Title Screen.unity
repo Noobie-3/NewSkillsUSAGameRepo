@@ -367,6 +367,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2c73c0b30b71d40b9f6a268143e2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newSceneInfo: {fileID: 0}
+  newPos: {x: 0, y: 0, z: 0}
+  newScene: 
 --- !u!1001 &132165690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -577,7 +580,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211582262}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5d0e207aadf43b40bf486f70d8e7a7e, type: 3}
   m_Name: 
@@ -591,6 +594,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1037006391099655830, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489271884622062646, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2722814301496217124, guid: 3ebca28ba0cc22a479cda45ce7d017d2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -917,6 +928,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2c73c0b30b71d40b9f6a268143e2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newSceneInfo: {fileID: 11400000, guid: fd07189d5675e5f42b465434be3c35d2, type: 2}
+  newPos: {x: 9.091721, y: -5.9969997, z: -70.16142}
+  newScene: Level_01_Factory
 --- !u!1001 &475221197
 PrefabInstance:
   m_ObjectHideFlags: 0

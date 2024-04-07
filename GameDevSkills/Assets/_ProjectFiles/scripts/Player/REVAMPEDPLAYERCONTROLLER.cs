@@ -41,7 +41,7 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
     public float maxRecordingDuration;
     public bool canRewind;
     public float currentRecordingTime;
-
+    public NewSceneInfo NewSceneInfo;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
