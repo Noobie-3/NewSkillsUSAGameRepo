@@ -35,7 +35,8 @@ public class GameController : MonoBehaviour
     public bool IsPaused = false;
     internal bool isRewinding;
     internal float maxRecordingDuration;
-    
+    public AudioSource HurtSoundForPlayer;
+
     // Materials for player object
     public Material[] Materials;
     public Material OldMat;

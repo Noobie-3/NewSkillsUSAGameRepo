@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24aa82d94e794234f997cea3827d4d70, type: 3}
+  m_Name: EnemyRobot_01_Factory_Worker
+  m_EditorClassIdentifier: 
+  EHp_Default: 3
+  Attack: 1
+  KillPartcle: {fileID: 4594694080803912350, guid: 786dc10e303d5444ab980181e45f7146, type: 3}
+  currencyGiven: 1
+  ChanceToHeal: 0
+  HealingItem: {fileID: 0}
+  HurtSound: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}

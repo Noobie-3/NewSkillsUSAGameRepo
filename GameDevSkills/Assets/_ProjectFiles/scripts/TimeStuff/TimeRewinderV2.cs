@@ -17,6 +17,8 @@ public class TimeRewinderV2 : MonoBehaviour
     public bool Record_Cam;
     public bool Record_Points;
     public CinemachineFreeLook Freecam;
+    public AudioSource RewindSound;
+    public bool SoundPlaying;
 
     public float maxRecordingDuration = 5.0f;
     public float currentRecordingTime;
@@ -94,6 +96,10 @@ public class TimeRewinderV2 : MonoBehaviour
             }
             else
             {
+                if(SoundPlaying)
+                {
+                    StopRewind();
+                }
                 Record();
             }
         }
@@ -191,17 +197,30 @@ public class TimeRewinderV2 : MonoBehaviour
             }
             PointsInTime.RemoveAt(0);
         }
+
+
     }
 
     public void StartRewind()
     {
         GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding = true;
+        
+        if (RewindSound != null) 
+        { 
+            RewindSound.Play(); 
+            SoundPlaying = true;
+        }
     }
 
     public void StopRewind()
     {
         GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding = false;
         
+        if (RewindSound != null)
+        {
+            RewindSound.Stop(); 
+            SoundPlaying = false;
+        }
     }
 
     // Calculate the total recorded time

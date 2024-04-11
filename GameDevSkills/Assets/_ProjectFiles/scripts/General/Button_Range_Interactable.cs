@@ -78,6 +78,8 @@ public class Button_Range_Interactable : MonoBehaviour
 
     }
 
+    
+
 
     private void QuestCheck()
     {
@@ -175,6 +177,16 @@ public class Button_Range_Interactable : MonoBehaviour
 
     private void Update()
     {
+        isOn = animators[0].GetBool("Button_Pressed");
+
+        if(isOn && WhatTextToDisplay != WhatTextToDisplay_OptionON)
+        {
+            WhatTextToDisplay = WhatTextToDisplay_OptionON;
+        }
+        else if(!isOn && WhatTextToDisplay != WhatTextToDisplay_OptionOFF) 
+        {
+            WhatTextToDisplay = WhatTextToDisplay_OptionOFF;
+        }
 
         if (Length > 0)
         {

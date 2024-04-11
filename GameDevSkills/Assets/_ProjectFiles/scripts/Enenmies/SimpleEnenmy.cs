@@ -7,7 +7,7 @@ public class SimpleEnenmy : MonoBehaviour
 {
     public float moveSpeed = 3.0f; // Adjust this to control the speed of the enemy.
     public Transform target; // The player's transform.
-    public float damage = 2;
+    public float damage = 1;
 
     public float min = 2f;
     public float max = 3f;

@@ -42,6 +42,8 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
     public bool canRewind;
     public float currentRecordingTime;
     public NewSceneInfo NewSceneInfo;
+    public AudioSource JumpSound;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -101,6 +103,12 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
         isJumping = true;
         Invoke("ResetIsJumping", jumpCooldown);
+
+        if (JumpSound != null)
+        {
+            JumpSound.Play();
+        }
+
     }
 
     // Apply gravity to the player

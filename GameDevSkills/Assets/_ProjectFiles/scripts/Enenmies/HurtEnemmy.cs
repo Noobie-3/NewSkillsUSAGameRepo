@@ -17,7 +17,6 @@ public class HurtEnemmy : MonoBehaviour
     public void Awake()
     {
         GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
-        Stats = gameObject.transform.root.GetComponent<Enemy_Stats>();
     }
     private void OnTriggerStay(Collider other)
     {
@@ -27,6 +26,11 @@ public class HurtEnemmy : MonoBehaviour
             GC.TimeTillDamageAgain = GC.hurt_Time_Default;
 
             MatChange(NewMat);
+
+            if(GameController.instance.HurtSoundForPlayer != null)
+            {
+                GameController.instance.HurtSoundForPlayer.Play();
+            }
         }
     }
 

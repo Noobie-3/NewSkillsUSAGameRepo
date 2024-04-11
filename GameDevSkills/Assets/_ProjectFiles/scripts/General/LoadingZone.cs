@@ -14,15 +14,14 @@ public class LoadingZone : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player_01"))
         {
-            if(GameStateManager.Instance != null)
+            if (GameStateManager.Instance != null)
             {
                 NewSceneInfo.newPoition = NewPos;
                 Destroy(GameStateManager.Instance);
                 Instantiate(GameStateManager.Instance);
                 SceneManager.LoadScene(area);
-            }
-            else Instantiate(gameStateManager);
 
+            }
         }
     }
 }

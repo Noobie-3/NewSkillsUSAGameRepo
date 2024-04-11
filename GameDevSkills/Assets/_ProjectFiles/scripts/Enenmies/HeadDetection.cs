@@ -21,13 +21,14 @@ public class HeadDetection : MonoBehaviour
     public Material NewMat;
     public Material OldMat;
     public Material[] Materials;
-
+    public int EHp;
     public Animator Anim;
+    public AudioSource SoundPlayer;
+    public GameObject RootObectToDestroy;
 
     // Start is called before the first frame update
     void Start()
     {
-        eStats = GetComponentInParent<Enemy_Stats>();
         if (GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>())
         {
             rb = GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>();
@@ -42,20 +43,18 @@ public class HeadDetection : MonoBehaviour
         {
             GC = GameObject.FindWithTag("GC").GetComponent<GameController>();
         }
-/*        JumpKey = GC.Player.GetComponent<NewThirdPerson>().jumpKey;
- *        
-*/    
-    
+        /*        JumpKey = GC.Player.GetComponent<NewThirdPerson>().jumpKey;
+         *        
+        */
+        EHp = eStats.EHp_Default;
+
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>() != null && rb == null)
-        {
-            rb = GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>();
-        }
+
 
         if (TimeSquashed > 0 && isSquashed == true && GameController.instance.IsPaused == false)// decreasing the time till they can be swuashed again
         {
@@ -68,6 +67,11 @@ public class HeadDetection : MonoBehaviour
             UnSqaush();
         }
 
+
+        if (EHp <= 0)
+        {
+            Death();
+        }
 
 
     }
@@ -93,7 +97,7 @@ public class HeadDetection : MonoBehaviour
     { 
         if (CanBeHurt && GameController.instance.IsPaused == false)
         {
-            if (other.gameObject == GC.Player && rb.velocity.y < 0)
+            if (other.gameObject == GC.Player)
             {
                 Sqaush();
                 Bounce();
@@ -118,7 +122,7 @@ public class HeadDetection : MonoBehaviour
     private void Sqaush()
     {
         Anim.speed = 0;
-            eStats.EHp--;
+            EHp--;
             gameObject.transform.parent.localScale = new Vector3(gameObject.transform.parent.localScale.x, OrigSize.y * .5f, gameObject.transform.parent.localScale.z);
             isSquashed = true;
             TimeSquashed = TimeToBeSquashed;
@@ -131,6 +135,35 @@ public class HeadDetection : MonoBehaviour
             Materials[i] = NewMat;
         }
         gameObject.GetComponentInParent<Renderer>().materials = Materials;
+
+        if (SoundPlayer != null)
+        {
+            SoundPlayer.clip = eStats.HurtSound;
+        }
+
+        SoundPlayer.Play();
+
+    }
+
+
+    public void ParticleEffect(Transform Enemy)
+    {
+        Instantiate(eStats.KillPartcle, Enemy.position, Enemy.rotation);
+    }
+
+    public void Death()
+    {
+        GameController.instance.GainCurrency(eStats.currencyGiven);
+        ParticleEffect(gameObject.transform);
+        int RandomNumber = UnityEngine.Random.Range(1, 100);
+        if (RandomNumber <= eStats.ChanceToHeal && eStats.HealingItem != null)
+        {
+            Instantiate(eStats.HealingItem, transform.position, transform.rotation);
+        }
+        if (RootObectToDestroy != null)
+        {
+            Destroy(RootObectToDestroy);
+        }
     }
 
 }
