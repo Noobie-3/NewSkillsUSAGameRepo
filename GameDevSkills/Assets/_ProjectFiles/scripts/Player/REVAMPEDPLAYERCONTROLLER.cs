@@ -218,4 +218,13 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
         
     }
+
+
+
+    // Apply knockback to the player
+    public void ApplyKnockback(Vector3 direction)
+    {
+        // Add force in the specified direction
+        rb.velocity = direction;
+    }
 }

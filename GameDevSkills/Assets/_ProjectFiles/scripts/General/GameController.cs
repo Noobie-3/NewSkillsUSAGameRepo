@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
     // Materials for player object
     public Material[] Materials;
     public Material OldMat;
+    public Material HurtMat;
 
     // Function to add experience points
     public void addXP(float amount)
@@ -99,7 +100,7 @@ public class GameController : MonoBehaviour
         PlayerHP = PlayerMaxHP;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        if (instance == null)
+        if (instance != this)
         {
             instance = this;
         }
@@ -124,7 +125,7 @@ public class GameController : MonoBehaviour
         else if (TimeTillDamageAgain < 0)
         {
             IsInvincable = false;
-            MatChange(OldMat);
+            MatChange(OldMat, Player);
         }
         if (IsPaused)
         {
@@ -147,17 +148,22 @@ public class GameController : MonoBehaviour
         Current_Currency += Amount;
     }
 
-    // Function to change material
-    private void MatChange(Material Mat)
+
+    public void MatChange(Material Mat, GameObject ObjectToBeChanged)
     {
-        Materials = GameController.instance.Player.gameObject.GetComponentInChildren<Renderer>().materials;
-        if (Materials != null)
+        Material[] materials;
+
+
+        materials = ObjectToBeChanged.GetComponentInChildren<Renderer>().materials;
+        if (materials != null)
         {
-            for (int i = 0; i < Materials.Length; i++)
+            for (int i = 0; i < materials.Length; i++)
             {
-                Materials[i] = Mat;
+                materials[i] = Mat;
+                print(materials[i].name + "" + i + "   " + materials.Length);
             }
-            GameController.instance.Player.gameObject.GetComponentInChildren<Renderer>().materials = Materials;
+            ObjectToBeChanged.GetComponentInChildren<Renderer>().materials = materials;
         }
+
     }
 }

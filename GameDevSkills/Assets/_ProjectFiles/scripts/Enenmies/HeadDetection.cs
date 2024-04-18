@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class HeadDetection : MonoBehaviour
 {
-    public Rigidbody rb;
     public GameObject HitBox;
     public Enemy_Stats eStats;
     public GameController GC;
@@ -29,10 +28,7 @@ public class HeadDetection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>())
-        {
-            rb = GameObject.FindWithTag("Player_01").GetComponent<Rigidbody>();
-        }
+
         /*        HitBox = GC.Player.transform.Ta("HitBox").gameObject;*/
         if(Parent  != null)
         {
@@ -99,6 +95,8 @@ public class HeadDetection : MonoBehaviour
         {
             if (other.gameObject == GC.Player)
             {
+
+
                 Sqaush();
                 Bounce();
             }
@@ -153,6 +151,12 @@ public class HeadDetection : MonoBehaviour
 
     public void Death()
     {
+        if (SoundPlayer != null)
+        {
+            SoundPlayer.clip = eStats.DeathSound;
+            SoundPlayer.Play();
+        }
+
         GameController.instance.GainCurrency(eStats.currencyGiven);
         ParticleEffect(gameObject.transform);
         int RandomNumber = UnityEngine.Random.Range(1, 100);
@@ -162,7 +166,7 @@ public class HeadDetection : MonoBehaviour
         }
         if (RootObectToDestroy != null)
         {
-            Destroy(RootObectToDestroy);
+            Destroy(RootObectToDestroy, TimeSquashed);
         }
     }
 

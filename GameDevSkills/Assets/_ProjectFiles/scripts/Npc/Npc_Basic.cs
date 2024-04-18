@@ -20,6 +20,8 @@ public class Npc_Basic : MonoBehaviour
     public Image[] AnimFrames;
     public GameObject Indicator;
 
+    private Coroutine CurrentlytalkingCoRoutine;
+
     [SerializeField] private GameObject PopUpBox;
     public bool isTalking;
 
@@ -44,7 +46,7 @@ public class Npc_Basic : MonoBehaviour
                 {
                     dialogueTimeDelayPerChar = TimePerChar(OneTimeDiologe);
                     CurrentDialogue = OneTimeDiologe;
-                    StartCoroutine(StartDialogue(OneTimeDiologe));
+                     CurrentlytalkingCoRoutine = StartCoroutine(StartDialogue(OneTimeDiologe));
 
                 }
                 //Every other Time Meeting Npc
@@ -53,16 +55,17 @@ public class Npc_Basic : MonoBehaviour
 
                     if (CurrentDialogueIndex == dialogues.Length)
                     {
-                        CurrentDialogueIndex = 0;
                         ResetText();
                         TurnOffText();
+                        CurrentDialogueIndex = 0;
+
                     }
 
                     else if (CurrentDialogueIndex <= dialogues.Length - 1)
                     {
                         dialogueTimeDelayPerChar = TimePerChar(dialogues[CurrentDialogueIndex]);
                         CurrentDialogue = dialogues[CurrentDialogueIndex];
-                        StartCoroutine(StartDialogue(CurrentDialogue));
+                        CurrentlytalkingCoRoutine =  StartCoroutine(StartDialogue(CurrentDialogue));
                     }
 
                 }
@@ -78,8 +81,10 @@ public class Npc_Basic : MonoBehaviour
     {
         if (other.gameObject == GameController.instance.Player)
         {//turn off everything and reset the npc text
-            StopCoroutine(StartDialogue(CurrentDialogue));
+            StopCoroutine(CurrentlytalkingCoRoutine);
             ResetText();
+            TurnOffText();
+            CurrentDialogueIndex = 0;
             isTalking = false;
             Indicator.SetActive(false);
         }
@@ -98,7 +103,7 @@ public class Npc_Basic : MonoBehaviour
         foreach (char c in text)
         {
             //makes the chars appear at above speed
-            if (CurrentText != text)
+            if (CurrentText != text && isTalking == true)
             {
                 CurrentText = CurrentText + c;
                 NpcTalk_Animate.instance.text.text = CurrentText;

@@ -111,6 +111,8 @@ MonoBehaviour:
   Record_Cam: 0
   Record_Points: 0
   Freecam: {fileID: 0}
+  RewindSound: {fileID: 0}
+  SoundPlaying: 0
   maxRecordingDuration: 5
   currentRecordingTime: 0
   blendParameterH: horizontal
@@ -143,7 +145,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.20599954
+  m_Radius: 0.22
   m_Height: 1.41
   m_Direction: 1
   m_Center: {x: -0.010000005, y: 0.64, z: 0}
@@ -311,6 +313,7 @@ MonoBehaviour:
   canRewind: 1
   currentRecordingTime: 0
   NewSceneInfo: {fileID: 11400000, guid: fd07189d5675e5f42b465434be3c35d2, type: 2}
+  JumpSound: {fileID: 0}
 --- !u!1 &3187541693533908917
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +357,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.20599954
-  m_Height: 1.41
+  m_Height: 1.5
   m_Direction: 1
   m_Center: {x: -0.010000005, y: 0.64, z: 0}
 --- !u!1 &3665874529606814100

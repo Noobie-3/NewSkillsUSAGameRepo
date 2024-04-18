@@ -1,20 +1,23 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "Enemy_Stats", menuName = "Enemy/Enemy_Stats")]
-public class Enemy_Stats : ScriptableObject
+[CreateAssetMenu(fileName = "Boss_Stats", menuName = "Boss/Boss_BossStats")]
+
+public class Boss_stats : ScriptableObject
 {
 
-    public int EHp_Default;
+    public int BHp_Default;
     public float Attack;
+    public float RangeAttack;
     public GameObject KillPartcle;
     public int currencyGiven;
     [Range(0, 100)]
     public float ChanceToHeal;
-    public GameObject HealingItem;
     public AudioClip HurtSound;
     public AudioClip DeathSound;
 }
+
+
+

@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24aa82d94e794234f997cea3827d4d70, type: 3}
-  m_Name: EnemyRobot_01_Factory_Worker
+  m_Script: {fileID: 11500000, guid: 5dce3e8effc7a8a41af1fd4253c49241, type: 3}
+  m_Name: Boss_Stats_01
   m_EditorClassIdentifier: 
-  EHp_Default: 3
-  Attack: 1
+  BHp_Default: 5
+  Attack: 2
+  RangeAttack: 1
   KillPartcle: {fileID: 4594694080803912350, guid: 786dc10e303d5444ab980181e45f7146, type: 3}
-  currencyGiven: 1
+  currencyGiven: 51
   ChanceToHeal: 0
-  HealingItem: {fileID: 0}
-  HurtSound: {fileID: 8300000, guid: 7e26c9daf4c32483b9c2790e662d3f1b, type: 3}
-  DeathSound: {fileID: 8300000, guid: b9eff218e132a4e76be78840eca96fb2, type: 3}
+  HurtSound: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
+  DeathSound: {fileID: 8300000, guid: 72127805eb2bc4e7fbf2e02eca266cfa, type: 3}

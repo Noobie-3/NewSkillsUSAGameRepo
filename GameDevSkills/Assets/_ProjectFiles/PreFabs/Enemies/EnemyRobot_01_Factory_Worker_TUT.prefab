@@ -88,8 +88,9 @@ GameObject:
   - component: {fileID: 5836109072985203050}
   - component: {fileID: 4599636973665081365}
   - component: {fileID: 8314341992269180325}
+  - component: {fileID: 8646017620911185374}
   m_Layer: 0
-  m_Name: EnemyRobot_01_Factory_Worker
+  m_Name: EnemyRobot_01_Factory_Worker_TUT
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 2419182808766551809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.0137415, y: 1.6900024, z: -26.999886}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.002, y: 1.002, z: 1.002}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 689984122194880428}
@@ -199,6 +200,21 @@ MonoBehaviour:
   blendParameterV: vertical
   CanRewind: 0
   PointsToTrack: {fileID: 0}
+--- !u!114 &8646017620911185374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2419182808766551809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00fd26360a31a2848bb81ab8bb4210fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopUp: {fileID: 0}
+  PauseScreen: {fileID: 0}
+  TutData: {fileID: 11400000, guid: 3dcffc2d3aaca7b49b4575f64dd6a7af, type: 2}
 --- !u!1 &3625229608584051988
 GameObject:
   m_ObjectHideFlags: 0
