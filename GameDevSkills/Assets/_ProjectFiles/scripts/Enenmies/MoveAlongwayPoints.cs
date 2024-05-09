@@ -44,9 +44,9 @@ public class MoveAlongwayPoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.FindWithTag("Player_01").GetComponent<TimeRewinderV2>())
+        if (GameController.instance.Player.GetComponent<TimeRewinderV2>())
         {
-            Tr2 = GameObject.FindWithTag("Player_01").GetComponent<TimeRewinderV2>();
+            Tr2 = GameController.instance.Player.GetComponent<TimeRewinderV2>();
 
         }if (Tr2 != null)
         {
@@ -56,7 +56,7 @@ public class MoveAlongwayPoints : MonoBehaviour
 
                 if (currentWayPoint < WayPoints.Count & CanMove)
                 {
-                    Current_Target = LastPos + WayPoints[currentWayPoint];
+                    Current_Target = WayPoints[currentWayPoint];
                     float step = MoveSpeed * Time.deltaTime;
                     transform.position = Vector3.MoveTowards(transform.position, Current_Target, step);
 
@@ -111,5 +111,11 @@ public class MoveAlongwayPoints : MonoBehaviour
 
         }
     }
+    public void AddNewWayPoint() {
+    
+        WayPoints.Add (new Vector3(transform.position.x, transform.position.y, transform.position.z));
 
+
+    
+    }
 }

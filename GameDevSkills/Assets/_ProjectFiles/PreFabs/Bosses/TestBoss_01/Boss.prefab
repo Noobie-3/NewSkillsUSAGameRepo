@@ -236,7 +236,6 @@ GameObject:
   - component: {fileID: 3593104110602573330}
   - component: {fileID: 231455329256157246}
   - component: {fileID: 2721902523746108796}
-  - component: {fileID: 74998478109383798}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -343,18 +342,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPhase: 0
   stats: {fileID: 11400000, guid: a7dee5151cc62784c8268dfe24b60d09, type: 2}
+  health: 1
   phaseOneHealthThreshold: 50
   itemSpawnInterval: 0.1
+  itemSpawnIntervalDefault: 3
   itemPrefab: {fileID: 8122559102178589646, guid: d94e253c216c767448e5a2cecd991f22, type: 3}
   itemSpawnPoint: {fileID: 3593104110082576591}
+  ItemSpawnTimer: 0
   phaseTwoHealthThreshold: 20
   summonInterval: 0.2
+  summonIntervalDefault: 5
   enemyPrefab: {fileID: 2419182808766551809, guid: 26ac32b0a347d134ab8fb1819414c17a, type: 3}
   enemySpawnPoints:
   - {fileID: 3593104109374356711}
   - {fileID: 3593104110834643810}
   - {fileID: 3593104110033981816}
   - {fileID: 3593104109523560300}
+  SummonTimer: 0
+  enemyList: []
+  EnemyCount: 0
+  MaxEnemies: 0
+  DefaultMaxEnemies: 0
+  PosibleEnemies: []
+  AllSpawned: 0
+  RiseUpPlatform: {fileID: 0}
+  RoseUp: 0
+  MovingPlaforms: []
+  ForceField: {fileID: 0}
+  phaseThreeHealthThreshold: 0
+  SpawnMultiplier: 2
+  EnrageItemSpawnMultiplier: 0
+  EnrageEnemyMaxAmount: 0
+  EnrageTime: 5
+  enragedTimer: 0
+  TimeTillEnrage: 10
+  TimeTakenTillEnrage: 0
+  IsEnraged: 0
+  EnrageBar: {fileID: 0}
+  EnrageAmount: 0
+  animator: {fileID: 0}
+  IsInvulnerable: 0
+  InInvulnerableTime: 2
+  InInvulnerableTimeDefault: 2
 --- !u!54 &231455329256157246
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -384,20 +413,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.46, y: 2.97, z: 1.93}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &74998478109383798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3593104110602573328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f229ef077e76a91458743873626f7346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  KnockBackForce: 50
-  isBeingKockedBack: 0
 --- !u!1 &3593104110834643810
 GameObject:
   m_ObjectHideFlags: 0

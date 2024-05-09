@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class TurnTimeON : MonoBehaviour
 {
-    public NewThirdPerson ntp;
     public bool IsinsideTrigger;
     public Animator Ani;
     public GameObject Partical;
@@ -17,12 +16,12 @@ public class TurnTimeON : MonoBehaviour
     {
   
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player_01"))
+        if (other.gameObject == GameController.instance.Player.gameObject)
         {
 
-            ntp.canRewind = true;
+            GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind = true;
             Ani.SetBool("Button_Pressed", false);
             Instantiate(Partical,transform.position, Quaternion.identity);
             Destroy(gameObject.transform.parent.gameObject);
