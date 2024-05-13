@@ -160,7 +160,6 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < materials.Length; i++)
             {
                 materials[i] = Mat;
-                print(materials[i].name + "" + i + "   " + materials.Length);
             }
             ObjectToBeChanged.GetComponentInChildren<Renderer>().materials = materials;
         }
