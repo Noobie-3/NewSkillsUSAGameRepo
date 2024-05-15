@@ -53,18 +53,20 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameController.instance.IsPaused != true)
+        if (GameController.instance != null)
         {
+            if (GameController.instance.IsPaused != true)
+            {
 
-            TimeTracker(); // Track time for recording and rewinding
-            ApplyGravity(); // Apply gravity if not grounded or jumping
-            GroundCheck(); // Check if the player is grounded
-            MyInput(); // Get input from player
-            Animate(); // Update animator parameters
-        }
+                TimeTracker(); // Track time for recording and rewinding
+                ApplyGravity(); // Apply gravity if not grounded or jumping
+                GroundCheck(); // Check if the player is grounded
+                MyInput(); // Get input from player
+                Animate(); // Update animator parameters
+            }
 
             PauseEffects();
-
+        }
         
     }
 

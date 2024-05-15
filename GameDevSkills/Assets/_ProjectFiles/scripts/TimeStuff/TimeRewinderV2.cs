@@ -52,36 +52,40 @@ public class TimeRewinderV2 : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (GameController.instance.IsPaused != true)
+    {if (GameController.instance != null)
         {
-            if (GetComponent<MoveAlongwayPoints>() != null && PointsToTrack != null)
-            {
-                PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
-            }
 
-            if (GameController.instance.Player != null)
-            {
-                CanRewind = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind;
-                Isrewinding = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding;
-            }
 
-            if (CanRewind)
+            if (GameController.instance.IsPaused != true)
             {
-                if (Input.GetKeyDown(KeyCode.R) && GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime >= GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration)
+                if (GetComponent<MoveAlongwayPoints>() != null && PointsToTrack != null)
                 {
-                    StartRewind();
-                }
-                if (Input.GetKeyUp(KeyCode.R))
-                {
-                    StopRewind();
+                    PointsToTrack = gameObject.GetComponent<MoveAlongwayPoints>();
                 }
 
-                totalRecordedTime = GetTotalRecordedTime();
-
-                if (totalRecordedTime > maxRecordingDuration)
+                if (GameController.instance.Player != null)
                 {
-                    PointsInTime.RemoveAt(PointsInTime.Count - 1);
+                    CanRewind = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind;
+                    Isrewinding = GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().isRewinding;
+                }
+
+                if (CanRewind)
+                {
+                    if (Input.GetKeyDown(KeyCode.R) && GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime >= GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration)
+                    {
+                        StartRewind();
+                    }
+                    if (Input.GetKeyUp(KeyCode.R))
+                    {
+                        StopRewind();
+                    }
+
+                    totalRecordedTime = GetTotalRecordedTime();
+
+                    if (totalRecordedTime > maxRecordingDuration)
+                    {
+                        PointsInTime.RemoveAt(PointsInTime.Count - 1);
+                    }
                 }
             }
         }

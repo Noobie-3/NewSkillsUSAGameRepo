@@ -48,6 +48,7 @@ MonoBehaviour:
   level: 1
   experienceToNextLevel: 100
   TimeCooldown: 1
+  Canrewind: 0
   PlayerMight: 1
   PlayerDef: 1
   HealingEffect: 1
@@ -55,5 +56,14 @@ MonoBehaviour:
   PlayerMaxHP: 10
   IsInvincable: 0
   TimeTillDamageAgain: 2
-  DefaultMoveSpeed: 10
-  speed: 0
+  hurt_Time_Default: 0
+  JumpForce: 0
+  CanRewind: 0
+  Current_Currency: 0
+  isDead: 0
+  IsPaused: 0
+  HurtSoundForPlayer: {fileID: 0}
+  PopUpTextRef: {fileID: 0}
+  Materials: []
+  OldMat: {fileID: 0}
+  HurtMat: {fileID: 2100000, guid: cab92f15f7be6534a8a9e59e89e64535, type: 2}

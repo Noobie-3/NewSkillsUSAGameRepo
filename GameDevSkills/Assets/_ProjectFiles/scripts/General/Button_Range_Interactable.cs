@@ -30,7 +30,12 @@ public class Button_Range_Interactable : MonoBehaviour
     [HideInInspector]
     private void Start()
     {
-        TextMesh_Obj.SetActive(false);
+        if (TextMesh_Obj == null && GameController.instance.PopUpTextRef != null)
+        {
+            TextMesh_Obj = GameController.instance.PopUpTextRef;
+            TextMesh_Obj.SetActive(false);
+
+        }
         InventorySystem = GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
 
     }
@@ -51,6 +56,12 @@ public class Button_Range_Interactable : MonoBehaviour
 
         if (other.gameObject == GameController.instance.Player.gameObject)
         {
+
+            if (TextMesh_Obj == null && GameController.instance.PopUpTextRef != null)
+            {
+                TextMesh_Obj = GameController.instance.PopUpTextRef;
+            }
+
             if (Requires_Object && !InventorySystem.inventoryItems.Contains(Required_Object)) {
                 WhatTextToDisplay = WhatTextToDisplay_OptionLOCKED;
             }

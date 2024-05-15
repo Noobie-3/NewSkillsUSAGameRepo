@@ -11,26 +11,30 @@ public class SC_CircularLoading : MonoBehaviour
     public float loadingProgress = 0;
     // Update is called once per frame
     void Update()
-    { if (GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind)
+    {
+        if (GameController.instance != null)
         {
-            loadingProgress = (float)((GameController.instance.Player.gameObject.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime / GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration));
-            loadingImage.fillAmount = loadingProgress;
-        }
-        if (loadingProgress < 1)
-        {
-            //   loadingText.text = Mathf.RoundToInt(loadingProgress * 100) + "%\nLoading...";
-        }
-        else
-        {
-            // loadingText.text = "Done.";
+            if (GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind)
+            {
+                loadingProgress = (float)((GameController.instance.Player.gameObject.GetComponent<REVAMPEDPLAYERCONTROLLER>().currentRecordingTime / GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().maxRecordingDuration));
+                loadingImage.fillAmount = loadingProgress;
+            }
+            if (loadingProgress < 1)
+            {
+                //   loadingText.text = Mathf.RoundToInt(loadingProgress * 100) + "%\nLoading...";
+            }
+            else
+            {
+                // loadingText.text = "Done.";
 
+            }
+            if (GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind == false)
+            {
+
+                loadingImage.fillAmount = 0;
+
+            }
         }
-        if(GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().canRewind == false) {
-
-            loadingImage.fillAmount = 0;
-
-        }
-
 
 
 

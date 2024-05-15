@@ -37,6 +37,8 @@ public class Boss_StateMachine : MonoBehaviour
     [SerializeField] private Transform itemSpawnPoint;
     [SerializeField] private float ItemSpawnTimer;
     [SerializeField] private List<GameObject> ItemsSpawned;
+    [SerializeField] private bool CanSpawn;
+
 
     // Phase Two variables
     [Header("Phase Two")]
@@ -56,6 +58,7 @@ public class Boss_StateMachine : MonoBehaviour
     [SerializeField] private bool RoseUp;
     [SerializeField] private GameObject[] MovingPlaforms;
     [SerializeField] private GameObject ForceField;
+    [SerializeField] private bool CanSummon;
 
     // Phase Three Variables
     [Header("Phase Three")]
@@ -64,6 +67,8 @@ public class Boss_StateMachine : MonoBehaviour
     // Enrage Variables
     [Header("Enrage")]
     [SerializeField] private float SpawnMultiplier = 2;
+    [SerializeField] private float SummonTime_Enraged = 2;
+
     [SerializeField] private float EnrageItemSpawnMultiplier;
     [SerializeField] private int EnrageEnemyMaxAmount;
     [SerializeField] private float EnrageTime = 5;
@@ -127,6 +132,8 @@ public class Boss_StateMachine : MonoBehaviour
 
         if (BossFightStarted)
         {
+            //center platform drops to make fighting arena bigger
+
             // Transition to Phase One when the boss fight starts
             currentPhase = BossPhase.PhaseOne;
         }
@@ -203,7 +210,7 @@ public class Boss_StateMachine : MonoBehaviour
     {
 
         // Modify summon interval during enrage
-        summonInterval = summonIntervalDefault / SpawnMultiplier;
+        summonInterval = SummonTime_Enraged;
         CanAttackTimerUpdater();
         MaxEnemies = EnrageEnemyMaxAmount;
         SummonTimer += Time.deltaTime;
@@ -251,7 +258,9 @@ public class Boss_StateMachine : MonoBehaviour
             Destroy(enemyList[i]);
         }
         transform.DORotate(new Vector3(0, 360, 0), 10, RotateMode.WorldAxisAdd);
+        CanSpawn = true;
         SpawnItem();
+
         // Destroy boss object
         Destroy(gameObject, 10);
     }
@@ -260,35 +269,40 @@ public class Boss_StateMachine : MonoBehaviour
     // Method to spawn an item
     public void SpawnItem()
     {
-        // Fire Randomly when dead also fire upwards
-        if (currentPhase == BossPhase.Dead)
+        if (CanSpawn)
         {
-            GameObject item = Instantiate(itemPrefab, itemSpawnPoint.position, Quaternion.identity);
-            item.GetComponent<Bullet_Behavior>().stats = stats;
-            Vector3 direction = new Vector3(1, Random.Range(.7f, 10), 1);
-            item.GetComponent<Rigidbody>().AddForce(direction * 10f, ForceMode.Impulse);
-            return;
-        }
-        else
-        {
-            // Instantiate item and throw towards player
-            GameObject item = Instantiate(itemPrefab, itemSpawnPoint.position, Quaternion.identity);
-            item.GetComponent<Bullet_Behavior>().stats = stats;
-            item.GetComponent<Bullet_Behavior>().CanDamage = true;
-            ItemsSpawned.Add(item);
-            if (anim != null)
-            {
-                anim.SetBool("CanSpawn", false);
-            }
-            for (int i = 0; i < ItemsSpawned.Count; i++)
-            {
-                if (ItemsSpawned[i] == null)
-                {
-                    ItemsSpawned.Remove(ItemsSpawned[i]);
-                }
-            }
-            ItemsSpawned.Add(item);
 
+
+            // Fire Randomly when dead also fire upwards
+            if (currentPhase == BossPhase.Dead)
+            {
+                GameObject item = Instantiate(itemPrefab, itemSpawnPoint.position, Quaternion.identity);
+                item.GetComponent<Bullet_Behavior>().stats = stats;
+                Vector3 direction = new Vector3(1, Random.Range(.7f, 10), 1);
+                item.GetComponent<Rigidbody>().AddForce(direction * 10f, ForceMode.Impulse);
+                return;
+            }
+            else
+            {
+                // Instantiate item and throw towards player
+                GameObject item = Instantiate(itemPrefab, itemSpawnPoint.position, itemSpawnPoint.transform.rotation);
+                item.GetComponent<Bullet_Behavior>().stats = stats;
+                item.GetComponent<Bullet_Behavior>().CanDamage = true;
+                ItemsSpawned.Add(item);
+                if (anim != null)
+                {
+                    anim.SetBool("CanSpawn", false);
+                }
+                for (int i = 0; i < ItemsSpawned.Count; i++)
+                {
+                    if (ItemsSpawned[i] == null)
+                    {
+                        ItemsSpawned.Remove(ItemsSpawned[i]);
+                    }
+                }
+                ItemsSpawned.Add(item);
+
+            }
         }
     }
     public void AddVelToItem()
@@ -320,30 +334,28 @@ public class Boss_StateMachine : MonoBehaviour
 
     // Method to summon an enemy
     private void SummonEnemy()
-    {
-        // Randomly select a spawn point and instantiate enemy at that point if list has less than max enemies
-        if (IsEnraged)
+    {if(CanSummon)
         {
-            int SpawnPoinNum = Random.Range(0, enemySpawnPoints.Length);
-            int RandomEnemy = Random.Range(0, PosibleEnemies.Length);
 
-            enemyList.Add(Instantiate(PosibleEnemies[RandomEnemy], enemySpawnPoints[SpawnPoinNum].transform.position, Quaternion.identity));
-            EnemyCount++;
-            SummonTimer = 0f;
-            anim.SetBool("CanSummon", false);
-        }
-        else if (AllSpawned == false)
-        {
-            int SpawnPoinNum = Random.Range(0, enemySpawnPoints.Length);
-            enemyList.Add(Instantiate(enemyPrefab, enemySpawnPoints[SpawnPoinNum].transform.position, Quaternion.identity));
-            EnemyCount++;
-            SummonTimer = 0f;
-            if (anim != null)
+            
+            // Randomly select a spawn point and instantiate enemy at that point if list has less than max enemies
+            if (IsEnraged)
             {
-                anim.SetBool("CanSummon", false);
+                int SpawnPoinNum = Random.Range(0, enemySpawnPoints.Length);
+                int RandomEnemy = Random.Range(0, PosibleEnemies.Length);
+                MaxEnemies = EnrageEnemyMaxAmount;
+                enemyList.Add(Instantiate(PosibleEnemies[RandomEnemy], enemySpawnPoints[SpawnPoinNum].transform.position, Quaternion.identity));
+                EnemyCount++;
+            }
+            else if (AllSpawned == false)
+            {
+                MaxEnemies = DefaultMaxEnemies;
+                int SpawnPoinNum = Random.Range(0, enemySpawnPoints.Length);
+                enemyList.Add(Instantiate(enemyPrefab, enemySpawnPoints[SpawnPoinNum].transform.position, Quaternion.identity));
+                EnemyCount++;
+
             }
         }
-
         else return;
 
     }
@@ -352,6 +364,12 @@ public class Boss_StateMachine : MonoBehaviour
     private bool HealthBelowThreshold(float threshold)
     {
         return health < threshold;
+    }
+    private void  ResetCanSummon()
+    {
+        anim.SetBool("CanSummon", false);
+        SummonTimer = 0;
+
     }
 
     // Method to check if boss is defeated
@@ -464,25 +482,44 @@ public class Boss_StateMachine : MonoBehaviour
     // Update the enrage bar fill based on the current value
     public void UpdateBar()
     {
-        float fillAmount;
-
-        if (!IsEnraged)
+        if (EnrageBar != null)
         {
-            // Calculate fill amount based on the time remaining till enrage
-            fillAmount = TimeTillEnrage / TimeTakenTillEnrage;
-            EnrageAmount = EnrageTime;
+            if (BossFightStarted)
+            {
+
+
+                float fillAmount;
+
+                if (!IsEnraged)
+                {
+                    // Calculate fill amount based on the time remaining till enrage
+                    fillAmount = TimeTillEnrage / TimeTakenTillEnrage;
+                    EnrageAmount = EnrageTime;
+                }
+                else
+                {
+                    // Reduce enrage amount over time
+                    EnrageAmount -= Time.deltaTime;
+                    // Calculate fill amount based on the enrage amount
+                    fillAmount = EnrageAmount / EnrageTime;
+
+                }
+
+                // Set the fill amount of the enrage bar
+                EnrageBar.fillAmount = fillAmount;
+            }
+            else if (!BossFightStarted)
+            {
+                if (EnrageBar.gameObject.activeSelf == true)
+                {
+                    EnrageBar.gameObject.SetActive(false);
+                }
+            }
         }
-        else
+        else if (EnrageBar == null && GameController.instance.BossBar != null)
         {
-            // Reduce enrage amount over time
-            EnrageAmount -= Time.deltaTime;
-            // Calculate fill amount based on the enrage amount
-            fillAmount = EnrageAmount / EnrageTime;
-
+            EnrageBar = GameController.instance.BossBar;
         }
-
-        // Set the fill amount of the enrage bar
-        EnrageBar.fillAmount = fillAmount;
     }
 
     // Check if boss is invulnerable
@@ -493,7 +530,7 @@ public class Boss_StateMachine : MonoBehaviour
             InInvulnerableTime -= Time.deltaTime;
         }
 
-        if (ForceField.activeSelf != IsInvulnerable)
+        if (ForceField != null && ForceField.activeSelf != IsInvulnerable)
         {
             ForceField.SetActive(IsInvulnerable);
         }
@@ -524,12 +561,12 @@ public class Boss_StateMachine : MonoBehaviour
     private void CanAttackTimerUpdater()
     {
         // Update summon timer
-        if (SummonTimer < summonInterval && !AllSpawned)
+        if (SummonTimer < summonInterval && !AllSpawned && !CanSummon && currentPhase != BossPhase.PhaseOne && currentPhase != BossPhase.EnragedPhaseOne)
         {
             SummonTimer += Time.deltaTime;
 
         }
-        else if (currentPhase != BossPhase.EnragedPhaseOne && currentPhase != BossPhase.PhaseOne && !AllSpawned)
+        else if (!AllSpawned && SummonTimer >= summonInterval)
         {
             SummonTimer = 0;
             anim.SetBool("CanSummon", true);//fix it summoning enemies when all spawned is true;
@@ -549,5 +586,7 @@ public class Boss_StateMachine : MonoBehaviour
             print("this should fire");
 
         }
+        CanSpawn = anim.GetBool("CanSpawn");
+        CanSummon = anim.GetBool("CanSummon");
     }
 }
