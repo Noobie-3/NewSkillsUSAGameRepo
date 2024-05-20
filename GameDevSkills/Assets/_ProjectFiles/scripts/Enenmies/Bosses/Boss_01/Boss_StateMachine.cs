@@ -132,6 +132,8 @@ public class Boss_StateMachine : MonoBehaviour
 
         if (BossFightStarted)
         {
+            //Start Boss music
+            // Shut door
             //center platform drops to make fighting arena bigger
 
             // Transition to Phase One when the boss fight starts

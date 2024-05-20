@@ -58,7 +58,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7815e2c3942439647b6c2ece1d57b201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   HitBox: {fileID: 0}
   eStats: {fileID: 11400000, guid: 8cf96067b0fff0247b3747bf5c14b2c5, type: 2}
   GC: {fileID: 0}
@@ -558,6 +557,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f3ec18876bcc2674db75fd7be51adfff, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f3ec18876bcc2674db75fd7be51adfff, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f3ec18876bcc2674db75fd7be51adfff, type: 3}
       propertyPath: m_Controller

@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 1494738571376492345}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -308,8 +308,7 @@ MonoBehaviour:
   maxDistanceToView: 15
   minDistanceToAttack: 10
   maxFieldOfView: 60
-  waypoints:
-  - {fileID: 0}
+  waypoints: []
   enableDebug: 0
   currentState: 0
 --- !u!1 &1494738571555343647

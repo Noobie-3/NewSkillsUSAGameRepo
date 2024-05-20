@@ -17,6 +17,7 @@ public class Boss_stats : ScriptableObject
     public float ChanceToHeal;
     public AudioClip HurtSound;
     public AudioClip DeathSound;
+    public List<GameObject> prefabList;
 }
 
 
