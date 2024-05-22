@@ -88,7 +88,7 @@ public class Boss_StateMachine : MonoBehaviour
     [SerializeField] public bool IsInvulnerable;
     [SerializeField] public float InInvulnerableTime = 2;
     [SerializeField] public float InInvulnerableTimeDefault = 2;
-    [SerializeField] private bool BossFightStarted;
+    [SerializeField] public bool BossFightStarted;
 
 
     // Update is called once per frame

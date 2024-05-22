@@ -43,7 +43,11 @@ public class NpcTalk_Animate : MonoBehaviour
             {
                 print("Turned Object off");
                 ResetAnimState();
-                //gameObject.SetActive(false);
+                if (Input.anyKey)
+                {
+                    gameObject.SetActive(false);
+
+                }
             }
 
         }

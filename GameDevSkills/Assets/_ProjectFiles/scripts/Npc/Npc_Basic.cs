@@ -19,15 +19,20 @@ public class Npc_Basic : MonoBehaviour
     public string CurrentText;
     public Image[] AnimFrames;
     public GameObject Indicator;
+    public bool DestroyAfterTalking;
 
     private Coroutine CurrentlytalkingCoRoutine;
 
     [SerializeField] private GameObject PopUpBox;
     public bool isTalking;
+    public bool CanTalk;
 
     private void OnTriggerStay(Collider other)
     {
-
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            CanTalk = true;
+        }
         if (other.gameObject == GameController.instance.Player)
         {
             if(Indicator != null )
@@ -35,8 +40,12 @@ public class Npc_Basic : MonoBehaviour
                 //keybind INdicator for interacting
                 Indicator.SetActive(true);
             }
-            if (Input.GetKeyDown(KeyCode.E) && isTalking == false)
+            if (isTalking == false && CanTalk)
             {
+                if(!GameController.instance.IsPaused)
+                {
+                    GameController.instance.IsPaused = true;
+                }
                 //Turn On Game Object And set npcAnimation to what ever the current animation set is 
                 NpcTalk_Animate.instance.npcAnimations = AnimFrames;
                 NpcTalk_Animate.instance.gameObject.SetActive(true);
@@ -79,18 +88,20 @@ public class Npc_Basic : MonoBehaviour
 
    private void  OnTriggerExit(Collider other)
     {
-        if (other.gameObject == GameController.instance.Player)
+/*        if (other.gameObject == GameController.instance.Player)
         {//turn off everything and reset the npc text
             StopCoroutine(CurrentlytalkingCoRoutine);
             ResetText();
             TurnOffText();
             CurrentDialogueIndex = 0;
             isTalking = false;
-            Indicator.SetActive(false);
-        }
+            GameController.instance.IsPaused = false;
+        }*/
     }
     IEnumerator StartDialogue(string text)
     {
+        CanTalk = false;
+
         ResetText();//clear old text
 
         //Start Animating
@@ -111,6 +122,7 @@ public class Npc_Basic : MonoBehaviour
             yield return new WaitForSeconds(dialogueTimeDelayPerChar);
         }
         isTalking = false;// No longer talking
+        GameController.instance.IsPaused = false;
 
         NpcTalk_Animate.instance.LoopOn = true;//Keep Animating
 
@@ -126,7 +138,6 @@ public class Npc_Basic : MonoBehaviour
         }
 
         isOneTimeDialogue = false;
-
     }
 
     private float TimePerChar(string text)

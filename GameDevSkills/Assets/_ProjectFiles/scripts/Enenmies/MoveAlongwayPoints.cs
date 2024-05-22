@@ -15,7 +15,8 @@ public class MoveAlongwayPoints : MonoBehaviour
     public bool CanMove;
     public bool canBeInterupted;
     [SerializeField] private bool ReturnFlag;
-    [SerializeField] private bool CanReturn;
+    [SerializeField] public bool CanReturn;
+    public bool StayAfterReturning;
     [SerializeField]
     private bool DestoryAtEnd;
     private TimeRewinderV2 Tr2;
@@ -62,33 +63,43 @@ public class MoveAlongwayPoints : MonoBehaviour
 
                     if (transform.position == Current_Target)
                     {
-                        LastPos = transform.position;
-                        currentWayPoint++;
-                        if (currentWayPoint < WayPoints.Count)
+                        if(StayAfterReturning && CanReturn && Current_Target == WayPoints[0])
                         {
-                            Current_Target = WayPoints[currentWayPoint];
-
+                            CanMove = false;
                         }
                         else
                         {
-                            // All waypoints reached, reset to initial position
-                            if (DestoryAtEnd)
-                            {
-                                Destroy(gameObject);
-                            }
-                            else
-                            {
-                                if (CanReturn && ReturnFlag)
-                                {
-                                    Current_Target = FirstPos;
-                                    currentWayPoint = 0;
-                                }
-
-                            }
+                            LastPos = transform.position;
+                            currentWayPoint++;
 
                         }
                     }
                 }
+                if (currentWayPoint < WayPoints.Count )
+                {
+                    Current_Target = WayPoints[currentWayPoint];
+
+                }
+                else
+                {
+                    // All waypoints reached, reset to initial position
+                    if (DestoryAtEnd)
+                    {
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        if (CanReturn && ReturnFlag)
+                        {
+                            Current_Target = FirstPos;
+                            currentWayPoint = 0;
+                        }
+
+                    }
+
+                }
+                    
+                
             }
         }                                                                  
     }
@@ -113,7 +124,7 @@ public class MoveAlongwayPoints : MonoBehaviour
     }
     public void AddNewWayPoint() {
     
-        WayPoints.Add (new Vector3(transform.position.x, transform.position.y, transform.position.z));
+        WayPoints.Add (new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z));
 
 
     
