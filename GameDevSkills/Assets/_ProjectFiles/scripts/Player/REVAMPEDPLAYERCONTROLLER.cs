@@ -133,6 +133,8 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
     private void GroundCheck()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, whatIsGround);
+        //show raycast
+        Debug.DrawRay(transform.position, Vector3.down * playerHeight, Color.red);
         if (!grounded && rb.velocity.y <= 0 && TimeAfterJump >= TimetoJump)
         {
             IsFalling = true;

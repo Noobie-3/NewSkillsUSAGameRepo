@@ -38,6 +38,7 @@ public class Boss_StateMachine : MonoBehaviour
     [SerializeField] private float ItemSpawnTimer;
     [SerializeField] private List<GameObject> ItemsSpawned;
     [SerializeField] private bool CanSpawn;
+    [SerializeField] private GameObject target;
 
 
     // Phase Two variables
@@ -315,7 +316,7 @@ public class Boss_StateMachine : MonoBehaviour
             {
                 if (item.GetComponent<Rigidbody>().velocity.x == 0 && item.GetComponent<Rigidbody>().velocity.z == 0)
                 {
-                    Vector3 direction = (GameController.instance.Player.transform.position - transform.position).normalized;
+                    Vector3 direction = (target.transform.position - item.transform.position).normalized;
                     item.GetComponent<Rigidbody>().AddForce(direction * Throwable_Speed, ForceMode.Impulse);
                 }
             }
@@ -510,13 +511,7 @@ public class Boss_StateMachine : MonoBehaviour
                 // Set the fill amount of the enrage bar
                 EnrageBar.fillAmount = fillAmount;
             }
-            else if (!BossFightStarted)
-            {
-                if (EnrageBar.gameObject.activeSelf == true)
-                {
-                    EnrageBar.gameObject.SetActive(false);
-                }
-            }
+
         }
         else if (EnrageBar == null && GameController.instance.BossBar != null)
         {

@@ -24,7 +24,7 @@ public class HeadDetection : MonoBehaviour
     public Animator Anim;
     public AudioSource SoundPlayer;
     public GameObject RootObectToDestroy;
-
+    private bool DeathHappened;
     // Start is called before the first frame update
     void Start()
     {
@@ -150,23 +150,31 @@ public class HeadDetection : MonoBehaviour
     }
 
     public void Death()
-    {
-        if (SoundPlayer != null)
+    {if(DeathHappened == false)
         {
-            SoundPlayer.clip = eStats.DeathSound;
-            SoundPlayer.Play();
-        }
+            DeathHappened = true;
+            if (SoundPlayer != null)
+            {
+                SoundPlayer.clip = eStats.DeathSound;
+                SoundPlayer.Play();
+            }
 
-        GameController.instance.GainCurrency(eStats.currencyGiven);
-        ParticleEffect(gameObject.transform);
-        int RandomNumber = UnityEngine.Random.Range(1, 100);
-        if (RandomNumber <= eStats.ChanceToHeal && eStats.HealingItem != null)
-        {
-            Instantiate(eStats.HealingItem, transform.position, transform.rotation);
+            GameController.instance.GainCurrency(eStats.currencyGiven);
+            ParticleEffect(gameObject.transform);
+            int RandomNumber = UnityEngine.Random.Range(1, 100);
+            if (RandomNumber <= eStats.ChanceToHeal && eStats.HealingItem != null)
+            {
+                Instantiate(eStats.HealingItem, transform.position, transform.rotation);
+            }
+            if (RootObectToDestroy != null)
+            {
+                Destroy(RootObectToDestroy, TimeSquashed);
+            }
+
         }
-        if (RootObectToDestroy != null)
+        else
         {
-            Destroy(RootObectToDestroy, TimeSquashed);
+            return;
         }
     }
 

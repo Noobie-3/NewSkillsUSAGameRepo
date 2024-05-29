@@ -10,6 +10,7 @@ public class Start_Boss_01 : MonoBehaviour
     public Animator DropDown;
     public bool FirstTrigger;
     public Npc_Basic Npc;
+    private bool delayStarted;
     public float DelayTime;
     public float Delay;
     public float Delay1;
@@ -22,6 +23,8 @@ public class Start_Boss_01 : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {if (other.gameObject == GameController.instance.Player && FirstTrigger == false)
         {
+            GameController.instance.BossBar.gameObject.SetActive(true);
+            delayStarted = true;
             foreach (MoveAlongwayPoints Platform in PlatformsToMove)
             {
                 Platform.CanMove = true;
@@ -34,20 +37,14 @@ public class Start_Boss_01 : MonoBehaviour
                 anim.SetBool("Button_Pressed", false);
             }
             DropDown.SetBool("CanMove", true);
+
         }
 
 
     }
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject == GameController.instance.Player)
-        {
-            if(Npc.isTalking == false)
-            {
-                DelayItems();
-            }
 
-        }
     }
 
 
@@ -75,7 +72,7 @@ public class Start_Boss_01 : MonoBehaviour
         }
         else if(DelayTime <= Delay &&  Delay2Triggered == false)
         {
-       //     GameController.instance.IsPaused = true;
+            //     GameController.instance.IsPaused = true;
 
             foreach (MoveAlongwayPoints Platform in PlatformsToMove)
             {
@@ -86,5 +83,18 @@ public class Start_Boss_01 : MonoBehaviour
 
     }
 
-   
+    private void Update()
+    {
+        if(delayStarted && !DelayTriggered)
+        {
+
+                if (Npc.isTalking == false)
+                {
+                    DelayItems();
+                }
+
+            
+        }
+    }
+
 }
