@@ -84,7 +84,12 @@ public class Npc_Basic : MonoBehaviour
             {
                 StopCoroutine(CurrentlytalkingCoRoutine);
             }
-            Indicator.SetActive(false);
+            if (Indicator != null)
+            {
+
+
+                Indicator.SetActive(false);
+            }
             ResetText();
             TurnOffText();
             CurrentDialogueIndex = 0;
