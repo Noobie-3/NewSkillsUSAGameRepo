@@ -22,4 +22,3 @@ MonoBehaviour:
   DeathSound: {fileID: 8300000, guid: 72127805eb2bc4e7fbf2e02eca266cfa, type: 3}
   prefabList:
   - {fileID: 2419182808766551809, guid: 26ac32b0a347d134ab8fb1819414c17a, type: 3}
-  - {fileID: 1494738571376492351, guid: 5625dec09f2d3c143929fe808c7f1681, type: 3}

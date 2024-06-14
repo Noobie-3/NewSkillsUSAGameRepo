@@ -11,6 +11,8 @@ public class BossDamage : MonoBehaviour
     public float KnockBackForce;
     public bool isBeingKockedBack;
     public Vector3 knockbackDirection;
+    public float KNockBackLength;
+    public GameObject ParticalForKnockBack;
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == GameController.instance.Player && gameObject.tag == "HurtBox")
@@ -25,7 +27,8 @@ public class BossDamage : MonoBehaviour
                 isBeingKockedBack = true;
                 boss.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 knockbackDirection = (transform.position - GameController.instance.Player.transform.position * KnockBackForce);
-                knockbackDirection.y = 0;
+                knockbackDirection.y = -100f;
+
                 knockbackDirection.Normalize();
             }
 
@@ -36,15 +39,18 @@ public class BossDamage : MonoBehaviour
     {
         if (isBeingKockedBack)
         {
-
+            if(ParticalForKnockBack != null)
+            {
+                ParticalForKnockBack.SetActive(true);
+            }
 
             GameController.instance.Player.GetComponent<REVAMPEDPLAYERCONTROLLER>().ApplyKnockback(knockbackDirection * KnockBackForce);
 
             Disance = Vector3.Distance(GameController.instance.Player.transform.position, transform.position);
-            if (Disance > 15)
+            if (Disance > KNockBackLength)
             {
                 isBeingKockedBack = false;
-                GameController.instance.Player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0 );
+                GameController.instance.Player.GetComponent<Rigidbody>().velocity = new Vector3(0, -1, 0 );
             }
         }
         else if (
@@ -53,6 +59,10 @@ public class BossDamage : MonoBehaviour
             if(boss.gameObject.GetComponent<Rigidbody>().isKinematic == true)
             {
                 boss.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
+            if(ParticalForKnockBack != null)
+            {
+                ParticalForKnockBack.SetActive(false);
             }
         }
     }

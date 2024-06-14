@@ -48,7 +48,7 @@ public class ThirdPersonCam : MonoBehaviour
             {
                 GetComponent<CinemachineBrain>().enabled = true;
             }
-            if (gameObject.GetComponent<TimeRewinderV2>().Isrewinding)
+            if (GameController.instance.isRewinding)
             {
                 aG.enabled = true;
                 DG.enabled = true;
@@ -81,17 +81,10 @@ public class ThirdPersonCam : MonoBehaviour
                     playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
             }
 
-            else if (currentStyle == CameraStyle.Combat)
-            {
-                Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
-                orientation.forward = dirToCombatLookAt.normalized;
 
-                playerObj.forward = dirToCombatLookAt.normalized;
-            }
         }
         else
         {
-            GetComponent<CinemachineBrain>().enabled = false;
         }
 
 

@@ -13,7 +13,8 @@ public class Bullet_Behavior : MonoBehaviour
     public float KnockBackForce = 10;
     public float  UpwardKnockBackForce = 15;
     public bool CanDamage;
-
+    public bool IsSummoned;
+    public bool hasBeenShot;
 
     private void Start()
     {

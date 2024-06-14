@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,11 +34,12 @@ public class Boss_StateMachine : MonoBehaviour
     [SerializeField] private float itemSpawnIntervalDefault = 3f;
     [SerializeField] private float Throwable_Speed = 10;
     [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private Transform itemSpawnPoint;
+    [SerializeField] private Transform[] ItemSpawnPoints;
     [SerializeField] private float ItemSpawnTimer;
     [SerializeField] private List<GameObject> ItemsSpawned;
     [SerializeField] private bool CanSpawn;
     [SerializeField] private GameObject target;
+    [SerializeField] private bool ThrowLeft;
 
 
     // Phase Two variables
@@ -94,35 +96,44 @@ public class Boss_StateMachine : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(!GameController.instance.IsPaused)
+        {
+
+        
+        if(target == null && GameController.instance.Player != null)
+        {
+            target = GameController.instance.Player;
+        }
         IsInvunableChecker();
 
         // Update the enrage bar fill
         UpdateBar();
-        // Switch statement to handle behavior based on current phase
-        switch (currentPhase)
-        {
-            case BossPhase.inactive:
-                InactivePhase();
-                break;
-            case BossPhase.PhaseOne:
-                PhaseOne();
-                break;
-            case BossPhase.EnragedPhaseOne:
-                EnragedPhaseOne();
-                break;
-            case BossPhase.PhaseTwo:
-                PhaseTwo();
-                break;
-            case BossPhase.EnragedPhaseTwo:
-                EnragedPhaseTwo();
-                break;
-            case BossPhase.PhaseThree:
-                PhaseThree();
-                break;
-            case BossPhase.Dead:
-                // Handle death state
-                Dead();
-                break;
+            // Switch statement to handle behavior based on current phase
+            switch (currentPhase)
+            {
+                case BossPhase.inactive:
+                    InactivePhase();
+                    break;
+                case BossPhase.PhaseOne:
+                    PhaseOne();
+                    break;
+                case BossPhase.EnragedPhaseOne:
+                    EnragedPhaseOne();
+                    break;
+                case BossPhase.PhaseTwo:
+                    PhaseTwo();
+                    break;
+                case BossPhase.EnragedPhaseTwo:
+                    EnragedPhaseTwo();
+                    break;
+                case BossPhase.PhaseThree:
+                    PhaseThree();
+                    break;
+                case BossPhase.Dead:
+                    // Handle death state
+                    Dead();
+                    break;
+            }
         }
     }
     //Inactive Phase To Phase One
@@ -261,7 +272,7 @@ public class Boss_StateMachine : MonoBehaviour
         }
         transform.DORotate(new Vector3(0, 360, 0), 10, RotateMode.WorldAxisAdd);
         CanSpawn = true;
-        SpawnItem();
+       // SpawnItem();
 
         // Destroy boss object
         Destroy(gameObject, 10);
@@ -273,55 +284,87 @@ public class Boss_StateMachine : MonoBehaviour
     {
         if (CanSpawn)
         {
+            int CurrentSpawnPoint;
 
-
-            // Fire Randomly when dead also fire upwards
-            if (currentPhase == BossPhase.Dead)
+            if (ThrowLeft)
             {
-                GameObject item = Instantiate(itemPrefab, itemSpawnPoint.position, Quaternion.identity);
-                item.GetComponent<Bullet_Behavior>().stats = stats;
-                Vector3 direction = new Vector3(1, Random.Range(.7f, 10), 1);
-                item.GetComponent<Rigidbody>().AddForce(direction * 10f, ForceMode.Impulse);
-                return;
-            }
+                CurrentSpawnPoint = 1;
+/*                ThrowLeft = !ThrowLeft;
+*/            }
             else
             {
-                // Instantiate item and throw towards player
-                GameObject item = Instantiate(itemPrefab, itemSpawnPoint.position, itemSpawnPoint.transform.rotation);
-                item.GetComponent<Bullet_Behavior>().stats = stats;
-                item.GetComponent<Bullet_Behavior>().CanDamage = true;
-                ItemsSpawned.Add(item);
-                if (anim != null)
-                {
-                    anim.SetBool("CanSpawn", false);
-                }
-                for (int i = 0; i < ItemsSpawned.Count; i++)
-                {
-                    if (ItemsSpawned[i] == null)
-                    {
-                        ItemsSpawned.Remove(ItemsSpawned[i]);
-                    }
-                }
-                ItemsSpawned.Add(item);
-
+                CurrentSpawnPoint = 0;
+                ThrowLeft = !ThrowLeft;
             }
+            // Fire Randomly when dead also fire upwards
+            if (currentPhase == BossPhase.Dead)
+                {
+                    GameObject item = Instantiate(itemPrefab, ItemSpawnPoints[CurrentSpawnPoint].position, Quaternion.identity);
+                    item.GetComponent<Bullet_Behavior>().stats = stats;
+                    Vector3 direction = new Vector3(1, UnityEngine.Random.Range(.7f, 10), 1);
+                    item.GetComponent<Rigidbody>().AddForce(direction * 10f, ForceMode.Impulse);
+                    return;
+                }
+                else
+                {
+                    // Instantiate item and throw towards player
+                    GameObject item = Instantiate(itemPrefab, ItemSpawnPoints[CurrentSpawnPoint].position, ItemSpawnPoints[CurrentSpawnPoint].transform.rotation);
+                    item.gameObject.transform.SetParent(ItemSpawnPoints[CurrentSpawnPoint].gameObject.transform, true);
+                    item.GetComponent<Bullet_Behavior>().stats = stats;
+                    item.GetComponent<Bullet_Behavior>().CanDamage = true;
+                    ItemsSpawned.Add(item);
+                    if (anim != null)
+                    {
+                        anim.SetBool("CanSpawn", false);
+                    }
+                    for (int i = 0; i < ItemsSpawned.Count; i++)
+                    {
+                        if (ItemsSpawned[i] == null)
+                        {
+                            ItemsSpawned.Remove(ItemsSpawned[i]);
+                        }
+                    }
+                    ItemsSpawned.Add(item);
+
+                }
+            }
+
         }
-    }
+
+
     public void AddVelToItem()
     {
         foreach (GameObject item in ItemsSpawned)
         {
             if (item != null)
             {
-                if (item.GetComponent<Rigidbody>().velocity.x == 0 && item.GetComponent<Rigidbody>().velocity.z == 0)
+                item.transform.SetParent(null, true);
+                if (!item.GetComponent<Bullet_Behavior>().hasBeenShot)
                 {
+                    /*                    if (ThrowLeft)
+                                        {
+                                            item.transform.position = ItemSpawnPoints[1].position;
+                                        }
+                                        else
+                                        {
+                                            item.transform.position = ItemSpawnPoints[0].position;
+                                        }*/
+
+/*                    item.transform.rotation = Quaternion.identity; // Reset rotation to avoid weird angles
+*/
+                    // Calculate direction towards target
                     Vector3 direction = (target.transform.position - item.transform.position).normalized;
-                    item.GetComponent<Rigidbody>().AddForce(direction * Throwable_Speed, ForceMode.Impulse);
+
+                    // Debugging: Log the calculated direction
+                    Debug.Log($"Direction: {direction}");
+
+                    // Apply force
+                    item.GetComponent<Rigidbody>().velocity = direction * Throwable_Speed;
+
+                    item.GetComponent<Bullet_Behavior>().hasBeenShot = true;
                 }
             }
-
         }
-
     }
 
 
@@ -343,8 +386,8 @@ public class Boss_StateMachine : MonoBehaviour
             // Randomly select a spawn point and instantiate enemy at that point if list has less than max enemies
             if (IsEnraged)
             {
-                int SpawnPoinNum = Random.Range(0, enemySpawnPoints.Length);
-                int RandomEnemy = Random.Range(0, PosibleEnemies.Length);
+                int SpawnPoinNum = UnityEngine.Random.Range(0, enemySpawnPoints.Length);
+                int RandomEnemy = UnityEngine.Random.Range(0, PosibleEnemies.Length);
                 MaxEnemies = EnrageEnemyMaxAmount;
                 enemyList.Add(Instantiate(PosibleEnemies[RandomEnemy], enemySpawnPoints[SpawnPoinNum].transform.position, Quaternion.identity));
                 EnemyCount++;
@@ -352,7 +395,7 @@ public class Boss_StateMachine : MonoBehaviour
             else if (AllSpawned == false)
             {
                 MaxEnemies = DefaultMaxEnemies;
-                int SpawnPoinNum = Random.Range(0, enemySpawnPoints.Length);
+                int SpawnPoinNum = UnityEngine.Random.Range(0, enemySpawnPoints.Length);
                 enemyList.Add(Instantiate(enemyPrefab, enemySpawnPoints[SpawnPoinNum].transform.position, Quaternion.identity));
                 EnemyCount++;
 
@@ -365,7 +408,7 @@ public class Boss_StateMachine : MonoBehaviour
     // Method to check if health is below a specified threshold
     private bool HealthBelowThreshold(float threshold)
     {
-        return health < threshold;
+        return health <= threshold;
     }
     private void  ResetCanSummon()
     {
@@ -384,10 +427,7 @@ public class Boss_StateMachine : MonoBehaviour
     private void CapEnemies()
     {
 
-        if (enemyList.Count != 0)
-        {
-            IsInvulnerable = true;
-        }
+
 
         // Check if enemy list has any null entries and remove them
         for (int i = 0; i < enemyList.Count; i++)
@@ -431,7 +471,6 @@ public class Boss_StateMachine : MonoBehaviour
         else
         {
             enragedTimer += Time.deltaTime;
-            IsInvulnerable = true;
             if (anim != null && anim.speed != EnrageAnimTime)
             {
                 anim.speed = EnrageAnimTime;

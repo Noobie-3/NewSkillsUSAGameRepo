@@ -104,7 +104,6 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         jumpHeight = jumpForce * jumpCurve.Evaluate(0); // Evaluate the jump curve at the beginning
         rb.velocity = new Vector3(rb.velocity.x, jumpHeight, rb.velocity.z);
         isJumping = true;
-        Invoke("ResetIsJumping", jumpCooldown);
 
         if (JumpSound != null)
         {
@@ -116,7 +115,7 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
     // Apply gravity to the player
     private void ApplyGravity()
     {
-        if (!grounded && !isJumping)
+        
             rb.velocity += gravity * Time.fixedDeltaTime * Vector3.up;
     }
 
@@ -132,9 +131,12 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
     // Check if the player is grounded
     private void GroundCheck()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight, whatIsGround);
+        //add raycast hit to this to see what layer its hitting
+        grounded = Physics.Raycast(transform.position, Vector3.down, out RaycastHit HitInfo, playerHeight,whatIsGround);
+
+         
         //show raycast
-        Debug.DrawRay(transform.position, Vector3.down * playerHeight, Color.red);
+        Debug.DrawRay(transform.position, Vector3.down * playerHeight, Color.yellow);
         if (!grounded && rb.velocity.y <= 0 && TimeAfterJump >= TimetoJump)
         {
             IsFalling = true;
@@ -163,11 +165,6 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
         TimeAfterJump = 0;
     }
 
-    // Reset isJumping variable
-    private void ResetIsJumping()
-    {
-        isJumping = false;
-    }
 
     // Track time for recording and rewinding
     public void TimeTracker()

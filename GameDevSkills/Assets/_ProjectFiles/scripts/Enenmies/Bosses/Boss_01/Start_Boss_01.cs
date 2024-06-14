@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +20,16 @@ public class Start_Boss_01 : MonoBehaviour
     public bool Delay1Triggered = false;
     public bool Delay2Triggered = false;
     public Animator Boss_Entrance_animation;
+    public CinemachineVirtualCamera Cam_Boss;
 
     private void OnTriggerEnter(Collider other)
     {if (other.gameObject == GameController.instance.Player && FirstTrigger == false)
         {
+            if(Cam_Boss != null)
+            {
+                Cam_Boss.Priority = 11;
+            }
+            GameController.instance.IsPaused = true;
             GameController.instance.BossBar.gameObject.SetActive(true);
             delayStarted = true;
             foreach (MoveAlongwayPoints Platform in PlatformsToMove)
@@ -38,6 +45,7 @@ public class Start_Boss_01 : MonoBehaviour
             }
             DropDown.SetBool("CanMove", true);
 
+            FirstTrigger = true;
         }
 
 
@@ -55,6 +63,7 @@ public class Start_Boss_01 : MonoBehaviour
             Boss.BossFightStarted = true;
             DelayTriggered = true;
             GameController.instance.IsPaused = false;
+            Cam_Boss.Priority = 9;
         }
         else if (DelayTime <= Delay1 && Delay1Triggered == false)
         {

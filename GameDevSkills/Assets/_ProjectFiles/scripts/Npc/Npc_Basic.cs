@@ -61,8 +61,13 @@ public class Npc_Basic : MonoBehaviour
                     {
                         ResetText();
                         TurnOffText();
+                        if (DestroyAfterTalking)
+                        {
+                            Destroy(gameObject);
+                        }
                         CurrentDialogueIndex = 0;
                         CanTalk = false;
+
                     }
                     else
                     {
@@ -162,6 +167,7 @@ public class Npc_Basic : MonoBehaviour
 
     private void TurnOffText()
     {
+        
         NpcTalk_Animate.instance.gameObject.SetActive(false);
     }
 }
