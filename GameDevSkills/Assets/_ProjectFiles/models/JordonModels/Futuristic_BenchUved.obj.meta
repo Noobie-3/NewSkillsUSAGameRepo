@@ -3,7 +3,27 @@ guid: 0c2c18f295d57f640942da1a033deb05
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SofaMat
+    second: {fileID: 2100000, guid: fa254fb4b18fad149966ae9e5e2ab245, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sofa_DividerMat
+    second: {fileID: 2100000, guid: fa254fb4b18fad149966ae9e5e2ab245, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sofa_PlatformMat
+    second: {fileID: 2100000, guid: fa254fb4b18fad149966ae9e5e2ab245, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sofa_StandMat
+    second: {fileID: 2100000, guid: fa254fb4b18fad149966ae9e5e2ab245, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

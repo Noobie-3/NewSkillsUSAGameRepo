@@ -3,7 +3,22 @@ guid: a9f15bd8c7bba6d449e9ecc948263503
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CrateMat
+    second: {fileID: 2100000, guid: 75e0d37139c593641b1961a23b3444a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Crate_BeamsMat
+    second: {fileID: 2100000, guid: 75e0d37139c593641b1961a23b3444a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Energy_WheelMat
+    second: {fileID: 2100000, guid: 75e0d37139c593641b1961a23b3444a7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

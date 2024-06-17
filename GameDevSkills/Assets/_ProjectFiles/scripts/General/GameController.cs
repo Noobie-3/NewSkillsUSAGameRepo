@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     public Material[] Materials;
     public Material OldMat;
     public Material HurtMat;
+    internal Music MusicManager;
 
     // Function to add experience points
     public void addXP(float amount)

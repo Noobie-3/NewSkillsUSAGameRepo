@@ -3,8 +3,9 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 
-[Serializable]
+
 public class SoundEffect
 {
     public string name; // Name of the sound effect.
@@ -19,12 +20,15 @@ public class SoundEffect
 
 public class MainMusicManager : MonoBehaviour
 {
+
+    
     public AudioSource audioSource; // Reference to the AudioSource component.
     public List<SoundEffect> soundEffects = new List<SoundEffect>(); // List to store sound effects.\
     AudioClip selectedSound;
 
     private void Start()
     {
+
         // Get a reference to the AudioSource and Button components.
         audioSource = GetComponent<AudioSource>();
 
@@ -63,5 +67,14 @@ public class MainMusicManager : MonoBehaviour
         } 
 
         return null;
+    }
+
+    public void ChangeMainMusic(AudioClip NewMusic)
+    {
+        // Change the main music to the specified AudioClip.
+        audioSource.Stop();
+        audioSource.clip = NewMusic;
+        audioSource.Play();
+
     }
 }

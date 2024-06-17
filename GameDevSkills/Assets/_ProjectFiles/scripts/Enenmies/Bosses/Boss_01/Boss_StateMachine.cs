@@ -22,7 +22,7 @@ public class Boss_StateMachine : MonoBehaviour
     [SerializeField] private BossPhase currentPhase = BossPhase.PhaseOne;
 
     // Reference to the boss stats scriptable object
-    [SerializeField] private Boss_stats stats;
+    [SerializeField] public Boss_stats stats;
 
     // Boss health
     [SerializeField] public float health;
@@ -123,9 +123,9 @@ public class Boss_StateMachine : MonoBehaviour
                 case BossPhase.PhaseTwo:
                     PhaseTwo();
                     break;
-                case BossPhase.EnragedPhaseTwo:
-                    EnragedPhaseTwo();
-                    break;
+/*                case BossPhase.EnragedPhaseTwo:
+                    EnragedPhaseTwo();*/ //I belive this is not needed and shoudl nnot have this because you never are ablke to defeat the enimes in time before the boss enrages
+                    //break;
                 case BossPhase.PhaseThree:
                     PhaseThree();
                     break;
@@ -218,8 +218,9 @@ public class Boss_StateMachine : MonoBehaviour
 
     }
 
-    // Behavior for Enraged Phase Two BOUNCE IDEAS OFF FOR ENRAGED FAZE TWO 
-    private void EnragedPhaseTwo()
+    // Behavior for Enraged Phase Two BOUNCE IDEAS OFF FOR ENRAGED FAZE TWO  I DONT THINK THIS IS NESSASIERLY NEEDED 
+    //what would be a better enraged Phase 2
+/*    private void EnragedPhaseTwo()
     {
 
         // Modify summon interval during enrage
@@ -237,7 +238,8 @@ public class Boss_StateMachine : MonoBehaviour
             Debug.Log("Transitioning to Phase two");
         }
         // Additional behavior for Enraged Phase Two
-    }
+    }*/
+
 
 
 
@@ -272,8 +274,9 @@ public class Boss_StateMachine : MonoBehaviour
         }
         transform.DORotate(new Vector3(0, 360, 0), 10, RotateMode.WorldAxisAdd);
         CanSpawn = true;
-       // SpawnItem();
+        // SpawnItem();
 
+        GameController.instance.MusicManager.ChangeMainMusic(GameController.instance.MusicManager.levelMusic[0]);
         // Destroy boss object
         Destroy(gameObject, 10);
     }

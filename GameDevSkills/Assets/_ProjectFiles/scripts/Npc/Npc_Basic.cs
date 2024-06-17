@@ -59,6 +59,7 @@ public class Npc_Basic : MonoBehaviour
                 {
                     if (CurrentDialogueIndex >= dialogues.Length)
                     {
+                        CanTalk = false;
                         ResetText();
                         TurnOffText();
                         if (DestroyAfterTalking)
@@ -66,7 +67,6 @@ public class Npc_Basic : MonoBehaviour
                             Destroy(gameObject);
                         }
                         CurrentDialogueIndex = 0;
-                        CanTalk = false;
 
                     }
                     else

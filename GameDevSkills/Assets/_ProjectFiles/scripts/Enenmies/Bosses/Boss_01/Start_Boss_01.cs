@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Start_Boss_01 : MonoBehaviour
@@ -31,6 +32,7 @@ public class Start_Boss_01 : MonoBehaviour
             }
             GameController.instance.IsPaused = true;
             GameController.instance.BossBar.gameObject.SetActive(true);
+            GameController.instance.BossBar.GetComponentInChildren<TextMeshProUGUI>().text = Boss.stats.Name;
             delayStarted = true;
             foreach (MoveAlongwayPoints Platform in PlatformsToMove)
             {
@@ -60,10 +62,11 @@ public class Start_Boss_01 : MonoBehaviour
     {
         DelayTime -= Time.deltaTime;
         if (DelayTime <= Delay2 && DelayTriggered == false) {
+            Cam_Boss.Priority = 9;
             Boss.BossFightStarted = true;
             DelayTriggered = true;
             GameController.instance.IsPaused = false;
-            Cam_Boss.Priority = 9;
+            GameController.instance.MusicManager.ChangeMainMusic(Boss.stats.BossMusic);
         }
         else if (DelayTime <= Delay1 && Delay1Triggered == false)
         {
