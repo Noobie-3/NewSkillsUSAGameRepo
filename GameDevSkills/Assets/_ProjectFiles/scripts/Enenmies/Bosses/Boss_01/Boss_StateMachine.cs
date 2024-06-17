@@ -203,10 +203,10 @@ public class Boss_StateMachine : MonoBehaviour
         // Check if boss is enraged
         EnrageTracker();
 
-        if (IsEnraged)//Transition to enraged phase two
+/*        if (IsEnraged)//Transition to enraged phase two
         {
             currentPhase = BossPhase.EnragedPhaseTwo;
-        }
+        }*/
 
         // Transition to next Phase if health is below threshold
         if (HealthBelowThreshold(phaseTwoHealthThreshold))
@@ -447,12 +447,12 @@ public class Boss_StateMachine : MonoBehaviour
         {
             AllSpawned = true;
         }
-        else if (IsEnraged && EnemyCount < MaxEnemies)
+/*        else if (IsEnraged && EnemyCount < MaxEnemies)
         {
             AllSpawned = false;
 
 
-        }
+        }*/
 
 
     }

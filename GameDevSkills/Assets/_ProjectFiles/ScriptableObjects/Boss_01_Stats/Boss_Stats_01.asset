@@ -17,7 +17,7 @@ MonoBehaviour:
   RangeAttack: 1
   KillPartcle: {fileID: 4594694080803912350, guid: 786dc10e303d5444ab980181e45f7146, type: 3}
   currencyGiven: 51
-  Name: 
+  Name: 5up3rv150r
   ChanceToHeal: 0
   HurtSound: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
   DeathSound: {fileID: 8300000, guid: 72127805eb2bc4e7fbf2e02eca266cfa, type: 3}

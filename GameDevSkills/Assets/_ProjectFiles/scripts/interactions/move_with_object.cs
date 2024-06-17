@@ -16,8 +16,10 @@ public class move_with_object : MonoBehaviour
     {
         if (other.gameObject == GameController.instance.Player.gameObject)
         {
+            
             other.gameObject.transform.SetParent(null);
             other.GetComponent<Rigidbody>().isKinematic = false;
+            DontDestroyOnLoad(other.gameObject);
 
         }
     }

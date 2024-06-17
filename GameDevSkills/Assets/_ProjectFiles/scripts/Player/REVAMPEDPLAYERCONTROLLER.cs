@@ -46,6 +46,7 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(this);
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         Tempgravity = gravity;

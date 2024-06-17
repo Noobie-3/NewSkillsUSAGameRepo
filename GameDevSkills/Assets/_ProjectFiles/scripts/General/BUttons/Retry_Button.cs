@@ -15,8 +15,10 @@ public class Retry_Button : MonoBehaviour
     void Update()
     {
        if(Input.GetKeyDown(KeyCode.E)) {
-            SceneManager.LoadScene("MainScene");
+            Destroy(GameController.instance);
 
-        } 
+            SceneManager.LoadScene("Level_01_Factory");
+
+        }
     }
 }

@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 8314341992269180325}
   - component: {fileID: 6846109177044768400}
   m_Layer: 0
-  m_Name: EnemyRobot_01_Factory_Worker
+  m_Name: EnemyRobot_01_Factory_Worker_FullMapRange
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255,7 +255,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 13.38
+  m_Radius: 566.57
   m_Center: {x: 0, y: 1.0381031, z: 0}
 --- !u!1 &3961732510476424411
 GameObject:

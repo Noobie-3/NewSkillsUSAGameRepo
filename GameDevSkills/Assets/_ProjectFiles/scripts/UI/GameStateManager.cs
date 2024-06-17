@@ -20,6 +20,7 @@ public void StartGame()
 
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
         if (Instance == null)
         {
             Instance = this;

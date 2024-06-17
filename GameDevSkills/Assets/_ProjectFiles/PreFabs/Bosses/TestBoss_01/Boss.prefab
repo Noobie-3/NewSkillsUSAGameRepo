@@ -240,7 +240,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.76
+  m_Radius: 1.16
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4463742647859113462
 MonoBehaviour:
@@ -927,7 +927,7 @@ MonoBehaviour:
   MaxEnemies: 7
   DefaultMaxEnemies: 7
   PosibleEnemies:
-  - {fileID: 2419182808766551809, guid: 26ac32b0a347d134ab8fb1819414c17a, type: 3}
+  - {fileID: 2419182808766551809, guid: d585ac32d0a5e244eb332566e2331067, type: 3}
   AllSpawned: 0
   RiseUpPlatform: {fileID: 0}
   RoseUp: 0
