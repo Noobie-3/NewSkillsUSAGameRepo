@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class SimpleEnenmy : MonoBehaviour 
@@ -16,8 +17,11 @@ public class SimpleEnenmy : MonoBehaviour
     public NewThirdPerson NTP;
     public Rigidbody rb;
     public Animator animator;
+    public bool ISFULLMAP;
+    public HeadDetection HeadHit;
+    public float TargetDistanceToCharge;
+    public float Distance;
 
-    HeadDetection HeadHit;
     // Use this for initialization
 
 
@@ -28,20 +32,14 @@ public class SimpleEnenmy : MonoBehaviour
     }
     private void Start()
     {
-        if (gameObject.GetComponent<Rigidbody>() is not null)
-        {
+        if (gameObject.GetComponent<Rigidbody>() && rb == null)
             rb = gameObject.GetComponent<Rigidbody>();
-
-        }
-        if (gameObject.GetComponent<Animator>() is not null)
-        {
-            animator = gameObject.GetComponent<Animator>();
-
-        }
+        if (gameObject.GetComponent<Animator>() & animator == null)
+                animator = gameObject.GetComponent<Animator>();
 
         min = transform.position.x;
         max = transform.position.x + 3;
-        if (gameObject.GetComponentInChildren<HeadDetection>() is not null)
+        if (gameObject.GetComponentInChildren<HeadDetection>())
         {
             HeadHit = gameObject.GetComponentInChildren<HeadDetection>();
         }
@@ -49,22 +47,16 @@ public class SimpleEnenmy : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
-    {if (GameController.instance.isDead == false)
-        {
 
-
-            if (other.gameObject.CompareTag("Player_01"))
-            {
-                isCharging = true;
-                animator.SetBool("IsCharging", true);
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other)
+    
+        private void OnTriggerExit(Collider other)
     {
-        isCharging = false;
-        animator.SetBool("IsCharging", false);
+        if(other == GameController.instance.Player)
+        {
+            isCharging = false;
+            animator.SetBool("IsCharging", false);
+
+        }
 
     }
 
@@ -74,22 +66,35 @@ public class SimpleEnenmy : MonoBehaviour
     public void Update()
     {
 
+        if(target == null)
+        {
+            target = GameController.instance.Player.transform;
+        }
         if (GameController.instance.IsPaused == true)
         {
             animator.speed = 0;
 
 
         }
-        else if (GameController.instance.IsPaused == false)
+        else if (GameController.instance.IsPaused == false )
 
         {
-            if (animator.speed != 1)
-            {
-                animator.speed = 1;
-            }
-
+            animator.speed = 1;
+           
             if (!GameController.instance.Player.GetComponent<TimeRewinderV2>().Isrewinding)
             {
+
+                Distance = Vector3.Distance(target.position, gameObject.transform.position);
+                if (Distance < TargetDistanceToCharge)
+                {
+                    isCharging = true;
+                    animator.SetBool("IsCharging", true);
+                }
+                else
+                {
+                    isCharging = false;
+                    animator.SetBool("IsCharging", false);
+                }
 
 
                 if (isCharging && target != null)

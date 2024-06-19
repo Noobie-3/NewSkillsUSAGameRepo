@@ -87,7 +87,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5575452146608311540}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000058114523}
   m_LocalPosition: {x: -1.8622894, y: -3.62, z: -93.53479}
   m_LocalScale: {x: 0.72, y: 0.72, z: 0.72}
   m_ConstrainProportionsScale: 1
@@ -96,7 +96,7 @@ Transform:
   - {fileID: 1351023082841233361}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!95 &2088222466
 Animator:
   serializedVersion: 4
@@ -918,10 +918,9 @@ MonoBehaviour:
   phaseTwoHealthThreshold: 1
   summonInterval: 5
   summonIntervalDefault: 5
-  enemyPrefab: {fileID: 2419182808766551809, guid: 26ac32b0a347d134ab8fb1819414c17a, type: 3}
-  enemySpawnPoints:
-  - {fileID: 2419182808766551809, guid: 26ac32b0a347d134ab8fb1819414c17a, type: 3}
-  SummonTimer: 5
+  enemyPrefab: {fileID: 2419182808766551809, guid: d585ac32d0a5e244eb332566e2331067, type: 3}
+  enemySpawnPoints: []
+  SummonTimer: 0
   enemyList: []
   EnemyCount: 0
   MaxEnemies: 7
