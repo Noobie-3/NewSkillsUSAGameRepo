@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: doors_Intro
   m_EditorClassIdentifier: 
   TextForTut: Terminals will be placed around the world that can be interacted with.
-    Some will open doors others have differnt effects make sure to utilize to assist
-    you
+    Some will open doors others have different effects make sure to utilize these
+    computers  to assist you
   VideoForTut: {fileID: 32900000, guid: 1adc72117e7baf148bc9f4dd6e6882e7, type: 3}
   BackGround: {fileID: 0}

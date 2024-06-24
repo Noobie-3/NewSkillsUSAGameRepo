@@ -3,7 +3,17 @@ guid: c580024c3929f76408b7f8dbc526b573
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CapMat
+    second: {fileID: 2100000, guid: a46a272c05f751b46a44b44c5ea0f02b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Oil_CanMat
+    second: {fileID: 2100000, guid: a46a272c05f751b46a44b44c5ea0f02b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

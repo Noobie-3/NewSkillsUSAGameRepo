@@ -211,7 +211,7 @@ Material:
     - _EnableGeometricSpecularAA: 0
     - _EnableSpecularOcclusion: 0
     - _EnergyConservingSpecularColor: 1
-    - _GlossMapScale: 0.195
+    - _GlossMapScale: 0.785
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HdrpVersion: 2

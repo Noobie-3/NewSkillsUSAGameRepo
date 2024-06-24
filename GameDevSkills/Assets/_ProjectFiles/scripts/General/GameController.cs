@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
 
     // Access to player GameObject
     public GameObject Player;
-    
+
     // Experience and level variables
     private float XP = 0;
     public uint level = 1;
@@ -35,11 +35,15 @@ public class GameController : MonoBehaviour
     public int Current_Currency = 0;
     public bool isDead;
     public bool IsPaused = false;
-    internal bool isRewinding;
+    public bool isRewinding;
     internal float maxRecordingDuration;
     public AudioSource HurtSoundForPlayer;
     public GameObject PopUpTextRef;
     public Image BossBar;
+    public GameObject TutScreen;
+
+    // list for level start postions
+    public List<Vector3> LevelStartPositions = new List<Vector3>();
 
     // Materials for player object
     public Material[] Materials;
@@ -101,11 +105,11 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         OldMat = Player.gameObject.GetComponentInChildren<Renderer>().materials[0];
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
         PlayerHP = PlayerMaxHP;
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        if (instance != this)
+        if (instance == null)
         {
             instance = this;
         }
@@ -113,6 +117,7 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        TutScreen = GameObject.FindGameObjectWithTag("TutScreen");
     }
 
     // Update is called once per frame
@@ -170,4 +175,18 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+    public void ResetValues()
+    {
+        //reset needed values when rety is triggered    
+        isDead = false;
+        IsPaused = false;
+        TimeTillDamageAgain = hurt_Time_Default;
+        PlayerHP = PlayerMaxHP;
+        Current_Currency = 0;
+        MatChange(OldMat, Player);
+
+
+    }
+
 }

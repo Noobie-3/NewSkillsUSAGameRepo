@@ -17,7 +17,10 @@ public class PopUpTut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(PauseScreen == null)
+        {
+            PauseScreen = GameController.instance.TutScreen.gameObject;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -3,7 +3,47 @@ guid: a2e2727bd6c34c740be8882d6c4aa329
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Consession_StandMat
+    second: {fileID: 2100000, guid: 3ea1c16361a2e474faaffb7cd28d4a05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Energy_WheelMat
+    second: {fileID: 2100000, guid: 3ea1c16361a2e474faaffb7cd28d4a05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Floor_BoardsMat
+    second: {fileID: 2100000, guid: 3ea1c16361a2e474faaffb7cd28d4a05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hover_DeviceMat
+    second: {fileID: 2100000, guid: 3ea1c16361a2e474faaffb7cd28d4a05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PillarsMat
+    second: {fileID: 2100000, guid: 3ea1c16361a2e474faaffb7cd28d4a05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Side_WallMat
+    second: {fileID: 2100000, guid: 3ea1c16361a2e474faaffb7cd28d4a05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall_RoofMat
+    second: {fileID: 2100000, guid: 3ea1c16361a2e474faaffb7cd28d4a05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wooden_GateMat
+    second: {fileID: 2100000, guid: 3ea1c16361a2e474faaffb7cd28d4a05, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

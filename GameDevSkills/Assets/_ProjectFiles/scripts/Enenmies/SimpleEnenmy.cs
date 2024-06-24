@@ -43,7 +43,6 @@ public class SimpleEnenmy : MonoBehaviour
         {
             HeadHit = gameObject.GetComponentInChildren<HeadDetection>();
         }
-        target = GameController.instance.Player.transform;
 
     }
 
@@ -68,7 +67,11 @@ public class SimpleEnenmy : MonoBehaviour
 
         if(target == null)
         {
-            target = GameController.instance.Player.transform;
+            if(GameController.instance.Player != null)
+            {
+                target = GameController.instance.Player.transform;
+
+            }
         }
         if (GameController.instance.IsPaused == true)
         {
@@ -83,37 +86,41 @@ public class SimpleEnenmy : MonoBehaviour
            
             if (!GameController.instance.Player.GetComponent<TimeRewinderV2>().Isrewinding)
             {
-
-                Distance = Vector3.Distance(target.position, gameObject.transform.position);
-                if (Distance < TargetDistanceToCharge)
+                if(target != null)
                 {
-                    isCharging = true;
-                    animator.SetBool("IsCharging", true);
-                }
-                else
-                {
-                    isCharging = false;
-                    animator.SetBool("IsCharging", false);
-                }
 
-
-                if (isCharging && target != null)
-                {
-                    if (HeadHit.isSquashed == false)
+                
+                     Distance = Vector3.Distance(target.position, gameObject.transform.position);
+                    if (Distance < TargetDistanceToCharge)
                     {
+                        isCharging = true;
+                        animator.SetBool("IsCharging", true);
+                    }
+                    else
+                    {
+                        isCharging = false;
+                        animator.SetBool("IsCharging", false);
+                    }
 
 
-                        // Calculate the direction from the enemy to the player.
-                        Vector3 moveDirection = (target.position - transform.position).normalized;
-                        Vector3 LookDirection = new Vector3(target.position.x, transform.position.y, target.position.z);
+                    if (isCharging )
+                    {
+                        if (HeadHit.isSquashed == false)
+                        {
 
-                        // Calculate the new position for the enemy.
-                        Vector3 newPosition = transform.position + (moveSpeed * Time.deltaTime * new Vector3(moveDirection.x, 0, moveDirection.z));
 
-                        // Move the enemy towards the player.
-                        rb.MovePosition(newPosition);
+                            // Calculate the direction from the enemy to the player.
+                            Vector3 moveDirection = (target.position - transform.position).normalized;
+                            Vector3 LookDirection = new Vector3(target.position.x, transform.position.y, target.position.z);
 
-                        transform.LookAt(LookDirection);
+                            // Calculate the new position for the enemy.
+                            Vector3 newPosition = transform.position + (moveSpeed * Time.deltaTime * new Vector3(moveDirection.x, 0, moveDirection.z));
+
+                            // Move the enemy towards the player.
+                            rb.MovePosition(newPosition);
+
+                            transform.LookAt(LookDirection);
+                        }
                     }
                 }
             }

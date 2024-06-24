@@ -4,9 +4,23 @@ using UnityEngine;
 public class InventorySystem : MonoBehaviour
 {
     public List<GameObject> inventoryItems = new List<GameObject>();
+    public static InventorySystem Instance;
 
-    // Add an item to the inventory
-    public void AddItem(GameObject item)
+    private void Start()
+    {
+        // Instance Control
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance.gameObject); // Destroy the old instance
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject); // Make sure this instance persists across scenes
+    }
+
+
+// Add an item to the inventory
+public void AddItem(GameObject item)
     {
         inventoryItems.Add(item);
         // You can add additional logic here, such as updating UI or performing other actions
@@ -24,4 +38,5 @@ public class InventorySystem : MonoBehaviour
         inventoryItems.Remove(item);
         // You can add additional logic here, such as updating UI or performing other actions
     }
+   
 }

@@ -13,6 +13,7 @@ public class TutSetupStats : MonoBehaviour
     private TextMeshProUGUI TextTut;
     [SerializeField]
     private VideoPlayer VideoTut;
+    public static TutSetupStats Instance;
     private void OnEnable()
     {
         if(CurrentStats_SO is not null)
@@ -27,7 +28,11 @@ public class TutSetupStats : MonoBehaviour
             {
                 VideoTut.clip = CurrentStats_SO.VideoForTut;
             }
-
+            Instance = this;
         }
+    }
+    private void awake()
+    {
+        Instance = this;
     }
 }

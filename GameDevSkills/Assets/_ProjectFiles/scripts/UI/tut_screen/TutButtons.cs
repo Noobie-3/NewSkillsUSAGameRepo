@@ -10,6 +10,7 @@ public class TutButtons : MonoBehaviour
     public GameObject MainScene;
     public GameObject TutScreen;
     public GameObject[] buttons;
+    
     void Start()
     {
         // Disable all screens except the first one
@@ -21,7 +22,7 @@ public class TutButtons : MonoBehaviour
         GameController.instance.IsPaused = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
-        MainScene.SetActive(false);
+        MainScene.SetActive(true);
     }
 
     public void NextScreen()

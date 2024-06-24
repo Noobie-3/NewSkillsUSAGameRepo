@@ -124,7 +124,7 @@ public class Boss_StateMachine : MonoBehaviour
                     PhaseTwo();
                     break;
 /*                case BossPhase.EnragedPhaseTwo:
-                    EnragedPhaseTwo();*/ //I belive this is not needed and shoudl nnot have this because you never are ablke to defeat the enimes in time before the boss enrages
+                    EnragedPhaseTwo();*/ //UNUSED
                     //break;
                 case BossPhase.PhaseThree:
                     PhaseThree();
@@ -292,13 +292,14 @@ public class Boss_StateMachine : MonoBehaviour
             if (ThrowLeft)
             {
                 CurrentSpawnPoint = 1;
-/*                ThrowLeft = !ThrowLeft;
-*/            }
+                ThrowLeft = !ThrowLeft;
+            }
             else
             {
                 CurrentSpawnPoint = 0;
                 ThrowLeft = !ThrowLeft;
             }
+            anim.SetBool("ThrowLeft", ThrowLeft);
             // Fire Randomly when dead also fire upwards
             if (currentPhase == BossPhase.Dead)
                 {
@@ -374,10 +375,18 @@ public class Boss_StateMachine : MonoBehaviour
     // Method to rotate towards player
     private void RotateToLook()
     {
-        // Rotate towards player after getting the player position
+        // Get the player GameObject
         GameObject target = GameController.instance.Player;
-        Vector3 RotateDir = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-        gameObject.transform.LookAt(RotateDir);
+
+        // Get the player's position and adjust it to the same Y level as the game object
+        Vector3 targetPosition = new Vector3(target.transform.position.x, gameObject.transform.position.y, target.transform.position.z);
+
+        // Make the game object look at the adjusted target position
+        gameObject.transform.LookAt(targetPosition);
+
+        // Rotate the object 180 degrees around the Y-axis to face the correct direction
+        gameObject.transform.Rotate(0, 180, 0);
+
     }
 
     // Method to summon an enemy

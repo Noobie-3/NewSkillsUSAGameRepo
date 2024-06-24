@@ -36,7 +36,7 @@ public class Button_Range_Interactable : MonoBehaviour
             TextMesh_Obj.SetActive(false);
 
         }
-        InventorySystem = GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
+        InventorySystem = InventorySystem.Instance;
 
     }
     public void BUttonPressLength()
@@ -103,8 +103,10 @@ public class Button_Range_Interactable : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        TextMesh_Obj.SetActive(false);
-
+        if (TextMesh_Obj != null)
+        {
+            TextMesh_Obj.SetActive(false);
+        }
     }
 
 
@@ -204,7 +206,10 @@ public class Button_Range_Interactable : MonoBehaviour
             BUttonPressLength();
         }
 
-
+        if(InventorySystem == null )
+        {
+            InventorySystem = InventorySystem.Instance;
+        }
 
 
     }

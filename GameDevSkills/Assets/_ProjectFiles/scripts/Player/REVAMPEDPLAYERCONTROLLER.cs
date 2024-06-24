@@ -54,6 +54,7 @@ public class REVAMPEDPLAYERCONTROLLER : MonoBehaviour
 
     void FixedUpdate()
     {
+        print(transform.position + "this is the player saying its positoin");
         if (GameController.instance != null)
         {
             if (GameController.instance.IsPaused != true)

@@ -9,9 +9,21 @@ public class Death_Screen_Popup : MonoBehaviour
     public GameObject DeathScreen;
     public GameObject BaseScreen;
     public string RetrySceneName;
+    public  static Death_Screen_Popup instance;
     // Start is called before the first frame update
     void Start()
     {
+        if(instance == null)
+        {
+            instance = this;
+
+        }
+
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 
     // Update is called once per frame
@@ -24,6 +36,7 @@ public class Death_Screen_Popup : MonoBehaviour
             if(Input.GetKeyUp(KeyCode.E)) {
 
                 SceneManager.LoadScene(RetrySceneName);
+
             }
         }
 

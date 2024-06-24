@@ -169,6 +169,10 @@ MonoBehaviour:
   NTP: {fileID: 0}
   rb: {fileID: 0}
   animator: {fileID: 5836109072985203050}
+  ISFULLMAP: 0
+  HeadHit: {fileID: 0}
+  TargetDistanceToCharge: 15
+  Distance: 0
 --- !u!114 &8314341992269180325
 MonoBehaviour:
   m_ObjectHideFlags: 0

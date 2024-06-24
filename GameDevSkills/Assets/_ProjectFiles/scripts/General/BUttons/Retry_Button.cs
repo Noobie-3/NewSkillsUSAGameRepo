@@ -15,8 +15,19 @@ public class Retry_Button : MonoBehaviour
     void Update()
     {
        if(Input.GetKeyDown(KeyCode.E)) {
-            Destroy(GameController.instance);
 
+            this.gameObject.SetActive(false);
+            GameController.instance.ResetValues();
+            Death_Screen_Popup.instance.DeathScreen.SetActive(false);
+            Death_Screen_Popup.instance.BaseScreen.SetActive(true);
+            GameController.instance.BossBar.gameObject.SetActive(false);
+            NpcTalk_Animate.instance.gameObject.SetActive(false);
+            if(GameObject.FindWithTag("TutScreen") != null)
+            {
+                GameObject.FindWithTag("TutScreen").SetActive(false);
+
+            }
+            GameStateManager.Instance.newSceneInfo.newPoition = GameController.instance.LevelStartPositions[0];
             SceneManager.LoadScene("Level_01_Factory");
 
         }

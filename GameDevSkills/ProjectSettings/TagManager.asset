@@ -18,6 +18,7 @@ TagManager:
   - Kill_Check_Objects
   - Moving_Obj
   - TutScreen
+  - Pop_UpText
   layers:
   - Default
   - TransparentFX

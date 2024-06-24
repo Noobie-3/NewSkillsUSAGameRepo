@@ -10,6 +10,8 @@ public class LoadingZone : MonoBehaviour
     public Vector3 NewPos;
     public NewSceneInfo NewSceneInfo;
     public GameObject gameStateManager;
+    
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player_01"))
@@ -17,11 +19,18 @@ public class LoadingZone : MonoBehaviour
             if (GameStateManager.Instance != null)
             {
                 NewSceneInfo.newPoition = NewPos;
-                Destroy(GameStateManager.Instance);
-                Instantiate(GameStateManager.Instance);
+                Instantiate(gameStateManager);
                 SceneManager.LoadScene(area);
 
             }
+        }
+    }
+
+    private void Update()
+    {
+        if(GameStateManager.Instance  == null)
+        {
+            Instantiate(gameStateManager);
         }
     }
 }

@@ -26,7 +26,7 @@ public class HurtEnemmy : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == GC.Player && GC.TimeTillDamageAgain <= 0 && gameObject.tag == "HurtBox" && HeadDetection.isSquashed == false)
+        if (GameController.instance!= null &&  other.gameObject == GC.Player && GC.TimeTillDamageAgain <= 0 && gameObject.tag == "HurtBox" && HeadDetection.isSquashed == false)
         {
             // Apply damage to the player
             GC.PlayerHP = GC.TakeDamage(Stats.Attack, GC.PlayerHP, GC.Player, Particle_Death);

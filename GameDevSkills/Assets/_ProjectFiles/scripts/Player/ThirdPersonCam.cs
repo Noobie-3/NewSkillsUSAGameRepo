@@ -48,7 +48,7 @@ public class ThirdPersonCam : MonoBehaviour
             {
                 GetComponent<CinemachineBrain>().enabled = true;
             }
-            if (GameController.instance.isRewinding)
+            if (GameController.instance.Player.GetComponent<TimeRewinderV2>().Isrewinding   )
             {
                 aG.enabled = true;
                 DG.enabled = true;

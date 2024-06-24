@@ -48,7 +48,10 @@ public class MoveAlongwayPoints : MonoBehaviour
             Tr2 = player.GetComponent<TimeRewinderV2>(); // Get the TimeRewinderV2 component from the player
         }
 
-        gameObject.transform.position = WayPoints[0]; // Set the object's position to the first waypoint
+        if (WayPoints.Count >= 0)
+        {
+            gameObject.transform.position = WayPoints[0]; // Set the object's position to the first waypoint
+        }
         // Set the initial and current target positions to the object's current position
         Current_Target = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         FirstPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);

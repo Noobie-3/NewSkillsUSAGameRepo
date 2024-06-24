@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 65390163207641308}
   - component: {fileID: 3587337961324528602}
   - component: {fileID: 3615613385058471609}
+  - component: {fileID: 2670319436465370643}
   m_Layer: 0
   m_Name: Robot_01_Enemy_Head_Projectile
   m_TagString: Untagged
@@ -133,3 +134,35 @@ MonoBehaviour:
   KnockBackForce: 10
   UpwardKnockBackForce: 15
   CanDamage: 0
+  IsSummoned: 0
+  hasBeenShot: 0
+--- !u!114 &2670319436465370643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550252406152510376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ea52e6fca74af43bf4aa8de456bfec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Isrewinding: 0
+  animator: {fileID: 0}
+  totalRecordedTime: 0
+  Record_Position: 1
+  Record_Rotation: 1
+  Record_Velocity: 1
+  Record_BlendState: 0
+  Record_Cam: 0
+  Record_Points: 0
+  Freecam: {fileID: 0}
+  RewindSound: {fileID: 0}
+  SoundPlaying: 0
+  maxRecordingDuration: 5
+  currentRecordingTime: 0
+  blendParameterH: horizontal
+  blendParameterV: vertical
+  CanRewind: 0
+  PointsToTrack: {fileID: 0}

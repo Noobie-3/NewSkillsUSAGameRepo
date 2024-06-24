@@ -25,6 +25,7 @@ public class PickUps : MonoBehaviour
     public bool IsQuest;
     public int QuestID;
     public GameObject mesh;
+    public GameObject InventoryPrefab;
     /*    public Color Text_color;
         public Color Alt_Text_color;*/
 
@@ -34,7 +35,7 @@ public class PickUps : MonoBehaviour
         {
             gameObject.GetComponent<MeshRenderer>().enabled = false;
 
-
+            InventorySystem = InventorySystem.Instance;
 
             if (GameObject.FindWithTag("Pop_UpText"))
             {
@@ -42,68 +43,58 @@ public class PickUps : MonoBehaviour
                 TextMesh_Obj.SetActive(false);
             }
 
-            if (GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>())
-            {
-                InventorySystem = GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
-                if (GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>())
-                {
-                    InventorySystem = GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
-                    if (GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>())
-                    {
-                        InventorySystem = GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
-                    }
 
 
-                }
-            }
         }
+
     }
 
     private void Update()
-    { if (HasCollectedItem && GameController.instance.IsPaused == false)
+    {
+        if (TextMesh_Obj == null)
+        {
+
+            TextMesh_Obj = GameController.instance.PopUpTextRef.gameObject;
+
+
+
+        }
+        
+        if (HasCollectedItem && GameController.instance.IsPaused == false)
         {
             mesh.SetActive(false);
             Timer_For_Text -= Time.deltaTime;
-            TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = Alt_Text_Display;
-            if (Timer_For_Text <= 0)//Destory after set time
-
+            if (TextMesh_Obj != null)
             {
-                TextMesh_Obj.gameObject.SetActive(false);
-                Destroy(gameObject.transform.parent.gameObject);
-            }
+                TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = Alt_Text_Display;
 
-            if (TextMesh_Obj == null)
-            {
-                if (GameObject.FindWithTag("Pop_UpText"))
+                if (Timer_For_Text <= 0)//Destory after set time
+
                 {
-                    TextMesh_Obj = GameObject.FindWithTag("Pop_UpText");
+                    TextMesh_Obj.gameObject.SetActive(false);
+                    Destroy(gameObject.transform.parent.gameObject);
                 }
-
-                TextMesh_Obj = GameObject.FindGameObjectWithTag("Pop_UpText");
-                TextMesh_Obj = GameObject.FindGameObjectWithTag("Pop_UpText");
-
             }
 
-            if (InventorySystem == null)
-            {
-                if (GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>())
-                {
-                    InventorySystem = GameObject.FindWithTag("Player_01").GetComponentInChildren<InventorySystem>();
-                }
-                InventorySystem = GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
 
-                InventorySystem = GameObject.FindWithTag("Player").GetComponentInChildren<InventorySystem>();
 
-            }
+
+
         }
 
         }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player_01" && !HasCollectedItem) {
-                    TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = WhatTextToDisplay;
+        if (other.gameObject.tag == "Player_01" && !HasCollectedItem)
+        {
 
-                    TextMesh_Obj.SetActive(true);
+
+            if (TextMesh_Obj != null)
+            {
+                TextMesh_Obj.GetComponent<TextMeshProUGUI>().text = WhatTextToDisplay;
+            
+                TextMesh_Obj.SetActive(true);
+            }
             if (Input.GetKeyDown(Interact_Key) && GameController.instance.IsPaused == false)
             {
                 if (IsQuest)
@@ -126,9 +117,22 @@ public class PickUps : MonoBehaviour
     private void OnTriggerExit(Collider other)
 
     {
-        TextMesh_Obj.SetActive(false);
+        if(TextMesh_Obj != null)
+        {
+            TextMesh_Obj.SetActive(false);
+        }
+
     }
-        
-    
-    
+    private void FixedUpdate()
+    {
+        if (InventorySystem.Instance == null && InventoryPrefab != null)
+        {
+            Instantiate(InventoryPrefab);
+
+        }
+        InventorySystem = InventorySystem.Instance;
+    }
+
+
+
 }
